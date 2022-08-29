@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@rihal/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@rihal/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@rihal/auth": ["libs/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
