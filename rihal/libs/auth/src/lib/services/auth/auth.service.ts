@@ -10,6 +10,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(authenticate: Authenticate): Observable<any> {
+	   console.log('ali 2')
     return this.httpClient.post('http://localhost:3000/login', authenticate);
   }
 }
