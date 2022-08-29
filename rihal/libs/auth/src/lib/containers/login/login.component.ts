@@ -1,7 +1,7 @@
 
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from './../../services/auth/auth.service';
-import { Authenticate } from '@demo-app/data-models';
+import { Authenticate } from '@rihal/data-models';
 
 @Component({
   selector: 'app-login',
