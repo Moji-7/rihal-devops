@@ -4,6 +4,8 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
+    "auth": "libs/auth",
+    "data-models": "libs/data-models",
     "learnify": "apps/learnify",
     "learnify-e2e": "apps/learnify-e2e"
   }
