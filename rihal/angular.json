@@ -6,7 +6,9 @@
     "api-interfaces": "libs/api-interfaces",
     "auth": "libs/auth",
     "data-models": "libs/data-models",
+    "layout": "libs/layout",
     "learnify": "apps/learnify",
-    "learnify-e2e": "apps/learnify-e2e"
+    "learnify-e2e": "apps/learnify-e2e",
+    "material": "libs/material"
   }
 }

@@ -17,7 +17,9 @@
     "paths": {
       "@rihal/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@rihal/auth": ["libs/auth/src/index.ts"],
-      "@rihal/data-models": ["libs/data-models/src/index.ts"]
+      "@rihal/data-models": ["libs/data-models/src/index.ts"],
+      "@rihal/layout": ["libs/layout/src/index.ts"],
+      "@rihal/material": ["libs/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
