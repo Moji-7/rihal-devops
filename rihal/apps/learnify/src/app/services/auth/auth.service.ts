@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Authenticate } from '@demo-app/data-models';
+import { Authenticate } from '@rihal/data-models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

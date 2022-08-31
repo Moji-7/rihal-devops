@@ -1,5 +1,5 @@
 import { AuthActions, AuthActionTypes } from './auth.actions';
-import { User } from '@demo-app/data-models';
+import { User } from '@rihal/data-models';
 
 export interface AuthData {
   loading: boolean;
@@ -12,7 +12,7 @@ export interface AuthState {
 
 export const initialState: AuthData = {
   error: '',
-  user: null,
+  user: null!,
   loading: false
 };
 
@@ -28,7 +28,7 @@ export function authReducer(
       return { ...state, user: action.payload, loading: false };
     }
     case AuthActionTypes.LoginFail: {
-      return { ...state, user: null, loading: false };
+      return { ...state, user: null!, loading: false };
     }
     default:
       return state;

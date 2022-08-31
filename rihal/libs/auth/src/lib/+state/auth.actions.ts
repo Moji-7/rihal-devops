@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Authenticate, User } from '@demo-app/data-models';
+import { Authenticate, User } from '@rihal/data-models';
 
 export enum AuthActionTypes {
   Login = '[Auth Page] Login',

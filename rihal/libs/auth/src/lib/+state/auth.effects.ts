@@ -5,7 +5,7 @@ import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from './../services/auth/auth.service';
 import * as authActions from './auth.actions';
-import { User } from '@demo-app/data-models';
+import { User } from '@rihal/data-models';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AuthEffects {
     map((action: authActions.LoginSuccess) => action.payload),
     tap(() => this.router.navigate([`/students`]))
   );
-//
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,

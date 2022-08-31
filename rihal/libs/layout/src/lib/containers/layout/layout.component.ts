@@ -1,22 +1,21 @@
-
-
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@rihal/auth'
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AuthState } from '@rihal/auth';
 import { User } from '@rihal/data-models';
-
+import { Observable } from 'rxjs';
+import { getUser } from '@rihal/auth';
 @Component({
-  selector: 'demo-app-layout',
+  selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  
-  user$!: Observable<User> ;
+  user$!: Observable<User>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.user$ = this.authService.user$;
+	  debugger;
+    this.user$ = this.store.select(getUser);
   }
 }
