@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 //import { NxModule } from '@nrwl/nx';
 import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterModule,Route } from '@angular/router';
+import { RouterModule, Route } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -17,10 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { LayoutModule } from '@rihal/layout';
 import { AuthGuard } from '@rihal/auth';
 import { ProfileComponent } from './profile/profile.component'; // added
-  
-const learnifyRoutes: Route[] = [
-{ path: '', component: ProfileComponent }
-];
+
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, ProfileComponent],
@@ -31,16 +28,34 @@ const learnifyRoutes: Route[] = [
     // NxModule.forRoot(),
     HttpClientModule,
     RouterModule.forRoot([
-     { path: 'auth', children: authRoutes , canActivate: [AuthGuard]},
-     // { path: 'auth', children:learnifyRoutes    },
-
-	  //{path:"edit/:id", component:EditComponent},
-	  //{path:"show/:id", component:ShowComponent}
+      { path: 'auth', children: authRoutes},
+      {
+        path: 'admin-dashboard',
+        loadChildren: () =>
+          import('@rihal/admin-dashboard').then(
+            (module) => module.AdminDashboardModule
+          ), canActivate: [AuthGuard]
+      },
+      //{path:"edit/:id", component:EditComponent},
+      //{path:"show/:id", component:ShowComponent}
     ]),
     AuthModule,
     LayoutModule,
-    StoreModule.forRoot({}),
+    // StoreModule.forRoot({}),
+    // EffectsModule.forRoot([]),
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers: !environment.production ? [] : [],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
     EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

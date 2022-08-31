@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
   constructor(private store: Store<AuthState>) {}
 
   ngOnInit() {
-	  debugger;
+	 // debugger;
     this.user$ = this.store.select(getUser);
   }
 }

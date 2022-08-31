@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@rihal/admin-dashboard": ["libs/admin-dashboard/src/index.ts"],
       "@rihal/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@rihal/auth": ["libs/auth/src/index.ts"],
       "@rihal/data-models": ["libs/data-models/src/index.ts"],
