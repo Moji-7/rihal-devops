@@ -1,0 +1,11 @@
+
+<mat-card class="example-card" fxLayout="column" fxLayoutAlign="center none">
+  <mat-card-title>{{summery.desc}}</mat-card-title>
+
+  <mat-card-content>
+    {{summery.value}}
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button  color="primary" (click)="gotoStudentList(summery.title)">details</button>
+  </mat-card-actions>
+</mat-card>

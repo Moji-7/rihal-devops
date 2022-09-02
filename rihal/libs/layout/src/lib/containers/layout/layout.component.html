@@ -1,6 +1,12 @@
 
 
 <mat-toolbar color="primary" fxLayout="row">
+ 
+  <div class="flex-stretch"></div>
+  <mat-icon class="mr-8"></mat-icon>
+  <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+  </mat-slide-toggle>
+  <mat-icon></mat-icon>
   <span>Customer Portal</span>
   <div class="right-nav">
     <span *ngIf="user$ | async as user">
