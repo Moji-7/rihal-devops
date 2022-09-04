@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 
 @import "@angular/material/theming";
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
 @include mat.core();
 
@@ -53,3 +54,5 @@ p {
   margin-right: 8px;
   float: right;
 }
+
+

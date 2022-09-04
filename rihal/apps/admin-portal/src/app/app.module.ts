@@ -16,14 +16,25 @@ import { authRoutes, AuthModule } from '@rihal/auth'; //added
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Added
 import { MaterialModule } from '@rihal/material';
 import { LayoutModule } from '@rihal/layout';
+import { SharedWidgetsModule } from '@rihal/shared-widgets';
 import { AuthGuard } from '@rihal/auth';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
+import { StudentHomeComponent } from './containers/student-home/student-home.component';
+import { StudentRegisterComponent } from './components/student-register/student-register.component';
 
 const adminRoutes: Route[] = [
   { path: '', component: DashboardComponent },
-  { path: 'students', component: StudentListComponent }
+  {
+    path: 'student-home',
+    component: StudentHomeComponent,
+    children: [
+      { path: 'classes', component: StudentListComponent },
+      { path: 'register', component: StudentRegisterComponent },
+    ],
+  },
+  { path: 'students', component: StudentListComponent },
 ];
 @NgModule({
   declarations: [
@@ -32,6 +43,8 @@ const adminRoutes: Route[] = [
     DashboardComponent,
     StudentSummeryInfoComponent,
     StudentListComponent,
+    StudentHomeComponent,
+    StudentRegisterComponent,
   ],
 
   imports: [
@@ -56,6 +69,7 @@ const adminRoutes: Route[] = [
     MaterialModule,
     AuthModule,
     LayoutModule,
+    SharedWidgetsModule,
     // StoreModule.forRoot({}),
     StoreModule.forRoot(
       {},

@@ -12,6 +12,7 @@
     "layout": "libs/layout",
     "learnify": "apps/learnify",
     "learnify-e2e": "apps/learnify-e2e",
-    "material": "libs/material"
+    "material": "libs/material",
+    "shared-widgets": "libs/shared-widgets"
   }
 }

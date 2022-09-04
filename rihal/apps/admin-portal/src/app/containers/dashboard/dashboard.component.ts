@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-
 import { StudentSummeryInfo } from '@rihal/data-models';
 import { Observable, of } from 'rxjs';
 
