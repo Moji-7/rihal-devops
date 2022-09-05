@@ -10,8 +10,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { FilterStudentDTO, studentClassesDto } from '@rihal/data-models';
 
-import { Student } from './student.entity';
+import { Student } from './entities/student.entity';
 
 //import { Message } from '@rihal/api-interfaces';
 
@@ -28,34 +29,39 @@ export class StudentController {
     return this.appService.getData();
   }*/
 
-  @Get('/')
-  async getStudents(@Query() filterProductDTO: FilterProductDTO) {
-    if (Object.keys(filterProductDTO).length) {
-      const filteredStudents = await this.studentService.getFilteredStudent(filterProductDTO);
-      return filteredStudents;
-    } else {
-      const allStudents = await this.studentService.findAll();
-      return allStudents;
-    }
-  }
+  // @Get('/')
+  // async getStudents(@Query() filterDTO: FilterStudentDTO) {
+  //   if (Object.keys(filterDTO).length) {
+  //     const filteredStudents = await this.studentService.getFilteredStudent(filterDTO);
+  //     return filteredStudents;
+  //   } else {
+  //     const allStudents = await this.studentService.findAll();
+  //     return allStudents;
+  //   }
+  // }
 
   @Get('/:id')
-  async getStudent(@Param('id') id: string) {
+  async find(@Param('id') id: number) {
     const student = await this.studentService.findOne(id);
     if (!student) throw new NotFoundException('Product does not exist!');
     return student;
   }
 
+  // @Patch('/:id')
+  // async update(@Body() studentDto: studentClassesDto, @Param('id') id: string): Promise<number>
+  //  {
+  //   const studentUpdated = await this.studentService.update(id, studentDto);
+  //   if (studentUpdated.affected === 0)
+  //     throw new NotFoundException('student not found')
+  //    // const {name} = studentUpdated
+  //   return 204;
+  // }
+
   @Post()
-  addStudent(@Body() student: Student) {
-    return this.studentService.addStudent(student);
+  add(@Body() student: Student) {
+    return this.studentService.create(student);
   }
 
-  @Patch(':id')
-  async update(@Body() note: Student, @Param('id') id: number): Promise<Student> {
-    const noteEdited = await this.studentService.update(id, note);
-    return noteEdited;
-  }
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id) {
     this.studentService.remove(id);

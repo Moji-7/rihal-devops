@@ -12,7 +12,8 @@ export class Student{
   @Column({ type: 'date' ,name: "date_of_birth" })
   dateOfBirth: Date;
 
-  @ManyToOne(() => Classes, (classes) => classes.class_name)
+  //@Column({ type: 'date' ,name: "date_of_birth" })
+  @ManyToOne(() => Classes, (classes) => classes.className)
   classes: Classes
 
   @ManyToOne(() => Countries, (countries) => countries.students)

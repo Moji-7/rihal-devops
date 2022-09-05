@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 //import { Message } from '@rihal/api-interfaces';
-import { Student } from './student.entity';
+import { Student } from './entities/student.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
-import { Classes } from './classes.entity';
-import { Countries } from './countries.entity';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { studentClassesDto } from '@rihal/data-models';
 import { FilterStudentDTO } from 'libs/data-models/src/lib/filterStudent.dto';
 
@@ -27,32 +25,31 @@ export class StudentService {
   getStudents(): Promise<Student[]> {
     const student = new Student();
     student.name = 'ali';
-    student.date_of_birth = new Date(1995, 11, 17);
+    student.dateOfBirth = new Date(1995, 11, 17);
     student.countries.id = 1;
     // student.classes.id = classesid;
     this.studentsRepository.save(student);
     return this.studentsRepository.find();
   }
 
-  addStudent(student): Promise<Student> {
-    this.studentsRepository.insert(student);
-    return student;
-  }
-
-  async getFilteredStudent(filterStudentDTO: FilterStudentDTO): Promise<Student[]> {
-    const {name, className, country } = filterStudentDTO;
+  async getFilteredStudent(
+    filterStudentDTO: FilterStudentDTO
+  ): Promise<Student[]> {
+    const { name, className, country } = filterStudentDTO;
     let students = await this.findAll();
-    if (name) {
-      students = students.filter(student =>
-        student.name.includes(name)
+    if (name)
+      students = students.filter((student) => student.name.includes(name));
+
+    if (country)
+      students = students.filter(
+        (student) => student.countries.countryName === country
       );
-    }
-    if (className) {
-      students = students.filter(student => student.countries.name === country)
-    }
-    if (className) {
-      students = students.filter(student => student.classes.class_name === className)
-    }
+
+    if (className)
+      students = students.filter(
+        (student) => student.classes.className === className
+      );
+
     return students;
   }
 
@@ -61,16 +58,21 @@ export class StudentService {
   }
 
   findOne(id: number): Promise<Student> {
-    return this.studentsRepository.findOneBy({id:id});
+    return this.studentsRepository.findOneBy({ id: id });
   }
 
   create(Student: Student): Promise<Student> {
     return this.studentsRepository.save(Student);
   }
 
-  async update(id: string, studentDto: studentClassesDto): Promise<Student> {
+  async update(
+    id: string,
+    studentDto: studentClassesDto
+  ): Promise<Partial<UpdateResult>> {
     const updated = await this.studentsRepository.update(id, studentDto);
-    return  updated;
+    // const {name} = updated
+
+    return updated;
   }
 
   remove(id: string): Promise<DeleteResult> {

@@ -6,14 +6,15 @@ export class Classes{
   id: number;
 
   @Column()
-  class_name: string;
+  @Column({ name: "class_name" ,length: 255})
+  className: string;
 
   @OneToMany(() => Student, (student) => student.classes)
   student: Student[]
-  
+
   @CreateDateColumn({type: "timestamp"})
   CreatedDate : Date;
-  
+
   @UpdateDateColumn({type: "timestamp"})
   ModifiedDate : Date;
 }

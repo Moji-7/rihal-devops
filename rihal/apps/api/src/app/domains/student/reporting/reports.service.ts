@@ -1,35 +1,43 @@
 import { Injectable } from '@nestjs/common';
-//import { Message } from '@rihal/api-interfaces';
-import { Student } from './student.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
-import { Classes } from './classes.entity';
 
+import {
+  InjectConnection,
+  InjectDataSource,
+  InjectRepository,
+} from '@nestjs/typeorm';
+import { StudentSummeryInfo } from '@rihal/data-models';
+import { Connection, DataSource, getConnection, Repository } from 'typeorm';
+import { Classes } from '../entities/classes.entity';
+import { Student } from '../entities/student.entity';
 
 @Injectable()
-export class ClassesService {
+export class ReportsService {
   constructor(
-    @InjectRepository(Classes)
-    private classesRepository: Repository<Classes>
+    @InjectRepository(Student)
+    private reportsService: Repository<Student>,
+    @InjectDataSource() private readonly datasource: DataSource
   ) {}
-  /*  getData(): Message {
-    return { message: 'Welcome to api!' };
-  }*/
 
-
-  findAll(): Promise<Classes[]> {
-    return this.classesRepository.find();
-  }
-
-  findOne(id: number): Promise<Classes> {
-    return this.classesRepository.findOneBy({id:id});
-  }
-
-  create(country: Classes): Promise<Classes> {
-    return this.classesRepository.save(country);
-  }
-
-  remove(id: number): Promise<DeleteResult> {
-    return this.classesRepository.delete(id);
+  async findAll(): Promise<StudentSummeryInfo[]> {
+    //    return await this.datasource
+    //     .createQueryBuilder()
+    //     .select("SELECT * FROM student;")
+    //    // .set({ : "Timber", lastName: "Saw" })
+    // .groupBy()
+    // .orderBy()
+    const res = await this.datasource
+      .createQueryBuilder()
+      .select('select count(t2.id) value, t3.class_name from students AS t2')
+      .innerJoin(Classes, 't3', 't2.id = t3.id')
+      //.where("jobs.user_id != :id", { id: user_id })
+      .groupBy('t2.class_id')
+      //.orderBy('jobViews_total_count', 'DESC')
+      //.limit(limit)
+      //.offset(offset)
+      //.getRawMany();
+      //.where("id = :id", { id: 1 })
+      .execute();
+    // return this.reportsService.find();
+    return res;
   }
 }

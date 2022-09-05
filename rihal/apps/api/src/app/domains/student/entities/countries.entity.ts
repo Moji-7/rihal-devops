@@ -5,8 +5,8 @@ export class Countries{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+  @Column({ name: "name" ,length: 255})
+  countryName: string;
 
   @OneToMany(() => Student, (student) => student.countries)
   students: Student[]

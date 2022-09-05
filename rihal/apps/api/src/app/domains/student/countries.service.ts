@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
-import { Countries } from './countries.entity';
+import { Countries } from './entities/countries.entity';
 
 @Injectable()
 export class CountriesService {
@@ -12,11 +12,14 @@ export class CountriesService {
     @InjectRepository(Countries)
     private countriesRepository: Repository<Countries>
   ) {}
-  /*  getData(): Message {
-    return { message: 'Welcome to api!' };
-  }*/
 
 
+  async getFiltered(ceriteria: string): Promise<Countries[]> {
+    let queryResult = await this.findAll();
+    if (ceriteria)
+    queryResult = queryResult.filter(entity => entity.countryName === ceriteria)
+    return queryResult;
+  }
   findAll(): Promise<Countries[]> {
     return this.countriesRepository.find();
   }
@@ -31,5 +34,8 @@ export class CountriesService {
 
   remove(id: number): Promise<DeleteResult> {
     return this.countriesRepository.delete(id);
+  }
+  update(id: number,countries:Countries): Promise<DeleteResult> {
+    return this.countriesRepository.update(id,countries);
   }
 }
