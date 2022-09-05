@@ -1,4 +1,4 @@
-export interface studentsDto {
+export interface studentClassesDto {
   // id: number;
   name: string;
  dateOfBirth:string;

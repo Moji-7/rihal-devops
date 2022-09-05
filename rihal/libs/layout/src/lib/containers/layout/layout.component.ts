@@ -1,29 +1,55 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '@rihal/auth';
 import { User } from '@rihal/data-models';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { getUser } from '@rihal/auth';
 
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
+  sideNavOpened = true;
+    sideNavMode: 'side' | 'over' = 'side';
+    toolBarHeight = 64;
+   // private readonly mediaWatcher: Subscription;
   user$!: Observable<User>;
   @HostBinding('class') className = '';
 
   toggleControl = new FormControl(false);
-  constructor(
+  constructor(//media: MediaObserver,
     private store: Store<AuthState>,
     private overlay: OverlayContainer
-  ) {}
+  ) {
+
+    // this.mediaWatcher = media.media$.subscribe((change: MediaChange) => {
+    //   if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
+    //     if (this.sideNavOpened) {
+    //       this.sideNavOpened = false;
+    //     }
+    //     this.sideNavMode = 'over';
+    //   } else {
+    //     this.sideNavOpened = true;
+    //     this.sideNavMode = 'side';
+    //   }
+    //   if (change.mqAlias === 'xs') {
+    //     this.toolBarHeight = 56;
+    //   } else {
+    //     this.toolBarHeight = 64;
+    //   }
+    // });
+  }
 
   ngOnInit() {
     // debugger;
+
+
+
     this.user$ = this.store.select(getUser);
     this.toggleControl.valueChanges.subscribe((darkMode) => {
       const darkClassName = 'darkMode';
@@ -35,4 +61,11 @@ export class LayoutComponent implements OnInit {
       }
     });
   }
+
+
+
+    ngOnDestroy(): void {
+      //this.mediaWatcher.unsubscribe();
+    }
 }
+

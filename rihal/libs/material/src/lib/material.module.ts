@@ -17,6 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
   imports: [
     FlexLayoutModule,
@@ -36,7 +38,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   exports: [
     FlexLayoutModule,
@@ -56,7 +59,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {}

@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Classes, Countries } from '@rihal/data-models';
 import { Observable, of } from 'rxjs';
+
+import { Router } from '@angular/router';
+import { CommonService } from '../../services/student/common.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertComponent } from 'libs/layout/src/lib/containers/layout/alert/alert.component';
 
 
 @Component({
@@ -11,7 +16,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./student-register.component.scss'],
 })
 export class StudentRegisterComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor( private crudservice: CommonService, private router: Router,private _snackBar: MatSnackBar) {}
   classes$!: Observable<Classes[]>;
   countries$!: Observable<Countries[]>;
 
@@ -32,7 +37,6 @@ export class StudentRegisterComponent implements OnInit {
   // @Output() submitForm = new EventEmitter<Authenticate>();
 
   ngOnInit(): void {
-    //TODO : must get form api
 
   }
 
@@ -43,8 +47,20 @@ export class StudentRegisterComponent implements OnInit {
       return;
     }
     console.log('User Name: ' + this.registerForm.value);
+    // Initialize Params Object
+    const myFormData = new FormData();
+    myFormData.append('name', this.registerForm.value.name);
+    myFormData.append('dateOfBirth', this.registerForm.value.dateOfBirth);
+
+    this.crudservice.addStudentClass(myFormData); //caaling add user service
+    //show alert and redirect
+    this._snackBar.openFromComponent(AlertComponent, {
+      duration: 3* 1000,
+    });
+    this.router.navigate([`/student-home/classes`]); //after form submit page will redirect to users page
+
     this.isValidFormSubmitted = true;
-    hello$ = this.http.get<Message>('/api/hello');
+    //hello$ = this.http.get<Message>('/api/hello');
     // let user: User = this.userForm.value;
     // this.userService.createUser(user);
     this.registerForm.reset();

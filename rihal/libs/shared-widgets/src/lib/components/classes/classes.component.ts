@@ -3,6 +3,7 @@ import { Classes } from '@rihal/data-models';
 import {FormControl} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'rihal-classes',
@@ -10,32 +11,48 @@ import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from
   styleUrls: ['./classes.component.scss'],
 })
 export class ClassesComponent implements OnInit {
-
-  constructor() {}
   classes$!:Observable<Classes[]>;//@Input()
+   _classes!:Classes[];//@Input()
   inputControl = new FormControl('');
   filteredOptions!: Observable<Classes[]>;
-  ngOnInit() {
+
+   ngOnInit() {
     const getClasses$: Observable<Classes[]> = of([
       { id: 1, name: 'art of physics' },
       { id: 2, name: 'programming fondumentals' },
     ]);
     this.classes$ = getClasses$;
-  // this.classes$ = this.inputControl.valueChanges.pipe(
-  //   tap( res => {console.log("hiiiiii"+res)}),
-  //         startWith(' '), debounceTime(400),distinctUntilChanged(),
-  //   switchMap(value => this._filter(value || '')),
-  // );
+  }
+
+  constructor() {
+
+    this.filteredOptions = this.inputControl.valueChanges.pipe(
+      startWith(''),
+      map((symbol) =>
+        symbol ? this._filterSymbols(symbol) : this._classes.slice()
+      )
+    );
   }
 
 
-  _filter(val: string): Observable<any[]> {
-    return this.classes$
-     .pipe(
-       map(response => response.filter(option => {
-         return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0
-       }))
-     )
-   }
+
+
+   private _filterSymbols(value: string): Classes[] {
+    const filterValue = value.toLowerCase();
+
+    return this._classes.filter((symbol) =>
+      symbol.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  //select symbol on auto complete
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    console.log(event.option.value);
+    //other subscriber componet will get value
+    // event.option.value as StockSymbol;
+    let selectedSymbol = this._filterSymbols(event.option.value)[0]; // : this.symbols.slice()
+    //broad cast i selected
+   // this.sharedService.selectSymbol.next(selectedSymbol);
+  }
 
 }

@@ -1,0 +1,36 @@
+<mat-nav-list>
+  <a
+    *ngFor="let item of routes"
+    mat-list-item
+    [routerLinkActive]="'active'"
+    [routerLink]="['/', item.path]"
+  >
+    <mat-icon class="sidenav-icon">{{ item.data.icon }}</mat-icon>
+    {{ item.data.text }}
+  </a>
+  <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
+    <mat-icon class="sidenav-icon">insert_drive_file</mat-icon>Blank Page
+  </a>
+  <div class="nested-menu">
+    <a mat-list-item (click)="showMenu = !showMenu">
+      <mat-icon class="sidenav-icon">add</mat-icon>Menu
+    </a>
+    <ul class="nested submenu" [class.expand]="showMenu">
+      <li>
+        <a href="javascript:void(0)">
+          <span>Submenu</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)">
+          <span>Submenu</span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)">
+          <span>Submenu</span>
+        </a>
+      </li>
+    </ul>
+  </div>-->
+</mat-nav-list>
