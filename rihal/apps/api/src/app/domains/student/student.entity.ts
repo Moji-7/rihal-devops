@@ -6,11 +6,11 @@ export class Student{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ length: 255})
   name: string;
 
-  @Column({ type: 'date' })
-  date_of_birth: Date;
+  @Column({ type: 'date' ,name: "date_of_birth" })
+  dateOfBirth: Date;
 
   @ManyToOne(() => Classes, (classes) => classes.class_name)
   classes: Classes

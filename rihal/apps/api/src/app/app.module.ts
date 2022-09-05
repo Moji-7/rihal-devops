@@ -10,18 +10,16 @@ import { AppService } from './app.service';
   imports: [StudentModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      url: process.env.DATABASE_URL,
-      type: 'postgres',
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true, // This for development
-      autoLoadEntities: true,
-	  // These two lines have been added:
-  //seeds: ["src/moq/seeds/**/*{.ts,.js}"],
-  //factories: ["src/moq/seeding/factories/**/*{.ts,.js}"],
-    }),
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'tradenew',
+     // entities: [Book],
+      synchronize: true,
+      dropSchema: true
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

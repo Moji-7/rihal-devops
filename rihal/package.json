@@ -38,6 +38,7 @@
     "@nrwl/angular": "14.5.10",
     "dotenv": "^16.0.2",
     "faker": "^6.6.6",
+    "mysql2": "^2.3.3",
     "ngrx-store-freeze": "^0.2.4",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",

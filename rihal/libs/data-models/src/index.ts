@@ -6,4 +6,5 @@ export { StudentSummeryInfo } from './lib/studentSummeryInfo';
 export { Countries } from './lib/countries.dto';
 export { Classes } from './lib/classes.dto';
 export { studentClassesDto } from './lib/students.dto';
+export { studentClassesDto } from './lib/filterStudent.dto';
 export { ageCalculetor } from './lib/utility/age-calculater';

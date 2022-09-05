@@ -10,8 +10,8 @@ import { SeedingService } from 'apps/api/src/seeding.service';
 import { countriesService } from './country.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Student, Classes, Countries])],
-  controllers: [StudentController],
-  providers: [StudentService, countriesService,SeedingService],
+  controllers: [StudentController,countriesController,classesController,summeryInfoController],
+  providers: [StudentService, countriesService,classesService,summeryInfoService,SeedingService],
 })
 export class StudentModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
