@@ -18,6 +18,6 @@ import { AlertComponent } from './containers/layout/alert/alert.component';
     AgePipe,
     AlertComponent,
   ],
-  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent],
+  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent],
 })
 export class LayoutModule {}

@@ -15,12 +15,12 @@ public getStudentClasses(){
 }
 //add new user
 public addStudentClass(studentClass: any){
-  return this.http.post(`${this.baseURL}/create`, studentClass).subscribe((res: Response) => {
-    this.addStudentClass(studentClass);
-  });
+  // return this.http.post(`${this.baseURL}/create`, studentClass).subscribe((res: Response) => {
+  //   this.addStudentClass(studentClass);
+  // });
 }
-public deleteStudentClass(userid)
+public deleteStudentClass(id:number)
 {
-  return this.http.post('http://localhost/users.php/', userid).subscribe((res: Response) => {});
+ // return this.http.post('http://localhost/users.php/', userid).subscribe((res: Response) => {});
 }
 }

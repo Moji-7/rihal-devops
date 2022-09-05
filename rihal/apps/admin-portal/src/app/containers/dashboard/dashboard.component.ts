@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { studentClassesDto, StudentSummeryInfo } from '@rihal/data-models';
-import { forkJoin, mergeMap, Observable, of } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
 import { ReportService } from '../../services/student/report.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ReportService } from '../../services/student/report.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
-  summeryInfoNeeded$=of(["perCalss","perAge","perCountry"])
+  summeryInfoNeeded$ = of(['perCalss', 'perAge', 'perCountry']);
   studentSummeryInfos$!: Observable<StudentSummeryInfo[]>;
 
   constructor(private reportservice: ReportService) {}
@@ -22,17 +22,25 @@ export class DashboardComponent implements OnInit {
       { title: 'perCountry', desc: 'Count of students per country', value: 5 },
     ]);
     this.studentSummeryInfos$ = getService$;
+    const carIds = ['perCalss', 'perAge', 'perCountry']; // unique ids
+    const httpCalls = carIds.map((id) => this.reportservice.getSummeryInfo(id)); // array of streams
+    const carsList$ = forkJoin(httpCalls).pipe(
+      map((results:any[]) =>
+        results.map((r, index) => ({ title: carIds[index], value: r.value }))
+      )
+    );
+    carsList$.subscribe(console.log);
 
-    this.reportservice.getSummeryInfo().subscribe((res: StudentSummeryInfo[])=>{
-      this.studentSummeryInfos$  = res;
-    });
 
-      this.studentSummeryInfos$ =this.summeryInfoNeeded$
-      .pipe(
-        mergeMap((persons) => forkJoin(persons.map((person) =>
-        this.reportservice.getSummeryInfo(person)
-      ));
 
+    // this.reportservice.getSummeryInfo().subscribe((res: StudentSummeryInfo[])=>{
+    //   this.studentSummeryInfos$  = res;
+    // });
+
+    // this.studentSummeryInfos$ =this.summeryInfoNeeded$
+    // .pipe(
+    //   mergeMap((persons) => forkJoin(persons.map((person) =>
+    //   this.reportservice.getSummeryInfo(person)
+    // ));
   }
-
 }

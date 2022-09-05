@@ -49,8 +49,8 @@ export class StudentRegisterComponent implements OnInit {
     console.log('User Name: ' + this.registerForm.value);
     // Initialize Params Object
     const myFormData = new FormData();
-    myFormData.append('name', this.registerForm.value.name);
-    myFormData.append('dateOfBirth', this.registerForm.value.dateOfBirth);
+   // myFormData.append('name', this.registerForm.value.name?);
+   // myFormData.append('dateOfBirth', this.registerForm.value.dateOfBirth);
 
     this.crudservice.addStudentClass(myFormData); //caaling add user service
     //show alert and redirect

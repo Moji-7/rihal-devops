@@ -1,3 +1,7 @@
+
+
+
+
 @use '@angular/material' as mat;
 
 @import "@angular/material/theming";
@@ -35,6 +39,14 @@ $angular-dark-theme: mat.define-dark-theme(
 .darkMode {
   @include mat.all-component-colors($angular-dark-theme);
 }
+@import './scss/material';
+@import './scss/utils';
+@import './scss/responsive';
+@import './scss/variables';
+@import './scss/theme';
+
+html, body { height: 100%; }
+
 
 html,
 body {

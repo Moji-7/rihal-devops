@@ -1,16 +1,16 @@
 export const childRoutes = [
 
   {
-    path: 'stock',
+    path: 'classes',
     // loadChildren: () =>
     //   import('./stock-market/stock-market.module').then((m) => m.StockMarketModule),
-     data: { icon: 'perm_media', text: 'stock market' },
+     data: { icon: 'classes', text: 'my classes' },
    },
   {
-    path: 'dashboard',
+    path: 'register',
     // loadChildren: () =>
     //   import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-     data: { icon: 'dashboard', text: 'your dashboard' },
+     data: { icon: 'perm_media', text: 'register new class ' },
   }
 
   // {

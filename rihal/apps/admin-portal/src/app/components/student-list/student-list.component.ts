@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ViewChild, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+//import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { studentClassesDto,ageCalculetor } from '@rihal/data-models';
 import { Observable, of, switchMap } from 'rxjs';
 
@@ -39,15 +40,15 @@ export class StudentListComponent implements OnInit,AfterViewInit  {
       { name:"sam cool",dateOfBirth:"1996-08-14",age:ageCalculetor(new Date("1996-08-14")),className:"physics",countryName:"france" },
       { name:"mary smith",dateOfBirth:"1990-08-24",age:ageCalculetor(new Date("1990-08-24")),className:"arts",countryName:"netherlands" }
   ];
-  this.crudservice.getStudentClasses().subscribe((res: studentClassesDto[])=>{
-    this.students = res;
-  });
+  // this.crudservice.getStudentClasses().subscribe((res: studentClassesDto[])=>{
+  //   this.students = res;
+  // });
   this.students=getService$;
   this.dataSource = new MatTableDataSource<studentClassesDto>(this.students);
 }
 
 //Delete User
-deleteuser(id)
+deleteuser(id:number)
 {
   if(confirm("Are you sure to delete?")) {
   // Initialize Params Object
@@ -55,14 +56,15 @@ deleteuser(id)
 
 
   // Begin assigning parameters
-  myFormData.append('deleteid', id);
-  this.crudservice.deleteStudentClass(myFormData);
+ // myFormData.append('deleteid', id);
+  this.crudservice.deleteStudentClass(id);
   //sweetalert message popup
-  Swal.fire({
-    title: 'Hurray!!',
-    text:   "User has been deleted successfully",
-    icon: 'success'
-  });
+  // Swal.fire({
+  //   title: 'Hurray!!',
+  //   text:   "User has been deleted successfully",
+  //   icon: 'success'
+  // });
+  alert('success')
   this.loaddata();
 }
 }

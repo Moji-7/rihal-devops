@@ -23,18 +23,31 @@ import { StudentSummeryInfoComponent } from './components/student-summery-info/s
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentHomeComponent } from './containers/student-home/student-home.component';
 import { StudentRegisterComponent } from './components/student-register/student-register.component';
+import { StudentIntroComponent } from './components/student-intro/student-intro.component';
+import { WelcomeComponent } from './containers/welcome/welcome.component';
 
-const adminRoutes: Route[] = [
-  { path: '', component: DashboardComponent },
+const studentRoutes: Route[] = [
+  { path: '', component: StudentIntroComponent },
   {
-    path: 'student-home',
+    path: '',
     component: StudentHomeComponent,
     children: [
       { path: 'classes', component: StudentListComponent },
       { path: 'register', component: StudentRegisterComponent },
     ],
   },
-  { path: 'students', component: StudentListComponent },
+  // ,{ path: 'students', component: StudentListComponent },
+];
+const adminRoutes: Route[] = [
+  { path: '', component: DashboardComponent },
+  // {
+  //   path: 'admin',
+  //   loadChildren: () =>
+  //     import('@rihal/admin-dashboard').then(
+  //       (module) => module.AdminDashboardModule
+  //     ),
+  //   canActivate: [AuthGuard],
+  // },
 ];
 @NgModule({
   declarations: [
@@ -45,6 +58,8 @@ const adminRoutes: Route[] = [
     StudentListComponent,
     StudentHomeComponent,
     StudentRegisterComponent,
+    StudentIntroComponent,
+    WelcomeComponent,
   ],
 
   imports: [
@@ -53,16 +68,11 @@ const adminRoutes: Route[] = [
     // NxModule.forRoot(),
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', children: adminRoutes },
+      { path: '', component: WelcomeComponent },
+      { path: 'student', children: studentRoutes },
       { path: 'auth', children: authRoutes },
-      {
-        path: 'admin-dashboard',
-        loadChildren: () =>
-          import('@rihal/admin-dashboard').then(
-            (module) => module.AdminDashboardModule
-          ),
-        canActivate: [AuthGuard],
-      },
+      { path: 'admin', children: adminRoutes },
+
       //{path:"edit/:id", component:EditComponent},
       //{path:"show/:id", component:ShowComponent}
     ]),

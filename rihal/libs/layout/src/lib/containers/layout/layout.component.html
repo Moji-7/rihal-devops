@@ -2,9 +2,28 @@
 
 <div class="layout-container">
 
-  <app-top-nav (sideNavToggled)="snav.toggle()"></app-top-nav>
 
-  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="toolBarHeight">
+  <mat-toolbar color="primary" class="fix-nav">
+  <mat-icon class="mr-8"></mat-icon>
+  <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+    </mat-slide-toggle>
+    <mat-icon></mat-icon>
+  <app-top-nav (sideNavToggled)="snav.toggle()"></app-top-nav>
+</mat-toolbar>
+
+
+<!--     <span>Customer Portal</span> -->
+    <div class="right-nav">
+      <span *ngIf="user$ | async as user">
+        <button mat-button>{{(user$ | async)?.username}}</button>
+        <button mat-button [routerLink]="['/products']" routerLinkActive="router-link-active">Products</button>
+        <button mat-button>Logout</button>
+      </span>
+      <!-- <span *ngIf="!(user$ | async)">
+        <span mat-button [routerLink]="['/auth/login']" routerLinkActive="router-link-active">Logineeeeeeeeee</span>
+      </span> -->
+    </div>
+  <mat-sidenav-container class="sidenav-container" >
     <mat-sidenav #snav class="sidenav mat-elevation-z10"  [(opened)]="sideNavOpened" [mode]="sideNavMode" >
       <app-side-nav></app-side-nav>
     </mat-sidenav>
@@ -17,25 +36,5 @@
 </div>
 
 
-<mat-toolbar color="primary" fxLayout="row">
- 
 
-
-  <div class="flex-stretch"></div>
-  <mat-icon class="mr-8"></mat-icon>
-  <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
-  </mat-slide-toggle>
-  <mat-icon></mat-icon>
-  <span>Customer Portal</span>
-  <div class="right-nav">
-    <span *ngIf="user$ | async as user">
-      <button mat-button>{{(user$ | async)?.username}}</button>
-      <button mat-button [routerLink]="['/products']" routerLinkActive="router-link-active">Products</button>
-      <button mat-button>Logout</button>
-    </span>
-    <span *ngIf="!(user$ | async)">
-      <span mat-button [routerLink]="['/auth/login']" routerLinkActive="router-link-active">Logineeeeeeeeee</span>
-    </span>
-  </div>
-</mat-toolbar>
 <ng-content></ng-content>
