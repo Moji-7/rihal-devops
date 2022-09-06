@@ -5,33 +5,36 @@ import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
 import { ReportService } from '../../services/student/report.service';
 
 @Component({
-  selector: 'rihal-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'rihal-reporting-summery',
+  templateUrl: './reporting-summery.component.html',
+  styleUrls: ['./reporting-summery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
- // byCeriteria!:string="classes";
-   byCeriteria!:string|null;
-  studentSummeryInfo$!: Observable<StudentSummeryInfo[]>;
+export class ReportingSummeryComponent implements OnInit {
+  // byCeriteria!:string="classes";
+  byCeriteria?: string = 'classes';
+  studentSummeryInfos$!: Observable<StudentSummeryInfo[]>;
 
-  constructor(private route: ActivatedRoute,private reportservice: ReportService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private reportservice: ReportService
+  ) {}
 
   ngOnInit(): void {
-    this.byCeriteria=this.route.snapshot.paramMap.get('byCeriteria');
+    this.byCeriteria = this.route.snapshot.paramMap.get('by') as string;
     //get result
-    if(this.byCeriteria==="perAge)
-    this.studentSummeryInfo$ =this.reportservice.averageStudentsAge();
+    if (this.byCeriteria === 'age')
+      this.studentSummeryInfos$ = this.reportservice.averageStudentsAge();
     else
-    this.studentSummeryInfo$ =this.reportservice.fetchCountBy(this.byCeriteria,0);
+      this.studentSummeryInfos$ = this.reportservice.fetchCountBy(
+        this.byCeriteria, 0);
 
     // const getService$: Observable<StudentSummeryInfo[]> = of([
     //   { title: 'perCalss', desc: 'Count of students per class', value: 26 },
     //   { title: 'perAge', desc: 'Average age of students ', value: 36 },
     //   { title: 'perCountry', desc: 'Count of students per country', value: 5 },
     // ]);
-   // this.studentSummeryInfos$ = getService$;
-
+    // this.studentSummeryInfos$ = getService$;
 
     //forkJoin
     // summeryInfoNeeded$ = of(['perCalss', 'perAge', 'perCountry']);
@@ -43,7 +46,5 @@ export class DashboardComponent implements OnInit {
     //   )
     // );
     // carsList$.subscribe(console.log);
-
-
   }
 }

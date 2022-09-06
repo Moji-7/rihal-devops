@@ -18,15 +18,16 @@ import { MaterialModule } from '@rihal/material';
 import { LayoutModule } from '@rihal/layout';
 import { SharedWidgetsModule } from '@rihal/shared-widgets';
 import { AuthGuard } from '@rihal/auth';
-import { DashboardComponent } from './containers/dashboard/dashboard.component';
+
 import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentHomeComponent } from './containers/student-home/student-home.component';
 import { StudentRegisterComponent } from './components/student-register/student-register.component';
 import { StudentIntroComponent } from './components/student-intro/student-intro.component';
 import { WelcomeComponent } from './containers/welcome/welcome.component';
-import { ChartComponent } from '@swimlane/ngx-charts';
+//import { ChartComponent } from '@swimlane/ngx-charts';
 import { ChartsModule } from '@rihal/charts';
+//import { ReportingSummeryComponent } from './components/reporting-summery/reporting-summery.component';
 
 const studentRoutes: Route[] = [
   { path: '', component: StudentIntroComponent },
@@ -41,7 +42,7 @@ const studentRoutes: Route[] = [
   // ,{ path: 'students', component: StudentListComponent },
 ];
 const adminRoutes: Route[] = [
-  { path: '', component: DashboardComponent },
+  //{ path: '', component: ReportingHomeComponent },
   // {
   //   path: 'admin',
   //   loadChildren: () =>
@@ -55,13 +56,14 @@ const adminRoutes: Route[] = [
   declarations: [
     AppComponent,
     NxWelcomeComponent,
-    DashboardComponent,
     StudentSummeryInfoComponent,
     StudentListComponent,
     StudentHomeComponent,
     StudentRegisterComponent,
     StudentIntroComponent,
     WelcomeComponent,
+   // ReportingHomeComponent,
+   // ReportingSummeryComponent,
   ],
 
   imports: [
@@ -73,13 +75,15 @@ const adminRoutes: Route[] = [
       { path: '', component: WelcomeComponent },
       { path: 'student', children: studentRoutes },
       { path: 'auth', children: authRoutes },
-    //  { path: 'admin', children: adminRoutes },
+      //  { path: 'admin', children: adminRoutes },
       {
         path: 'admin',
-         loadChildren: () =>
-          import('./modules/reporting/reporting.module').then((m) => m.ReportingModule),
+        loadChildren: () =>
+          import('./modules/reporting/reporting.module').then(
+            (m) => m.ReportingModule
+          ),
         // data: { icon: 'perm_media', text: 'register new class ' },
-      }
+      },
 
       //{path:"edit/:id", component:EditComponent},
       //{path:"show/:id", component:ShowComponent}

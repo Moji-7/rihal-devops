@@ -27,10 +27,11 @@ export class ReportsController {
     }
 
     @Get('')
-    async averageStudentsAge():Promise<StudentSummeryInfo> {
+    async averageStudentsAge():Promise<number> {
     const summeryInfoService = await this.reportsService.averageStudentsAge();
     const average = summeryInfoService.reduce(function (avg, value, _, { length }) {
-        return {title:avg + value.year / length , count:length};
+        return avg + value.year / length ;
+        // return {title:avg + value.year / length , count:length};
     }, 0);
         return parseInt(average.toString());
     }
