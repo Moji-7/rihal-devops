@@ -36,6 +36,7 @@
     "@ngrx/router-store": "~14.0.0",
     "@ngrx/store": "~14.0.0",
     "@nrwl/angular": "14.5.10",
+    "@swimlane/ngx-charts": "^20.1.0",
     "dotenv": "^16.0.2",
     "faker": "^6.6.6",
     "mysql2": "^2.3.3",
@@ -43,10 +44,8 @@
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
-
     "tslib": "^2.3.0",
     "typeorm": "^0.3.9",
- 
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

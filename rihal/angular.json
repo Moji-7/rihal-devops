@@ -2,16 +2,13 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "admin-dashboard": "libs/admin-dashboard",
     "admin-portal": "apps/admin-portal",
     "admin-portal-e2e": "apps/admin-portal-e2e",
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
     "auth": "libs/auth",
+    "charts": "libs/charts",
     "data-models": "libs/data-models",
     "layout": "libs/layout",
-    "learnify": "apps/learnify",
-    "learnify-e2e": "apps/learnify-e2e",
     "material": "libs/material",
     "shared-widgets": "libs/shared-widgets"
   }

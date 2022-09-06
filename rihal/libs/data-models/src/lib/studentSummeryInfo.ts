@@ -1,5 +1,10 @@
 export interface StudentSummeryInfo {
   title: string;
   desc:string;
-  value: number;
+  count: number;
 }
+export interface StudentAverageAge {
+  year: number;
+
+}
+

@@ -10,19 +10,24 @@ export function InitialClassesSeed(entity: string) {
   return fakerClasses();
 }
 export function InitialStudentSeed(entity: string) {
-  return fakerCountry();
+  return fakerStudent();
 }
 const fakerCountry = (): any => ({
   countryName: faker.address.country(),
 });
 
 const fakerClasses = (): any => ({
-  className: faker.address.country(),
+  className: faker.helpers.arrayElement(['arts', 'science', 'front end developing','full stack developer',"yuga","spanish","cooking","meditation","negotiation","life tricks"])
 });
 
-const fakerUser = (): any => ({
-  name: faker.name.firstName() + faker.name.lastName(),
-  date_of_birth: new Date(1995, 11, 17),
+const fakerStudent = (): any => ({
+  name: faker.name.firstName() +" "+ faker.name.lastName(),
+  dateOfBirth: faker.date.between('1970-01-01', '2019-01-05'),
+  classesId :faker.datatype.number({'min': 41,'max': 50}),
+  //countriesId:faker.datatype.number({'min': 51,'max': 60}),
+  classes:fakerClasses(),
+  countries:fakerCountry(),
   //email: faker.internet.email(),
   //password: faker.internet.password(),
+
 });

@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/charts/src",
+  "prefix": "rihal",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/charts"],
+      "options": {
+        "jestConfig": "libs/charts/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/charts/**/*.ts", "libs/charts/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -28,8 +28,6 @@ export class StudentListComponent implements OnInit,AfterViewInit  {
 
   ngOnInit(): void {
     this.displyby=this.route.snapshot.paramMap.get('displyby');
-
-
     this.loaddata();
 
   }

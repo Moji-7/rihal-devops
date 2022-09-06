@@ -25,6 +25,8 @@ import { StudentHomeComponent } from './containers/student-home/student-home.com
 import { StudentRegisterComponent } from './components/student-register/student-register.component';
 import { StudentIntroComponent } from './components/student-intro/student-intro.component';
 import { WelcomeComponent } from './containers/welcome/welcome.component';
+import { ChartComponent } from '@swimlane/ngx-charts';
+import { ChartsModule } from '@rihal/charts';
 
 const studentRoutes: Route[] = [
   { path: '', component: StudentIntroComponent },
@@ -71,7 +73,13 @@ const adminRoutes: Route[] = [
       { path: '', component: WelcomeComponent },
       { path: 'student', children: studentRoutes },
       { path: 'auth', children: authRoutes },
-      { path: 'admin', children: adminRoutes },
+    //  { path: 'admin', children: adminRoutes },
+      {
+        path: 'admin',
+         loadChildren: () =>
+          import('./modules/reporting/reporting.module').then((m) => m.ReportingModule),
+        // data: { icon: 'perm_media', text: 'register new class ' },
+      }
 
       //{path:"edit/:id", component:EditComponent},
       //{path:"show/:id", component:ShowComponent}
@@ -80,6 +88,7 @@ const adminRoutes: Route[] = [
     AuthModule,
     LayoutModule,
     SharedWidgetsModule,
+    ChartsModule,
     // StoreModule.forRoot({}),
     StoreModule.forRoot(
       {},

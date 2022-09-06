@@ -14,26 +14,25 @@ import { ClassesService } from './classes.service';
 import { ReportsController } from './reporting/reports.controller';
 import { ReportsService } from './reporting/reports.service';
 @Module({
- imports: [TypeOrmModule.forFeature([Student, Classes, Countries])],
+  imports: [TypeOrmModule.forFeature([Student, Classes, Countries])],
   controllers: [
     StudentController,
-   CountriesController,
-   ClassesController,
-  ReportsController,
+    CountriesController,
+    ClassesController,
+    ReportsController,
   ],
   providers: [
-   StudentService,
-   CountriesService,
-   ClassesService,
-   ReportsService,
-  SeedingService,
+    StudentService,
+    CountriesService,
+    ClassesService,
+    ReportsService,
+    SeedingService,
   ],
 })
 export class StudentModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
   async onApplicationBootstrap(): Promise<void> {
-    for (let i = 0; i < 10; i++) 
-       await this.seedingService.seedCountries();
-    
+    //for (let i = 0; i < 10; i++) await this.seedingService.seedBaseTables();
+    for (let i = 0; i < 5; i++) await this.seedingService.seedStudent();
   }
 }
