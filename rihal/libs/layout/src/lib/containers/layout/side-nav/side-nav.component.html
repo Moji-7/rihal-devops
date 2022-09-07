@@ -1,10 +1,11 @@
-<mat-nav-list  *ngIf="routes">
-  <a
 
+
+<mat-nav-list >
+  <a
     *ngFor="let item of routes"
     mat-list-item
     [routerLinkActive]="'active'"
-    [routerLink]="['student/', item.path]">
+    [routerLink]="[currentUrl, item.path]">
     <mat-icon class="sidenav-icon">{{ item.data.icon }}</mat-icon>
     {{ item.data.text }}
   </a>

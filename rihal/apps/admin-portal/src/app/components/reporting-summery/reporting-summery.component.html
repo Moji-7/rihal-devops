@@ -1,5 +1,21 @@
-<p>reporting-summery works!</p>
+<h1>{{currentTitle.text}}</h1>
 
 <div *ngFor="let studentsummeryInfo of studentSummeryInfos$ | async; index as i">
-<!-- <rihal-student-summery-info [summery]="studentsummeryInfo" ></rihal-student-summery-info> -->
+<rihal-student-summery-info [summery]="studentsummeryInfo" ></rihal-student-summery-info>
 </div>
+
+  <ngx-charts-bar-vertical
+    [view]="[600, 400]"
+    [results]="studentSummeryInfos$ | async"
+    [xAxisLabel]="'students'"
+
+    [yAxisLabel]="'count'"
+    [legend]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true"
+  >
+  </ngx-charts-bar-vertical>
+   <!-- [legendTitle]="'currentTitle'" -->

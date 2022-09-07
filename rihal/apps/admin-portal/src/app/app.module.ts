@@ -19,7 +19,6 @@ import { LayoutModule } from '@rihal/layout';
 import { SharedWidgetsModule } from '@rihal/shared-widgets';
 import { AuthGuard } from '@rihal/auth';
 
-import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentHomeComponent } from './containers/student-home/student-home.component';
 import { StudentRegisterComponent } from './components/student-register/student-register.component';
@@ -27,6 +26,7 @@ import { StudentIntroComponent } from './components/student-intro/student-intro.
 import { WelcomeComponent } from './containers/welcome/welcome.component';
 //import { ChartComponent } from '@swimlane/ngx-charts';
 import { ChartsModule } from '@rihal/charts';
+import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
 //import { ReportingSummeryComponent } from './components/reporting-summery/reporting-summery.component';
 
 const studentRoutes: Route[] = [
@@ -39,29 +39,20 @@ const studentRoutes: Route[] = [
       { path: 'register', component: StudentRegisterComponent },
     ],
   },
-  // ,{ path: 'students', component: StudentListComponent },
-];
-const adminRoutes: Route[] = [
-  //{ path: '', component: ReportingHomeComponent },
-  // {
-  //   path: 'admin',
-  //   loadChildren: () =>
-  //     import('@rihal/admin-dashboard').then(
-  //       (module) => module.AdminDashboardModule
-  //     ),
-  //   canActivate: [AuthGuard],
-  // },
+  { path: 'auth', children: authRoutes },
+
+
 ];
 @NgModule({
   declarations: [
     AppComponent,
     NxWelcomeComponent,
-    StudentSummeryInfoComponent,
     StudentListComponent,
     StudentHomeComponent,
     StudentRegisterComponent,
     StudentIntroComponent,
     WelcomeComponent,
+  //StudentSummeryInfoComponent,
    // ReportingHomeComponent,
    // ReportingSummeryComponent,
   ],
@@ -73,9 +64,8 @@ const adminRoutes: Route[] = [
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: WelcomeComponent },
-      { path: 'student', children: studentRoutes },
       { path: 'auth', children: authRoutes },
-      //  { path: 'admin', children: adminRoutes },
+      { path: 'student', children: studentRoutes },
       {
         path: 'admin',
         loadChildren: () =>
@@ -108,6 +98,7 @@ const adminRoutes: Route[] = [
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
   ],
+
   providers: [],
   bootstrap: [AppComponent],
 })

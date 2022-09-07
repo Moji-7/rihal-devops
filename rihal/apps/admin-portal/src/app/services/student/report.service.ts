@@ -6,12 +6,12 @@ import { StudentSummeryInfo } from '@rihal/data-models';
   providedIn: 'root',
 })
 export class ReportService {
-  private baseURL = `http://localhost:3000/api/reports`;
+  private baseURL = `http://localhost:3333/api/reports`;
 
   constructor(private http: HttpClient) {}
 
   public fetchCountBy(joinTable:string,studentId:number) {
-    return this.http.get<StudentSummeryInfo[]>(`${this.baseURL}/fetchCountBy`, {
+    return this.http.get<StudentSummeryInfo[]>(`${this.baseURL}/${joinTable}`, {
       params: { joinTable: joinTable,studentId:studentId }
     });
   }

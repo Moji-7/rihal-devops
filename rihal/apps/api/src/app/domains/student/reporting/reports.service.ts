@@ -17,7 +17,7 @@ export class ReportsService {
     @InjectDataSource() private readonly datasource: DataSource
   ) {}
 
-  async findAll(
+  async fetchCountBy(
     joinTable: string,
     studentId: number
   ): Promise<StudentSummeryInfo[]> {
@@ -29,7 +29,7 @@ export class ReportsService {
       .select(joinTableCol,"name")
       //.addSelect('student.name')
       .innerJoin('student.'+joinTable, joinTable)
-      .addSelect('count(student.id)', 'count')
+      .addSelect('count(student.id)', 'value')
       .groupBy(joinTableCol)
       //.addGroupBy('student.name')
       //.where('student.name = :name', { name: groupbyCol })

@@ -1,22 +1,32 @@
-export const childRoutes = [
-
+export const studentRoutes = [
   {
     path: 'classes',
+    data: { icon: 'classes', text: 'my classes' },
     // loadChildren: () =>
     //   import('./stock-market/stock-market.module').then((m) => m.StockMarketModule),
-     data: { icon: 'classes', text: 'my classes' },
-   },
+  },
   {
     path: 'register',
+    data: { icon: 'note_add', text: 'register new class ' },
     // loadChildren: () =>
     //   import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-     data: { icon: 'perm_media', text: 'register new class ' },
-  }
+  },
+];
 
-  // {
-  //   path: 'transfer',
-  //   loadChildren: () =>
-  //     import('./transfer/transfer.module').then((m) => m.TransferModule),
-  //   data: { icon: 'perm_media', text: 'transfer money' },
-  // },
+export const reportingRoutes = [
+  {
+    path: 'classes',
+    data: { icon: 'classes', text: 'students per classes' },
+
+  },
+  {
+    path: 'countries',
+    data: { icon: 'perm_media', text: 'students per countries' },
+
+  },
+  {
+    path: 'averageAge',
+    data: { icon: 'classes', text: 'students average age' },
+
+  },
 ];

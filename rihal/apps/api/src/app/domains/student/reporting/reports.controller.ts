@@ -22,7 +22,7 @@ export class ReportsController {
 
     @Get('/:joinTable')
     async fetchCountBy(@Param('joinTable') joinTable:string,studentId:number):Promise<StudentSummeryInfo[]> {
-    const summeryInfoService = await this.reportsService.findAll(joinTable,studentId);
+    const summeryInfoService = await this.reportsService.fetchCountBy(joinTable,studentId);
         return summeryInfoService;
     }
 

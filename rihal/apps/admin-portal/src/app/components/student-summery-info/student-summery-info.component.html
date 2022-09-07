@@ -1,12 +1,14 @@
 
-<mat-card class="example-card" fxLayout="column" fxLayoutAlign="center none">
-  <mat-card-title>DESCRIPTION</mat-card-title>
 
+<mat-card class="example-card" fxLayout="column" fxLayoutAlign="center none">
+
+  <mat-card-title> {{summery.name}}</mat-card-title>
   <mat-card-content>
-    {{summery.count}}
+  <b class="primary"> count: {{summery.value}}</b>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button  color="primary"
-    (click)="gotoStudentList(summery.title)">details</button>
+    (click)="gotoStudentList(summery.name)">details</button>
   </mat-card-actions>
 </mat-card>
+<hr>

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '@rihal/auth';
 import { User } from '@rihal/data-models';
@@ -15,19 +15,20 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
+  @Input() roleType!: string;
   sideNavOpened = true;
-    sideNavMode: 'side' | 'over' = 'side';
-    toolBarHeight = 64;
-   // private readonly mediaWatcher: Subscription;
+  sideNavMode: 'side' | 'over' = 'side';
+  toolBarHeight = 64;
+  // private readonly mediaWatcher: Subscription;
   user$!: Observable<User>;
   @HostBinding('class') className = '';
 
   toggleControl = new FormControl(false);
-  constructor(//media: MediaObserver,
+  constructor(
+    //media: MediaObserver,
     private store: Store<AuthState>,
     private overlay: OverlayContainer
   ) {
-
     // this.mediaWatcher = media.media$.subscribe((change: MediaChange) => {
     //   if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
     //     if (this.sideNavOpened) {
@@ -49,8 +50,6 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     // debugger;
 
-
-
     this.user$ = this.store.select(getUser);
     this.toggleControl.valueChanges.subscribe((darkMode) => {
       const darkClassName = 'darkMode';
@@ -63,10 +62,7 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-
-
-    ngOnDestroy(): void {
-      //this.mediaWatcher.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    //this.mediaWatcher.unsubscribe();
+  }
 }
-
