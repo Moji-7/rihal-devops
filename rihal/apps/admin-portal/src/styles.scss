@@ -1,0 +1,72 @@
+
+
+
+
+@use '@angular/material' as mat;
+
+@import "@angular/material/theming";
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+@include mat.core();
+
+$angular-primary: mat.define-palette(mat.$indigo-palette, 500);
+$angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$angular-warn:mat.define-palette(mat.$red-palette);
+
+$angular-default-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $angular-primary,
+      accent: $angular-accent,
+      warn: $angular-warn,
+    ),
+  )
+);
+
+
+
+@include mat.all-component-themes($angular-default-theme);
+
+$angular-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $angular-primary,
+      accent: $angular-accent,
+      warn: $angular-warn,
+    ),
+  )
+);
+
+.darkMode {
+  @include mat.all-component-colors($angular-dark-theme);
+}
+@import './scss/material';
+@import './scss/utils';
+@import './scss/responsive';
+@import './scss/variables';
+@import './scss/theme';
+
+html, body { height: 100%; }
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h2,
+p {
+  padding: 16px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+  float: right;
+}
+
+

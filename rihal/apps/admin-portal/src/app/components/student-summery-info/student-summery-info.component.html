@@ -1,0 +1,14 @@
+
+
+<mat-card class="margin-bottom">
+
+  <mat-card-title fxFlex="20" class="value" >{{summery.value}}</mat-card-title>
+  <mat-card-content class="primary">
+  {{summery.name}}
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button  color="primary" mat-icon-button
+    (click)="gotoStudentList(summery.name)"><mat-icon >arrow_right_al</mat-icon></button>
+  </mat-card-actions>
+</mat-card>
+

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@rihal/auth": ["libs/auth/src/index.ts"],
+      "@rihal/charts": ["libs/charts/src/index.ts"],
+      "@rihal/data-models": ["libs/data-models/src/index.ts"],
+      "@rihal/layout": ["libs/layout/src/index.ts"],
+      "@rihal/material": ["libs/material/src/index.ts"],
+      "@rihal/shared-widgets": ["libs/shared-widgets/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

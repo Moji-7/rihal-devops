@@ -1,0 +1,16 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>classes</mat-label>
+    <input matInput appearance="fill"
+           aria-label="State"
+           [matAutocomplete]="auto"
+           [formControl]="inputControl">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
+      <mat-option *ngFor="let classes of classes$ | async" [value]="classes.name">
+        <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
+        <span>{{classes.name}}</span> |
+        <!-- <small>Population: {{state.population}}</small> -->
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

@@ -1,0 +1,39 @@
+
+<div class="layout-container">
+
+
+  <mat-toolbar color="primary" class="fix-nav">
+  <mat-icon class="mr-8"></mat-icon>
+  <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+    </mat-slide-toggle>
+    <mat-icon></mat-icon>
+  <app-top-nav (sideNavToggled)="snav.toggle()"></app-top-nav>
+</mat-toolbar>
+
+
+<!--     <span>Customer Portal</span> -->
+    <div class="right-nav">
+      <span *ngIf="user$ | async as user">
+        <button mat-button>{{(user$ | async)?.username}}</button>
+        <button mat-button [routerLink]="['/products']" routerLinkActive="router-link-active">Products</button>
+        <button mat-button>Logout</button>
+      </span>
+      <!-- <span *ngIf="!(user$ | async)">
+        <span mat-button [routerLink]="['/auth/login']" routerLinkActive="router-link-active">Logineeeeeeeeee</span>
+      </span> -->
+    </div>
+  <mat-sidenav-container class="sidenav-container" >
+    <mat-sidenav #snav class="sidenav mat-elevation-z10"  [(opened)]="sideNavOpened" [mode]="sideNavMode" >
+      <app-side-nav ></app-side-nav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <main class="main-container">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+
+
+<ng-content></ng-content>

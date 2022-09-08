@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/shared-widgets/src",
+  "prefix": "rihal",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared-widgets"],
+      "options": {
+        "jestConfig": "libs/shared-widgets/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared-widgets/**/*.ts",
+          "libs/shared-widgets/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

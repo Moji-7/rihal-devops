@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+
+@font-face {
+    font-family: 'Fontil Sans';
+   // src: url('../assets/fonts/FontinSans/Fontin_Sans_R.otf') format('opentype');
+}
+
+$custom-typography: mat.define-typography-config(
+    $font-family: 'Fontil Sans, monospace',
+    $headline: mat.define-typography-level(32px, 48px, 700),
+    $body-1: mat.define-typography-level(16px, 24px, 500)
+);
+@include mat.all-component-typographies($custom-typography);
