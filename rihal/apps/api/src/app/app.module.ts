@@ -3,14 +3,16 @@
 import { Module } from '@nestjs/common';
 
 import { StudentModule } from './domains/student/student.module';
+import { ReportingModule } from './domains/reporting/reporting.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RihalLoggerModule, RihalLoggerService } from './logger';
+
 
 @Module({
-  imports: [StudentModule,
+  imports: [StudentModule,ReportingModule,RihalLoggerModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-
       type: 'postgres',
        host:"localhost", //configService.get<string>('DATABASE_HOST'),
         port:5432, //parseInt(configService.get<string>('DATABASE_PORT')),
@@ -26,6 +28,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
   ],
   controllers: [],
-  providers: [],
+  providers:[RihalLoggerService],
+ // exports:[RihalLoggerModule]
+
 })
 export class AppModule {}

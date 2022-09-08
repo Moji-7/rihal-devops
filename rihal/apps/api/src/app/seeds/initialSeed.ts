@@ -1,5 +1,5 @@
-import { Countries } from '../../app/domains/student/entities/countries.entity';
-import { Student } from '../../app/domains/student/entities/student.entity';
+import { Countries } from '../domains/student/entities/countries.entity';
+import { Student } from '../domains/student/entities/student.entity';
 import { faker } from '@faker-js/faker';
 //import { User, Post } from "../../entities";
 

@@ -3,7 +3,7 @@ import { Classes } from "./classes.entity"
 import { Countries } from "./countries.entity"
 @Entity('student')
 export class Student{
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({name:"id"})
   id: number;
 
   @Column({ length: 255})
@@ -13,15 +13,16 @@ export class Student{
   dateOfBirth: Date;
 
   //@Column({ type: 'date' ,name: "date_of_birth" })
-  @ManyToOne(() => Classes, (classes) => classes.className)
+  @ManyToOne(() => Classes, (classes) => classes.className,{ onDelete: 'CASCADE'})
   classes: Classes
-  @JoinColumn({ name: "classesId" })
+  @JoinColumn({ name: "classesid" })
   Classes: Classes;
 
   @ManyToOne(() => Countries, (countries) => countries.students)
   countries: Countries
-  @JoinColumn({ name: "countriesId" })
+  @JoinColumn({ name: "countriesid" })
   Countries: Countries;
+
 
   @CreateDateColumn({type: "timestamp"})
   CreatedDate : Date;

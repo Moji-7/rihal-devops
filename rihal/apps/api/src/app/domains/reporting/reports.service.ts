@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
-
-import {
-  InjectDataSource,
-  InjectRepository,
-} from '@nestjs/typeorm';
-import { StudentAverageAge, StudentSummeryInfo } from '@rihal/data-models';
-
 import { DataSource, Repository } from 'typeorm';
-import { Student } from '../entities/student.entity';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { StudentAverageAge, StudentSummeryInfo } from '@rihal/data-models';
+import { Student } from '../student/entities/student.entity';
+
 
 @Injectable()
 export class ReportsService {
@@ -18,30 +14,32 @@ export class ReportsService {
   ) {}
 
   async fetchCountBy(
-    joinTable: string,
+    relatedEntity: string,
     studentId: number
   ): Promise<StudentSummeryInfo[]> {
-   // const s = `${joinTable}`;
-    const joinTableCol = joinTable === 'classes' ? 'classes.class_name' : 'countries.name';
+    const relatedColumn =
+    relatedEntity === 'classes' ? 'classes.class_name' : 'countries.name';
     const res = await this.datasource
       .getRepository(Student)
       .createQueryBuilder('student')
-      .select(joinTableCol,"name")
+      .select(relatedColumn, 'name')
       //.addSelect('student.name')
-      .innerJoin('student.'+joinTable, joinTable)
+      .innerJoin('student.' + relatedEntity, relatedEntity)
       .addSelect('count(student.id)', 'value')
-      .groupBy(joinTableCol)
+      .groupBy(relatedColumn)
       //.addGroupBy('student.name')
       //.where('student.name = :name', { name: groupbyCol })
       .getRawMany();
     return res;
   }
 
-  async averageStudentsAge(): Promise<StudentAverageAge[]> {
+  async averageStudentsAge(): Promise<StudentSummeryInfo[]> {
     const res = await this.datasource
       .getRepository(Student)
       .createQueryBuilder('student')
-      .select("EXTRACT(YEAR FROM student.date_of_birth)", 'year')
+      .select('EXTRACT(YEAR FROM student.date_of_birth)', 'name')
+      .addSelect('count(*)', 'value')
+       .groupBy('EXTRACT(YEAR FROM student.date_of_birth)')
       .getRawMany();
     return res;
   }

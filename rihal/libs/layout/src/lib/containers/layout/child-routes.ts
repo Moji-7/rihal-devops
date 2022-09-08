@@ -15,18 +15,23 @@ export const studentRoutes = [
 
 export const reportingRoutes = [
   {
-    path: 'classes',
+    path: 'summeryBy',
+    param:"classes",
     data: { icon: 'classes', text: 'students per classes' },
 
   },
   {
-    path: 'countries',
+    path: 'summeryBy',
+    param:"countries",
     data: { icon: 'perm_media', text: 'students per countries' },
+
 
   },
   {
-    path: 'averageAge',
+    path: 'summeryBy',
+    param:"ageAverage",
     data: { icon: 'classes', text: 'students average age' },
+
 
   },
 ];

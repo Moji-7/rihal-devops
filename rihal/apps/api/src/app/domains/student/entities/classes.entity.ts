@@ -9,7 +9,7 @@ export class Classes{
   @Column({ name: "class_name" ,length: 255})
   className: string;
 
-  @OneToMany(() => Student, (student) => student.classes)
+  @OneToMany(() => Student, (student) => student.classes,{cascade: true})
   student: Student[]
 
   @CreateDateColumn({type: "timestamp"})

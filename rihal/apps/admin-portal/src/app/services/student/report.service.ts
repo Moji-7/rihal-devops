@@ -18,6 +18,6 @@ export class ReportService {
   //StudentSummeryInfo==> dto
 
   public averageStudentsAge() {
-    return this.http.get<StudentSummeryInfo[]>(`${this.baseURL}/averageStudentsAge`);
+    return this.http.get<StudentSummeryInfo[]>(`${this.baseURL}/ageAverage`);
   }
 }

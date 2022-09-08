@@ -9,9 +9,9 @@ const routes: Routes = [
     path: '',
     component: ReportingHomeComponent,
     children: [
-      { path: 'classes', component: ReportingSummeryComponent },
-      { path: 'countries', component: ReportingSummeryComponent },
-      { path: 'averageAge', component: ReportingSummeryComponent },
+      { path: 'summeryBy', component: ReportingSummeryComponent },
+    // { path: 'summery', component: ReportingSummeryComponent },
+     // { path: 'summery', component: ReportingSummeryComponent },
     ],
   },
 ];

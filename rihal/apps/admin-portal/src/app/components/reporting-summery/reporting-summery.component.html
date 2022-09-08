@@ -1,21 +1,53 @@
-<h1>{{currentTitle.text}}</h1>
+<h1>{{ currentTitle.text }}</h1>
+<mat-grid-list cols="2" rowHeight="1:1">
+  <mat-grid-tile>
+    <div fxLayout="row"  >
+      <div >
+        <div
+        class="padding-10" class="example-card"
+          *ngFor="
+            let studentsummeryInfo of studentSummeryInfos$ | async; index as i">
+          <rihal-student-summery-info
+            [summery]="studentsummeryInfo"
+          ></rihal-student-summery-info>
+        </div>
+      </div>
+    </div>
 
-<div *ngFor="let studentsummeryInfo of studentSummeryInfos$ | async; index as i">
-<rihal-student-summery-info [summery]="studentsummeryInfo" ></rihal-student-summery-info>
-</div>
 
-  <ngx-charts-bar-vertical
-    [view]="[600, 400]"
+  </mat-grid-tile>
+    <mat-grid-tile [ngSwitch]="byCeriteria">
+      <ngx-charts-pie-chart *ngSwitchCase="'ageAverage'"
+      [results]="studentSummeryInfos$ | async"
+      [scheme]="colorScheme">
+    </ngx-charts-pie-chart>
+    <ngx-charts-bar-vertical  *ngSwitchCase="'classes'"
     [results]="studentSummeryInfos$ | async"
     [xAxisLabel]="'students'"
-
     [yAxisLabel]="'count'"
     [legend]="true"
     [showXAxisLabel]="true"
     [showYAxisLabel]="true"
     [xAxis]="true"
     [yAxis]="true"
-    [gradient]="true"
-  >
+    [gradient]="true">
   </ngx-charts-bar-vertical>
-   <!-- [legendTitle]="'currentTitle'" -->
+  <ngx-charts-bar-horizontal  *ngSwitchCase="'countries'"
+  [results]="studentSummeryInfos$ | async"
+  [xAxisLabel]="'students'"
+  [yAxisLabel]="'count'"
+  [legend]="true"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxis]="true"
+  [yAxis]="true"
+  [gradient]="true">
+</ngx-charts-bar-horizontal>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+
+
+<!-- [legendTitle]="'currentTitle'" -->

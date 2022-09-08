@@ -4,12 +4,16 @@
   <a
     *ngFor="let item of routes"
     mat-list-item
-    [routerLinkActive]="'active'"
-    [routerLink]="[currentUrl, item.path]">
+
+
+    (click)="navigate(item)">
     <mat-icon class="sidenav-icon">{{ item.data.icon }}</mat-icon>
     {{ item.data.text }}
   </a>
-  <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
+  <!--
+     [routerLinkActive]="'active'"
+     [routerLink]="[currentUrl + '/' + item.path, { by: item?.param }]"
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/blank-page']">
     <mat-icon class="sidenav-icon">insert_drive_file</mat-icon>Blank Page
   </a>
   <div class="nested-menu">

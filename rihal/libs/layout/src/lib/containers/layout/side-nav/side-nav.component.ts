@@ -28,4 +28,8 @@ export class SideNavComponent {
     if (currentUrl==="student") this.routes = studentRoutes;
     else if (currentUrl=== "admin") this.routes = reportingRoutes;
   }
+  navigate(item:any){
+    this.router.navigate([this.currentUrl + '/' + item.path, { by: item?.param }]);
+
+  }
 }
