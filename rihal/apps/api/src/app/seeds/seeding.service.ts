@@ -21,11 +21,14 @@ export class SeedingService {
 
   async dropTables(): Promise<void> {
     await Promise.all([
-        this.entityManager.query(`
+      this.entityManager.query(
+        `
           truncate TABLE student RESTART IDENTITY CASCADE;
           truncate TABLE  classes  RESTART IDENTITY CASCADE;
           truncate TABLE countries  RESTART IDENTITY CASCADE;
-        `,null),
+        `,
+        null
+      ),
       //this.entityManager.query(`delete from classes;`,null)
     ]);
   }
@@ -38,16 +41,19 @@ export class SeedingService {
   }
   async seedStudent(): Promise<void> {
     await Promise.all([
-      this.entityManager.save(Student, InitialStudentSeed('student'))
+      this.entityManager.save(Student, InitialStudentSeed('student')),
     ]);
   }
-    async seedStudentUpdate(): Promise<void> {
+  async seedStudentUpdate(): Promise<void> {
     await Promise.all([
-      this.entityManager.query(`
+      this.entityManager.query(
+        `
       update student set
       "classesId"=floor(random() * 9 + 1), "countriesId"=
       floor(random() * 9 + 1)
-      WHERE id is not null;`,null)
+      WHERE id is not null;`,
+        null
+      ),
     ]);
   }
 }

@@ -31,7 +31,7 @@ import { SeedingService } from '../../seeds/seeding.service';
 export class StudentModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
   async onApplicationBootstrap(): Promise<void> {
-    await this.seedingDatabase();
+  //  await this.seedingDatabase();
   }
 
   private async seedingDatabase() {
