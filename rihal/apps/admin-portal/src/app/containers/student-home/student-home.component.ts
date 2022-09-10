@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
+import { Component, ViewChild, HostListener, OnInit ,ChangeDetectionStrategy} from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'rihal-student-home',
@@ -6,4 +8,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./student-home.component.scss'],
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StudentHomeComponent{}
+export class StudentHomeComponent {//implements OnInit{
+
+}

@@ -19,3 +19,4 @@ export class Countries{
   @UpdateDateColumn({type: "timestamp"})
   ModifiedDate : Date;
 }
+

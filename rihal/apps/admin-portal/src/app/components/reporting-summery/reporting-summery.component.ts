@@ -44,7 +44,7 @@ export class ReportingSummeryComponent implements OnInit {
     // this.route.queryParams.subscribe(queryParams => {
     // });
     this.route.params.subscribe((routeParams) => {
-      // this.router.navigate([this.router.url])
+     // this.router.navigate([this.router.url])
       this.byCeriteria = routeParams['by'];
       this.currentTitle = this.titles(this.byCeriteria);
       //get result

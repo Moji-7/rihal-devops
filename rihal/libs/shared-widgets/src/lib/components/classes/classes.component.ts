@@ -4,6 +4,7 @@ import {FormControl} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { PublicService } from '../../services/public.service';
 
 @Component({
   selector: 'rihal-classes',
@@ -11,21 +12,20 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./classes.component.scss'],
 })
 export class ClassesComponent implements OnInit {
-  classes$!:Observable<Classes[]>;//@Input()
+  classes$!:Observable<any[]>;//@Input()
    _classes!:Classes[];//@Input()
   inputControl = new FormControl('');
-  filteredOptions!: Observable<Classes[]>;
+  filteredOptions!: Observable<any[]>;
 
    ngOnInit() {
-    const getClasses$: Observable<Classes[]> = of([
-      { id: 1, name: 'art of physics' },
-      { id: 2, name: 'programming fondumentals' },
-    ]);
-    this.classes$ = getClasses$;
+    // const getClasses$: Observable<Classes[]> = of([
+    //   { id: 1, name: 'art of physics' },
+    //   { id: 2, name: 'programming fondumentals' },
+    // ]);
+    this.classes$ =this.publicService.getall("classes");
   }
 
-  constructor() {
-
+  constructor(private publicService: PublicService){
     this.filteredOptions = this.inputControl.valueChanges.pipe(
       startWith(''),
       map((symbol) =>

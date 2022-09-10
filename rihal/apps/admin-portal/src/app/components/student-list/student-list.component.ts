@@ -1,3 +1,30 @@
+
+import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+
+import { UserService } from '@app/_services';
+import { User } from '@app/_models';
+
+@Component({ templateUrl: 'list.component.html' })
+export class ListComponent implements OnInit {
+    users!: User[];
+
+    constructor(private userService: UserService) {}
+
+    ngOnInit() {
+        this.userService.getAll()
+            .pipe(first())
+            .subscribe(users => this.users = users);
+    }
+
+    deleteUser(id: string) {
+        const user = this.users.find(x => x.id === id);
+        if (!user) return;
+        user.isDeleting = true;
+        this.userService.delete(id)
+            .pipe(first())
+            .subscribe(() => this.users = this.users.filter(x => x.id !== id));
+    }
 import { AfterViewInit, Component, ViewChild, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 //import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -6,7 +33,7 @@ import { Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import { CommonService } from '../../services/student/common.service';
+import { StudentService } from '../../services/student/student.service';
 
 @Component({
   selector: 'rihal-student-list',
@@ -18,7 +45,7 @@ export class StudentListComponent implements OnInit,AfterViewInit,OnDestroy   {
   students!: studentClassesDto[];
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private crudservice: CommonService) {}
+  constructor(private route: ActivatedRoute, private crudservice: StudentService) {}
   ngOnDestroy(): void {
     this.destroy$.next(true);
     // Unsubscribe from the subject

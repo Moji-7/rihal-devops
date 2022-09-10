@@ -8,6 +8,8 @@ import { AgePipe } from './pipes/age.pipe'; // Added
 import { TopNavComponent } from './containers/layout/top-nav/top-nav.component';
 import { SideNavComponent } from './containers/layout/side-nav/side-nav.component';
 import { AlertComponent } from './containers/layout/alert/alert.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './httperror.interceptor';
 
 
 @NgModule({
@@ -20,5 +22,9 @@ import { AlertComponent } from './containers/layout/alert/alert.component';
     AlertComponent,
   ],
   exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+
+],
 })
 export class LayoutModule {}

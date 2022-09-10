@@ -6,9 +6,9 @@
            [matAutocomplete]="auto"
            [formControl]="inputControl">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
-      <mat-option *ngFor="let classes of classes$ | async" [value]="classes.name">
+      <mat-option *ngFor="let classes of classes$ | async" [value]="classes.className">
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{classes.name}}</span> |
+        <span>{{classes.className}}</span> 
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>

@@ -5,8 +5,9 @@ import { Classes, Countries } from '@rihal/data-models';
 import { first, Observable, of } from 'rxjs';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../../services/student/common.service';
+import { StudentService } from '../../services/student/student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from '@rihal/layout';
 //import { AlertComponent } from 'libs/layout/src/lib/containers/layout/alert/alert.component';
 
 
@@ -17,17 +18,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class StudentRegisterComponent implements OnInit {
   constructor(
-    private crudservice: CommonService,
+    private crudservice: StudentService,
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
    // private userService: UserService,
-   // private alertService: AlertService
+    private alertService: AlertService
     ) {}
 
-    id: string;
-    isAddMode: boolean;
+    studentId!: string;
+    isAddMode=false;
     loading = false;
     submitted = false;
 
@@ -53,12 +54,12 @@ export class StudentRegisterComponent implements OnInit {
   // @Output() submitForm = new EventEmitter<Authenticate>();
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.isAddMode = !this.id;
+    this.studentId = this.route.snapshot.params['studentId'];
+    this.isAddMode = !this.studentId;
 
 
     if (!this.isAddMode) {
-      this.userService.getById(this.id)
+      this.crudservice.find(parseInt(this.studentId))
           .pipe(first())
           .subscribe(x => this.registerForm.patchValue(x));
   }
@@ -89,7 +90,7 @@ export class StudentRegisterComponent implements OnInit {
    }
 
    private createUser() {
-       this.userService.create(this.registerForm.value)
+       this.crudservice.createStudentClass(this.registerForm.value)
            .pipe(first())
            .subscribe({
                next: () => {
@@ -104,7 +105,7 @@ export class StudentRegisterComponent implements OnInit {
    }
 
    private updateUser() {
-       this.userService.update(this.id, this.registerForm.value)
+       this.crudservice.updateStudentClass(this.studentId, this.registerForm.value)
            .pipe(first())
            .subscribe({
                next: () => {
@@ -112,7 +113,7 @@ export class StudentRegisterComponent implements OnInit {
                    this.router.navigate(['../../'], { relativeTo: this.route });
                },
                error: error => {
-                   this.alertService.error(error);
+                  this.alertService.error(error);
                    this.loading = false;
                }
            });
