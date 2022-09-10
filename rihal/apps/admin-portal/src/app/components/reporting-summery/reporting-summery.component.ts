@@ -36,37 +36,16 @@ export class ReportingSummeryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private reportservice: ReportService
-  ) {
-    // this.route.params.subscribe((params) => {
-    //   console.log(params['by']);
-    //   this.byCeriteria = params['by'];
-    //   this.reloadCurrentRoute(this.byCeriteria);
-    // });
-  }
+  ) {}
 
-  reloadCurrentRoute(byCeriteria: string) {
-    // const currentUrl = this.router.url;
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    // this.router.navigate(['/summeryBy', { by: byCeriteria }]);
-    // console.log(currentUrl);
-    // this.ngOnInit();
-    // });
-  }
-
-  ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const queryParams = this.route.snapshot.queryParams
+  fetchdata() {
+    const queryParams = this.route.snapshot.queryParams;
     const routeParams = this.route.snapshot.params;
-
-    // do something with the parameters
-   // this.loadUserDetail(routeParams.id);
-
     // this.route.queryParams.subscribe(queryParams => {
     // });
-    this.route.params.subscribe(routeParams => {
-      console.log('slaaaaaaaaaaaaaaaaaaaam 2'+routeParams['by'])
-     // this.router.navigate([this.router.url])
-      this.byCeriteria=routeParams['by']
+    this.route.params.subscribe((routeParams) => {
+      // this.router.navigate([this.router.url])
+      this.byCeriteria = routeParams['by'];
       this.currentTitle = this.titles(this.byCeriteria);
       //get result
       if (this.byCeriteria === 'ageAverage')
@@ -76,17 +55,13 @@ export class ReportingSummeryComponent implements OnInit {
           this.byCeriteria,
           0
         );
-
     });
+  }
 
-    // this.route.params.subscribe((routeParams) => {
-    //   this.reloadCurrentRoute(this.byCeriteria);
+  ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.fetchdata();
 
-    //   //this.loadUserDetail(routeParams.id);
-    // });
-    // this.route.params.subscribe((params) => {
-
-    //  });
     //forkJoin
     // summeryInfoNeeded$ = of(['perCalss', 'perAge', 'perCountry']);
     // const carIds = ['perCalss', 'perAge', 'perCountry']; // unique ids
@@ -108,5 +83,4 @@ export class ReportingSummeryComponent implements OnInit {
     console.log('umad');
     return titles.filter((x) => x.name === byCeriteria)[0];
   }
-
 }

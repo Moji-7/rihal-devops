@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Student } from './entities/student.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { studentClassesDto } from '@rihal/data-models';
-import { FilterStudentDTO } from 'libs/data-models/src/lib/filterStudent.dto';
+
+import { StudentSearchDTO } from '../../validations/StudentSearchDTO';
 
 @Injectable()
 export class StudentService {
@@ -33,18 +33,25 @@ export class StudentService {
   }
 
   async getFilteredStudent(
-    filterStudentDTO: FilterStudentDTO
+    studentSearchDto: StudentSearchDTO
   ): Promise<Student[]> {
-    const { name, className, country } = filterStudentDTO;
+    const {
+      name,
+      className,
+      countryName,
+    //   dateOfBirthFrom,
+    //  dateOfBirthTo,
+    //  registerDateFrom,
+    //  registerDateTo,
+    } = studentSearchDto;
     let students = await this.findAll();
+
     if (name)
       students = students.filter((student) => student.name.includes(name));
-
-    if (country)
+    if (countryName)
       students = students.filter(
-        (student) => student.countries.countryName === country
+        (student) => student.countries.countryName === countryName
       );
-
     if (className)
       students = students.filter(
         (student) => student.classes.className === className
@@ -67,7 +74,7 @@ export class StudentService {
 
   async update(
     id: string,
-    studentDto: studentClassesDto
+    studentDto: StudentSearchDTO
   ): Promise<Partial<UpdateResult>> {
     const updated = await this.studentsRepository.update(id, studentDto);
     // const {name} = updated

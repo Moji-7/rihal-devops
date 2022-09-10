@@ -1,5 +1,9 @@
 <h1>display by {{displyby}}</h1>
 <h3>need filter</h3>
+
+<div *ngFor="let std of students">
+  {{std.name}}
+</div>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
@@ -30,10 +34,16 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> age </th>
       <td mat-cell *matCellDef="let element"> {{element.age}} </td>
     </ng-container>
+
     <ng-container >
       <th mat-header-cell *matHeaderCellDef > delete </th>
       <td mat-cell *matCellDef="let element">
     <button class="bg-danger"> <i class="fas fa-trash" (click)="deleteuser(element.id)"></i>
+    </button>
+    <a routerLink="edit/{{element.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+    <button (click)="deleteuser(element.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="element.isDeleting">
+        <span *ngIf="element.isDeleting" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!element.isDeleting">Delete</span>
     </button>
   </td>
 
@@ -49,3 +59,5 @@
 
 
 </div>
+
+https://jasonwatmore.com/post/2020/09/01/angular-master-details-crud-example

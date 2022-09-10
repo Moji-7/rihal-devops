@@ -12,6 +12,7 @@ export class Countries{
   @JoinColumn({ name: "studentid" })
   students: Student[]
 
+
   @CreateDateColumn({type: "timestamp"})
   CreatedDate : Date;
 

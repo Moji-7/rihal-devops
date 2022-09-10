@@ -14,6 +14,7 @@ import { ClassesService } from './classes.service';
 
 import { SeedingService } from '../../seeds/seeding.service';
 
+
 @Module({
   imports: [TypeOrmModule.forFeature([Student, Classes, Countries])],
   controllers: [

@@ -38,6 +38,8 @@
     "@ngrx/store": "~14.0.0",
     "@nrwl/angular": "14.5.10",
     "@swimlane/ngx-charts": "^20.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "dotenv": "^16.0.2",
     "faker": "^6.6.6",
     "mysql2": "^2.3.3",

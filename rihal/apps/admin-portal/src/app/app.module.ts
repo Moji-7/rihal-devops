@@ -27,6 +27,7 @@ import { WelcomeComponent } from './containers/welcome/welcome.component';
 //import { ChartComponent } from '@swimlane/ngx-charts';
 import { ChartsModule } from '@rihal/charts';
 import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
+import { StudentIndividualSummeryComponent } from './components/student-individual-summery/student-individual-summery.component';
 //import { ReportingSummeryComponent } from './components/reporting-summery/reporting-summery.component';
 
 const studentRoutes: Route[] = [
@@ -37,11 +38,11 @@ const studentRoutes: Route[] = [
     children: [
       { path: 'classes', component: StudentListComponent },
       { path: 'register', component: StudentRegisterComponent },
+   //   { path: 'edit-student/:id', component: EditStudentComponent },
+   { path: 'edit/:id', component: StudentRegisterComponent }
     ],
   },
   { path: 'auth', children: authRoutes },
-
-
 ];
 @NgModule({
   declarations: [
@@ -52,9 +53,10 @@ const studentRoutes: Route[] = [
     StudentRegisterComponent,
     StudentIntroComponent,
     WelcomeComponent,
-  //StudentSummeryInfoComponent,
-   // ReportingHomeComponent,
-   // ReportingSummeryComponent,
+    StudentIndividualSummeryComponent,
+    //StudentSummeryInfoComponent,
+    // ReportingHomeComponent,
+    // ReportingSummeryComponent,
   ],
 
   imports: [
