@@ -51,9 +51,9 @@ export class StudentController {
     @Body() studentDto: StudentSearchDTO,
     @Param('id') id: string
   ): Promise<number> {
-    const studentUpdated = await this.studentService.update(id, studentDto);
-    if (studentUpdated.affected === 0)
-      throw new NotFoundException('student not found');
+    // const studentUpdated = await this.studentService.update(id, studentDto);
+    // if (studentUpdated.affected === 0)
+    //   throw new NotFoundException('student not found');
     // const {name} = studentUpdated
     return 204;
   }

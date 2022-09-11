@@ -23,6 +23,7 @@ import { PublicService } from '../../services/public.service';
 export class CountriesComponent implements OnInit {
   countries$!: Observable<any[]>; // @Input()
   inputControl = new FormControl('');
+  @Input() selectedVal!: string| null;
   filteredOptions!: Observable<any[]>;
 
   constructor(private publicService: PublicService) {}
@@ -34,7 +35,7 @@ export class CountriesComponent implements OnInit {
     // ]);
 
     this.countries$ = this.publicService.getall('countries');
-
+    this.inputControl.setValue(this.selectedVal);
     // this.countries$ = this.inputControl.valueChanges.pipe(
     //   tap( res => {console.log("hiiiiii"+res)}),
     //         startWith(' '), debounceTime(400),distinctUntilChanged(),

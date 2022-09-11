@@ -39,7 +39,7 @@ const studentRoutes: Route[] = [
       { path: 'classes', component: StudentListComponent },
       { path: 'register', component: StudentRegisterComponent },
    //   { path: 'edit-student/:id', component: EditStudentComponent },
-   { path: 'edit/:id', component: StudentRegisterComponent }
+   { path: 'register/:studentId', component: StudentRegisterComponent }
     ],
   },
   { path: 'auth', children: authRoutes },
@@ -89,7 +89,7 @@ const studentRoutes: Route[] = [
     StoreModule.forRoot(
       {},
 
-      
+
       {
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {

@@ -12,19 +12,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{user.title}} {{user.firstName}} {{user.lastName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.role}}</td>
+        <tr *ngFor="let studentClass of students">
+            <td>{{ studentClass.name}} </td>
+            <td>{{studentClass.dateOfBirth}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a routerLink="../register:{{studentClass.name}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <a [routerLink]="['../register',studentClass.name]" class="btn btn-sm btn-primary mr-1">Edit2</a>
+                <button (click)="delete(studentClass.name)" class="btn btn-sm btn-danger btn-delete-studentClass">Delete
+                  <!-- [disabled]="studentClass.isDeleting"> -->
+                    <!-- <span *ngIf="studentClass.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!studentClass.isDeleting">Delete</span> -->
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!students">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
@@ -47,34 +48,21 @@
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="class">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> className </th>
-      <td mat-cell *matCellDef="let element"> {{element.className}} </td>
+    <ng-container matColumnDef="classesId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> classesId </th>
+      <td mat-cell *matCellDef="let element"> {{element.classesId}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> countryName </th>
-      <td mat-cell *matCellDef="let element"> {{element.countryName}} </td>
+    <ng-container matColumnDef="countriesId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> countriesId </th>
+      <td mat-cell *matCellDef="let element"> {{element.countriesId}} </td>
     </ng-container>
     <ng-container matColumnDef="age">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> age </th>
-      <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+      <td mat-cell *matCellDef="let element">{{ageCalculetor(element.dateOfBirth)}} </td>
     </ng-container>
 
-    <ng-container >
-      <th mat-header-cell *matHeaderCellDef > delete </th>
-      <td mat-cell *matCellDef="let element">
-    <button class="bg-danger"> <i class="fas fa-trash" (click)="deleteuser(element.id)"></i>
-    </button>
-    <a routerLink="edit/{{element.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-    <button (click)="deleteuser(element.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="element.isDeleting">
-        <span *ngIf="element.isDeleting" class="spinner-border spinner-border-sm"></span>
-        <span *ngIf="!element.isDeleting">Delete</span>
-    </button>
-  </td>
-
-  </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

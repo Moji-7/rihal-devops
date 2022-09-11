@@ -22,23 +22,15 @@ export class StudentService {
   /*  getData(): Message {
     return { message: 'Welcome to api!' };
   }*/
-  getStudents(): Promise<Student[]> {
-    const student = new Student();
-    student.name = 'ali';
-    student.dateOfBirth = new Date(1995, 11, 17);
-    student.countries.id = 1;
-    // student.classes.id = classesid;
-    this.studentsRepository.save(student);
-    return this.studentsRepository.find();
-  }
+
 
   async getFilteredStudent(
     studentSearchDto: StudentSearchDTO
   ): Promise<Student[]> {
     const {
       name,
-      className,
-      countryName,
+      classesId,
+      countriesId,
     //   dateOfBirthFrom,
     //  dateOfBirthTo,
     //  registerDateFrom,
@@ -48,13 +40,13 @@ export class StudentService {
 
     if (name)
       students = students.filter((student) => student.name.includes(name));
-    if (countryName)
+    if (countriesId)
       students = students.filter(
-        (student) => student.countries.countryName === countryName
+        (student) => student.countries.id === countriesId
       );
-    if (className)
+    if (classesId)
       students = students.filter(
-        (student) => student.classes.className === className
+        (student) => student.classes.id === classesId
       );
 
     return students;
@@ -70,17 +62,19 @@ export class StudentService {
 
   create(Student: Student): Promise<Student> {
     return this.studentsRepository.save(Student);
+   // return this.studentsRepository.find();
   }
 
-  async update(
-    id: string,
-    studentDto: StudentSearchDTO
-  ): Promise<Partial<UpdateResult>> {
-    const updated = await this.studentsRepository.update(id, studentDto);
-    // const {name} = updated
+  // async update(
+  //   id: string,
+  //   studentDto: StudentSearchDTO
+  // ): Promise<Partial<UpdateResult>> {
+  //   const updated = await this.studentsRepository.update(id, studentDto);
+  //   // const {name} = updated
+  //   return updated;
+  // }
 
-    return updated;
-  }
+
 
   remove(id: string): Promise<DeleteResult> {
     return this.studentsRepository.delete(id);

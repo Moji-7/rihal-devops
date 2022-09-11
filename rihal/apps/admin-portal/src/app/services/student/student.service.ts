@@ -40,7 +40,7 @@ export class StudentService {
   }
   public find(studentId: number) {
     return this.http
-      .get<studentClassesDto>(`${this.baseURL}/find/${studentId}`)
+      .get<studentClassesDto>(`${this.baseURL}/${studentId}`)
       .pipe(retry(3), catchError(this.handleError));
     //return this.httpClient.get(this.REST_API_SERVER, options).pipe(retry(3), catchError(this.handleError));
   }

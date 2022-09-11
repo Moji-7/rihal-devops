@@ -4,9 +4,9 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 export class StudentSearchDTO  {
   @IsNotEmpty()
   name: string;
-  className: string;
-  @IsNotEmpty()
-  countryName: string;
+  classesId: number;
+  //@IsNotEmpty()
+  countriesId: number;
   // dateOfBirthFrom: Date;
   // dateOfBirthTo: Date;
   // registerDateFrom: Date;

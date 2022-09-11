@@ -1,9 +1,9 @@
 export interface studentClassesDto {
-  // id: number;
+   id: number;
   name: string;
   dateOfBirth: string;
   age: number;
-  className: string;
-  countryName: string;
+  classesId: number;
+  countriesId: number;
 }
 

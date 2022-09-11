@@ -15,6 +15,7 @@ export class ClassesComponent implements OnInit {
   classes$!:Observable<any[]>;//@Input()
    _classes!:Classes[];//@Input()
   inputControl = new FormControl('');
+  @Input() selectedVal!: string| null;
   filteredOptions!: Observable<any[]>;
 
    ngOnInit() {
@@ -23,6 +24,7 @@ export class ClassesComponent implements OnInit {
     //   { id: 2, name: 'programming fondumentals' },
     // ]);
     this.classes$ =this.publicService.getall("classes");
+    this.inputControl.setValue(this.selectedVal);
   }
 
   constructor(private publicService: PublicService){

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { Alert, AlertType } from '@app/_models';
+import { Alert, AlertType } from './alert';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
@@ -31,7 +31,7 @@ export class AlertService {
         this.alert(message, AlertType.Warning, options);
     }
 
-    // main alert method    
+    // main alert method
     alert(message: string, type: AlertType, options: Partial<Alert> = {}) {
         const id = options.id || this.defaultId;
         const alert = new Alert(id, type, message, options.autoClose, options.keepAfterRouteChange);
