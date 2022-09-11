@@ -13,11 +13,10 @@ export class ClassesService {
     private classesRepository: Repository<Classes>
   ) {}
 
-
   async getFiltered(ceriteria: string): Promise<Classes[]> {
     let queryResult = await this.findAll();
     if (ceriteria)
-    queryResult = queryResult.filter(entity => entity.className === ceriteria)
+    queryResult = queryResult.filter(entity => entity.name === ceriteria)
     return queryResult;
   }
   findAll(): Promise<Classes[]> {

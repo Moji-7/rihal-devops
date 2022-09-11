@@ -7,10 +7,10 @@ export class Classes{
 
   @Column()
   @Column({ name: "class_name" ,length: 255})
-  className: string;
+  name: string;
 
   @OneToMany(() => Student, (student) => student.classes,{cascade: true})
-  student: Student[]
+  students: Student[]
 
   @CreateDateColumn({type: "timestamp"})
   CreatedDate : Date;

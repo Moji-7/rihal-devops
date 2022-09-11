@@ -6,7 +6,7 @@ export class Countries{
   id: number;
 
   @Column({ name: "name" ,length: 255})
-  countryName: string;
+  name: string;
 
   @OneToMany(() => Student, (student) => student.countries)
   @JoinColumn({ name: "studentid" })

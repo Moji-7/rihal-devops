@@ -17,7 +17,7 @@ export class CountriesService {
   async getFiltered(ceriteria: string): Promise<Countries[]> {
     let queryResult = await this.findAll();
     if (ceriteria)
-    queryResult = queryResult.filter(entity => entity.countryName === ceriteria)
+    queryResult = queryResult.filter(entity => entity.name === ceriteria)
     return queryResult;
   }
   findAll(): Promise<Countries[]> {

@@ -21,9 +21,9 @@ import { PublicService } from '../../services/public.service';
   styleUrls: ['./countries.component.scss'],
 })
 export class CountriesComponent implements OnInit {
-  countries$!: Observable<any[]>; // @Input()
+  countries$!: Observable<Countries[]>; // @Input()
   inputControl = new FormControl('');
-  @Input() selectedVal!: string| null;
+  @Input() countryId!:number;
   filteredOptions!: Observable<any[]>;
 
   constructor(private publicService: PublicService) {}
@@ -35,7 +35,11 @@ export class CountriesComponent implements OnInit {
     // ]);
 
     this.countries$ = this.publicService.getall('countries');
-    this.inputControl.setValue(this.selectedVal);
+    this.countries$.subscribe(x=>{
+         this.inputControl.setValue(x.find(xx=>xx.id===this.countryId)?.name||null);
+    }
+    )
+
     // this.countries$ = this.inputControl.valueChanges.pipe(
     //   tap( res => {console.log("hiiiiii"+res)}),
     //         startWith(' '), debounceTime(400),distinctUntilChanged(),

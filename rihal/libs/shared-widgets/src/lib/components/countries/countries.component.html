@@ -1,3 +1,4 @@
+
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>country</mat-label>
@@ -8,9 +9,9 @@
       [formControl]="inputControl"
     />
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let state of countries$ | async" [value]="state.countryName">
+      <mat-option *ngFor="let state of countries$ | async" [value]="state.name">
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{ state.countryName }}</span> 
+        <span>{{ state.name }}</span>
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>

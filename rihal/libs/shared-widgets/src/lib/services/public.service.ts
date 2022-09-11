@@ -5,7 +5,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, retry, throwError,map,share } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,8 @@ export class PublicService {
   find(entityName: string, id: number) {
     return this.http
       .get<any>(`${this.baseURL}/${entityName}/find/${id}`)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(retry(3),catchError(this.handleError))
+    ;
   }
 
   create(entityName: string, params: any) {
@@ -52,4 +54,6 @@ export class PublicService {
   delete(entityName: string, id: number) {
     return this.http.delete(`${this.baseURL}/${entityName}/find/${id}`);
   }
+
+
 }

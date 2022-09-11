@@ -59,7 +59,7 @@ export class StudentController {
   }
 
   @Post()
-  add(@Body() student: Student) {
+  create(@Body() student: Student) {
     return this.studentService.create(student);
   }
 

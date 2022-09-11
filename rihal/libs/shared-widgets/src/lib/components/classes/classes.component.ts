@@ -1,8 +1,15 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Classes } from '@rihal/data-models';
-import {FormControl} from '@angular/forms';
-import {Observable, of} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PublicService } from '../../services/public.service';
 
@@ -12,22 +19,27 @@ import { PublicService } from '../../services/public.service';
   styleUrls: ['./classes.component.scss'],
 })
 export class ClassesComponent implements OnInit {
-  classes$!:Observable<any[]>;//@Input()
-   _classes!:Classes[];//@Input()
+  classes$!: Observable<Classes[]>; //@Input()
+  _classes!: Classes[]; //@Input()
   inputControl = new FormControl('');
-  @Input() selectedVal!: string| null;
+  @Input() classesId!: number;
   filteredOptions!: Observable<any[]>;
 
-   ngOnInit() {
+  ngOnInit() {
     // const getClasses$: Observable<Classes[]> = of([
     //   { id: 1, name: 'art of physics' },
     //   { id: 2, name: 'programming fondumentals' },
     // ]);
-    this.classes$ =this.publicService.getall("classes");
-    this.inputControl.setValue(this.selectedVal);
+    this.classes$ = this.publicService.getall('classes');
+
+    this.classes$.subscribe((x) => {
+      this.inputControl.setValue(
+        x.find((xx) => xx.id === this.classesId)?.name || null
+      );
+    });
   }
 
-  constructor(private publicService: PublicService){
+  constructor(private publicService: PublicService) {
     this.filteredOptions = this.inputControl.valueChanges.pipe(
       startWith(''),
       map((symbol) =>
@@ -36,10 +48,7 @@ export class ClassesComponent implements OnInit {
     );
   }
 
-
-
-
-   private _filterSymbols(value: string): Classes[] {
+  private _filterSymbols(value: string): Classes[] {
     const filterValue = value.toLowerCase();
 
     return this._classes.filter((symbol) =>
@@ -54,7 +63,6 @@ export class ClassesComponent implements OnInit {
     // event.option.value as StockSymbol;
     let selectedSymbol = this._filterSymbols(event.option.value)[0]; // : this.symbols.slice()
     //broad cast i selected
-   // this.sharedService.selectSymbol.next(selectedSymbol);
+    // this.sharedService.selectSymbol.next(selectedSymbol);
   }
-
 }

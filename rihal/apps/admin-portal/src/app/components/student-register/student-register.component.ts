@@ -1,18 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Classes, Countries } from '@rihal/data-models';
-import { first, Observable, of } from 'rxjs';
+import { Classes, Countries, studentClassesDto } from '@rihal/data-models';
+import { first, Observable, of, Subscription } from 'rxjs';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../../services/student/student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from '@rihal/layout';
+import { CachedService } from '@rihal/shared-widgets';
+import { StudentHomeComponent } from '../../containers/student-home/student-home.component';
+
 //import { AlertComponent } from 'libs/layout/src/lib/containers/layout/alert/alert.component';
 
 @Component({
@@ -22,6 +33,7 @@ import { AlertService } from '@rihal/layout';
 })
 export class StudentRegisterComponent implements OnInit {
   constructor(
+    public injector:Injector,
     private crudservice: StudentService,
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
@@ -35,9 +47,8 @@ export class StudentRegisterComponent implements OnInit {
   isAddMode = false;
   loading = false;
   submitted = false;
-
-  classes$!: Observable<Classes[]>;
-  countries$!: Observable<Countries[]>;
+  selectedCountryId!:number;
+  selectedClassesId!:number;
 
   unamePattern = '^[a-z0-9_-]{8,15}$';
   pwdPattern = '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?!.*s).{6,12}$';
@@ -56,15 +67,33 @@ export class StudentRegisterComponent implements OnInit {
   // @Output() submitForm = new EventEmitter<Authenticate>();
 
   ngOnInit(): void {
+    //for edit already registered student
     this.studentId = this.route.snapshot.params['studentId'];
-    console.log('>>>>>>>>>>>>>>>>>>' + this.studentId);
+    //console.log('>>>>>>>>>>>>>>>>>>' + this.studentId);
     this.isAddMode = !this.studentId;
     if (!this.isAddMode) {
-      this.crudservice.find(parseInt(this.studentId))
+      this.crudservice
+        .find(parseInt(this.studentId))
         .pipe(first())
-        .subscribe((x) => this.registerForm.patchValue(x));
+        .subscribe(x=> {
+          this.registerForm.patchValue(x)
+          this.selectedCountryId=x.countriesId
+          this.selectedClassesId=x.classesId
+        });
     }
+    // for getting cached models from parent component
+    // const parentComponent = this.injector.get(StudentHomeComponent);
+    // parentComponent.dataClasses$.subscribe(x=>{
+    //   console.log(x[0].name);
+    //   this.selectedCountry=x[0].name
+    // })
+    // parentComponent.dataCountries$.subscribe(x=>{
+    //   console.log(x[0].name)
+    //   this.selectedCountry=x[0].name
+    // })
+
   }
+
 
   // this.route.params.subscribe((routeParams) => {
   //   // this.router.navigate([this.router.url])
@@ -106,7 +135,7 @@ export class StudentRegisterComponent implements OnInit {
 
   private createUser() {
     this.crudservice
-      .createStudentClass(this.registerForm.value)
+      .createStudentClass(this.registerForm)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -139,7 +168,9 @@ export class StudentRegisterComponent implements OnInit {
         },
       });
   }
+
 }
+
 // register() {
 //   this.isValidFormSubmitted = false;
 //   if (this.registerForm.invalid) {

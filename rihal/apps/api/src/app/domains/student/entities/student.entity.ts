@@ -14,7 +14,7 @@ export class Student{
 
   //@Column({ type: 'date' ,name: "date_of_birth" })
   @Column({ name: "classesId" })
-  @ManyToOne(() => Classes, (classes) => classes.className,{ onDelete: 'CASCADE'})
+  @ManyToOne(() => Classes, (classes) => classes.students,{ onDelete: 'CASCADE'})
   @JoinColumn({ name: "classesId", referencedColumnName: "id" })
   classes: Classes;
 
