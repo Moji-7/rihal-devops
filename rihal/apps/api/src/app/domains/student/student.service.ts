@@ -1,16 +1,21 @@
 import { Injectable } from '@nestjs/common';
 //import { Message } from '@rihal/api-interfaces';
 import { Student } from './entities/student.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, DeleteResult, ILike, Repository, UpdateResult } from 'typeorm';
 
 import { StudentSearchDTO } from '../../validations/StudentSearchDTO';
+import { Classes } from './entities/classes.entity';
+import { StudentClass } from './entities/studentClass.viewentity';
+import { SearchStudentClassesDto } from './entities/dto/searchStudentClasses';
+
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectRepository(Student)
-    private studentsRepository: Repository<Student>
+    private studentsRepository: Repository<Student>,
+    @InjectDataSource() private readonly datasource: DataSource
   ) {
     // const classes = new Classes();
     // classes.class_name = 'science';
@@ -25,44 +30,46 @@ export class StudentService {
 
 
   async getFilteredStudent(
-    studentSearchDto: StudentSearchDTO
-  ): Promise<Student[]> {
-    const {
-      name,
-      classesId,
-      countriesId,
-    //   dateOfBirthFrom,
-    //  dateOfBirthTo,
-    //  registerDateFrom,
-    //  registerDateTo,
-    } = studentSearchDto;
-    let students = await this.findAll();
+    sort: string,
+    order: string,
+    page: number,
+    query: string
 
-    if (name)
-      students = students.filter((student) => student.name.includes(name));
-    if (countriesId)
-      students = students.filter(
-        (student) => student.countries.id === countriesId
-      );
-    if (classesId)
-      students = students.filter(
-        (student) => student.classes.id === classesId
-      );
+  ): Promise<SearchStudentClassesDto> {
+    const take=10
 
-    return students;
+     const [data, total]= await (await this.datasource.manager.findAndCount(StudentClass,{
+      where: [{
+        name: ILike(`%${query}%`),
+        //email: ILike(`%${search}%`)
+    }],
+      order: {
+        [sort]: order
+    },
+    take,
+    skip: (page - 1) * take
+     }))
+     return {
+      studentClasses: data,
+      count: total
+  }
+
   }
 
   findAll(): Promise<Student[]> {
     return this.studentsRepository.find();
   }
 
-  findOne(id: number): Promise<Student> {
-    return this.studentsRepository.findOneBy({ id: id });
+  async findOne(id: number): Promise<Student> {
+    // return this.studentsRepository.findOneBy({ id: id });
+    const student = await this.studentsRepository.findOneBy({ id: id });
+    // const categories = await student.classes
+    return student;
   }
 
   create(Student: Student): Promise<Student> {
     return this.studentsRepository.save(Student);
-   // return this.studentsRepository.find();
+    // return this.studentsRepository.find();
   }
 
   // async update(
@@ -73,8 +80,6 @@ export class StudentService {
   //   // const {name} = updated
   //   return updated;
   // }
-
-
 
   remove(id: string): Promise<DeleteResult> {
     return this.studentsRepository.delete(id);

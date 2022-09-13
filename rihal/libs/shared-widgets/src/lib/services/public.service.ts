@@ -16,7 +16,6 @@ export class PublicService {
   studentClass: any;
   constructor(private http: HttpClient) {}
   //get all users  details
-
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
@@ -44,15 +43,18 @@ export class PublicService {
   }
 
   create(entityName: string, params: any) {
-    return this.http.post(this.baseURL, params);
+    return this.http.post(this.baseURL, params).pipe(
+      catchError(this.handleError));
   }
 
   update(entityName: string, id: string, params: any) {
-    return this.http.put(`${this.baseURL}/${entityName}/find/${id}`, params);
+    return this.http.put(`${this.baseURL}/${entityName}/find/${id}`, params).pipe(
+      catchError(this.handleError));
   }
 
   delete(entityName: string, id: number) {
-    return this.http.delete(`${this.baseURL}/${entityName}/find/${id}`);
+    return this.http.delete(`${this.baseURL}/${entityName}/find/${id}`).pipe(
+      catchError(this.handleError));
   }
 
 

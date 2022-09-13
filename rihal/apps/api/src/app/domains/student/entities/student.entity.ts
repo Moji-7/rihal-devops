@@ -12,15 +12,17 @@ export class Student{
   @Column({ type: 'date' ,name: "date_of_birth" })
   dateOfBirth: Date;
 
-  //@Column({ type: 'date' ,name: "date_of_birth" })
+
   @Column({ name: "classesId" })
-  @ManyToOne(() => Classes, (classes) => classes.students,{ onDelete: 'CASCADE'})
+  @ManyToOne(() => Classes, (classes) => classes.students,{ onDelete: 'CASCADE'
+  //,eager:true
+  })
   @JoinColumn({ name: "classesId", referencedColumnName: "id" })
   classes: Classes;
 
   @Column({ name: "countriesId" })
   @ManyToOne(() => Countries, (countries) => countries.students)
-  @JoinColumn()
+  @JoinColumn({ name: "countriesId", referencedColumnName: "id" })
   countries: Countries;
 
 

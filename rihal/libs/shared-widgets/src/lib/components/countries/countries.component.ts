@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import {
@@ -20,31 +20,32 @@ import { PublicService } from '../../services/public.service';
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss'],
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements OnInit, AfterViewChecked ,OnDestroy{
   countries$!: Observable<Countries[]>; // @Input()
   inputControl = new FormControl('');
-  @Input() countryId!:number;
+  @Input() countryId!: number;
   filteredOptions!: Observable<any[]>;
 
   constructor(private publicService: PublicService) {}
 
+
   ngOnInit() {
-    // const getCountries$: Observable<Countries[]> = of([
-    //   { id: 1, name: 'Count of students per class' },
-    //   { id: 2, name: 'Average age of students ' },
-    // ]);
-
     this.countries$ = this.publicService.getall('countries');
-    this.countries$.subscribe(x=>{
-         this.inputControl.setValue(x.find(xx=>xx.id===this.countryId)?.name||null);
-    }
-    )
-
     // this.countries$ = this.inputControl.valueChanges.pipe(
     //   tap( res => {console.log("hiiiiii"+res)}),
     //         startWith(' '), debounceTime(400),distinctUntilChanged(),
     //   switchMap(value => this._filter(value || '')),
     // );
+  }
+  ngAfterViewChecked(): void {
+    this.countries$.subscribe((x) => {
+      this.inputControl.setValue(
+        x.find((xx) => xx.id === this.countryId)?.name || null
+      );});
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   _filter(val: string): Observable<any[]> {

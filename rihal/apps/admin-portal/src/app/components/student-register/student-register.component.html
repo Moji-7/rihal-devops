@@ -23,12 +23,11 @@
           <span *ngIf="registerForm.get('name')?.hasError('pattern') && registerForm.touched">User name not valid.</span>
         </mat-error>
       </mat-form-field>
-      <input matInput placeholder="name" type="text" formControlName="dateOfBirth" />
-        <rihal-datepicker [selectedVal]="'1983-02-02'"></rihal-datepicker>
+      <!-- <input matInput placeholder="name" type="text" formControlName="dateOfBirth" /> -->
+        <rihal-datepicker [selectedVal]="selectedBirthdate"></rihal-datepicker>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>
         </mat-error>
-        selectedcountry:{{selectedCountryId}}
         <rihal-countries [countryId]="selectedCountryId" ></rihal-countries>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>

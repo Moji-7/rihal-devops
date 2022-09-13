@@ -33,7 +33,7 @@ import { StudentHomeComponent } from '../../containers/student-home/student-home
 })
 export class StudentRegisterComponent implements OnInit {
   constructor(
-    public injector:Injector,
+    public injector: Injector,
     private crudservice: StudentService,
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
@@ -47,8 +47,9 @@ export class StudentRegisterComponent implements OnInit {
   isAddMode = false;
   loading = false;
   submitted = false;
-  selectedCountryId!:number;
-  selectedClassesId!:number;
+  selectedCountryId!: number;
+  selectedClassesId!: number;
+  selectedBirthdate!: string;
 
   unamePattern = '^[a-z0-9_-]{8,15}$';
   pwdPattern = '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?!.*s).{6,12}$';
@@ -75,10 +76,13 @@ export class StudentRegisterComponent implements OnInit {
       this.crudservice
         .find(parseInt(this.studentId))
         .pipe(first())
-        .subscribe(x=> {
-          this.registerForm.patchValue(x)
-          this.selectedCountryId=x.countriesId
-          this.selectedClassesId=x.classesId
+        .subscribe((x) => {
+          //console.log(x);
+          this.registerForm.patchValue(x);
+          this.selectedCountryId = x.countriesId;
+          this.selectedClassesId = x.classesId;
+          //console.log(x.dateOfBirth);
+          this.selectedBirthdate = x.dateOfBirth;
         });
     }
     // for getting cached models from parent component
@@ -91,9 +95,7 @@ export class StudentRegisterComponent implements OnInit {
     //   console.log(x[0].name)
     //   this.selectedCountry=x[0].name
     // })
-
   }
-
 
   // this.route.params.subscribe((routeParams) => {
   //   // this.router.navigate([this.router.url])
@@ -116,15 +118,12 @@ export class StudentRegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // reset alerts on submit
     this.alertService.clear();
-
     // stop here if registerForm is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
-
+  //  if (this.registerForm.invalid) {
+   //   return;
+  //  }
     this.loading = true;
     if (this.isAddMode) {
       this.createUser();
@@ -135,14 +134,15 @@ export class StudentRegisterComponent implements OnInit {
 
   private createUser() {
     this.crudservice
-      .createStudentClass(this.registerForm)
+      .createStudentClass(this.mapStudent())
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('User added', {
+          this.alertService.success('student class added', {
             keepAfterRouteChange: true,
           });
-          this.router.navigate(['../'], { relativeTo: this.route });
+          this.registerForm.reset();
+         // this.router.navigate(['../'], { relativeTo: this.route });
         },
         error: (error) => {
           this.alertService.error(error);
@@ -168,7 +168,18 @@ export class StudentRegisterComponent implements OnInit {
         },
       });
   }
+  private mapStudent() {
 
+    const student = {
+      name: this.registerForm.value.name,
+      dateOfBirth:"2002-02-12", //this.registerForm.value.dateOfBirth,
+      classes: 2,
+      countries: 7,
+    };
+console.log(student)
+    return student;
+    //  this.registerForm.get('name of you control').value
+  }
 }
 
 // register() {

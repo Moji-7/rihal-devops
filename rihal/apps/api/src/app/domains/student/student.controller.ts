@@ -14,8 +14,10 @@ import {
 } from '@nestjs/common';
 
 import { StudentSearchDTO } from '../../validations/StudentSearchDTO';
+import { SearchStudentClassesDto } from './entities/dto/searchStudentClasses';
 
 import { Student } from './entities/student.entity';
+import { StudentClass } from './entities/studentClass.viewentity';
 
 //import { Message } from '@rihal/api-interfaces';
 
@@ -27,22 +29,33 @@ export class StudentController {
 
   @Post('/search')
   //@UsePipes(new ValidationPipe({ transform: true }))
-  async getStudents(@Body() studentSearchDTO: StudentSearchDTO):Promise<Student[]> {
-    if (Object.keys(studentSearchDTO).length) {
-      const filteredStudents = await this.studentService.getFilteredStudent(
-        studentSearchDTO
-      );
-      return filteredStudents;
-    } else {
-      const allStudents = await this.studentService.findAll();
-      return allStudents;
-    }
+  async getStudents(
+    //@Body() studentSearchDTO: StudentSearchDTO,
+    @Query('sort') sort: string,
+    @Query('order') order: string,
+    @Query('page') page: number,
+    @Query('query') query: string
+
+  ): Promise<SearchStudentClassesDto> {
+    // if (Object.keys(studentSearchDTO).length) {
+    const filteredStudents = await this.studentService.getFilteredStudent(
+      sort,
+      order,
+      page,
+      query,
+     // studentSearchDTO
+    );
+    return filteredStudents;
+    // } else {
+    //   const allStudents = await this.studentService.findAll();
+    //   return allStudents;
+    // }
   }
 
   @Get('/:id')
-  async find(@Param('id') id: number) {
+  async find(@Param('id') id: number): Promise<Student> {
     const student = await this.studentService.findOne(id);
-    if (!student) throw new NotFoundException('Product does not exist!');
+    if (!student) throw new NotFoundException('student does not exist!');
     return student;
   }
 

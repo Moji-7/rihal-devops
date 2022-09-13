@@ -1,39 +1,19 @@
-<h1>display by {{displyby}}</h1>
+<!-- <h1>display by {{displyby}}</h1>
 <h3>need filter</h3>
-<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 30%">Name</th>
-            <th style="width: 30%">Email</th>
-            <th style="width: 30%">Role</th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let studentClass of students">
-            <td>{{ studentClass.name}} </td>
-            <td>{{studentClass.dateOfBirth}}</td>
-            <td style="white-space: nowrap">
-                <a routerLink="../register:{{studentClass.name}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <a [routerLink]="['../register',studentClass.name]" class="btn btn-sm btn-primary mr-1">Edit2</a>
-                <button (click)="delete(studentClass.name)" class="btn btn-sm btn-danger btn-delete-studentClass">Delete
-                  <!-- [disabled]="studentClass.isDeleting"> -->
-                    <!-- <span *ngIf="studentClass.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!studentClass.isDeleting">Delete</span> -->
-                </button>
-            </td>
-        </tr>
-        <tr *ngIf="!students">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<h1>Users</h1> -->
+
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+
+<!-- <input matInput type="text" placeholder="Search for name" (input)="term$.next($any($event.target).value)">  -->
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Search Name</mat-label>
+  <input type="text" matInput  (input)="term$.next($any($event.target).value)"
+         placeholder="Search for name">
+         <!-- Term- {{term$|async}} -->
+  <mat-hint>you can search for name to filter results</mat-hint>
+</mat-form-field>
+  <table mat-table [dataSource]="dataSource" matSort matSortActive="name"
+  matSortDisableClear matSortDirection="desc">
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
@@ -43,32 +23,46 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="dateOfBirth">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateOfBirth}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> date of birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateOfBirth | date: 'dd-MM-yyyy'}} </td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="classesId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> classesId </th>
-      <td mat-cell *matCellDef="let element"> {{element.classesId}} </td>
-    </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="countriesId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> countriesId </th>
-      <td mat-cell *matCellDef="let element"> {{element.countriesId}} </td>
-    </ng-container>
     <ng-container matColumnDef="age">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> age </th>
       <td mat-cell *matCellDef="let element">{{ageCalculetor(element.dateOfBirth)}} </td>
+    </ng-container>
+      <ng-container matColumnDef="classesName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> class </th>
+      <td mat-cell *matCellDef="let element">{{element.classesName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="countryName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> country </th>
+      <td mat-cell *matCellDef="let element">{{element.countryName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element;">
+        <button
+          mat-raised-button
+          color="primary"
+          class="push-right"
+          [routerLink]="['../register', element.id]" > Edit
+        </button>
+
+    <button (click)="delete(element.id)"    mat-raised-button color="warn" class="push-right danger">Delete</button>
+
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+  <mat-paginator [pageSize]="20" [length]="resultsLength"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
+
 </div>
