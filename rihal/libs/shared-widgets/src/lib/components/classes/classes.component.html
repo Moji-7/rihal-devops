@@ -1,3 +1,4 @@
+
 <form class="example-form" >
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>classes</mat-label>
@@ -5,12 +6,11 @@
            aria-label="State"
            [matAutocomplete]="auto"
            [formControl]="className">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
-
-
-      <mat-option *ngFor="let classes of classes$ | async" [value]="classes.name"  [id]="classes.id.toString()"  >
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)"
+ [displayWith]="displayFn.bind(this)">
+      <mat-option *ngFor="let _classes of classes" [value]="_classes.name"  [id]="_classes.id.toString()"  >
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{classes.name}}</span>
+        <span>{{_classes.name}}</span>
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>

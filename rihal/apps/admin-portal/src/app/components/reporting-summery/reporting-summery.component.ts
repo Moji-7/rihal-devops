@@ -7,8 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
-import { studentClassesDto, StudentSummeryInfo } from '@rihal/data-models';
-import { ViewTitle } from 'libs/data-models/src/lib/studentSummeryInfo';
+import {  StudentSummeryInfo, ViewTitle } from '@rihal/data-models';
 import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
 import { ReportService } from '../../services/student/report.service';
 import { Color, ScaleType } from '@swimlane/ngx-charts';

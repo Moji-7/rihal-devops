@@ -6,12 +6,12 @@
       matInput
       aria-label="State"
       [matAutocomplete]="auto"
-      [formControl]="inputControl"
+      [formControl]="countryName"
     />
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let state of countries$ | async" [value]="state.name">
+    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayFn.bind(this)">k
+      <mat-option *ngFor="let _country of countries" [value]="_country.name"  [id]="_country.id.toString()" >
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{ state.name }}</span>
+        <span>{{ _country.name }}</span>
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>

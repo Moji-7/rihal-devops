@@ -8,7 +8,7 @@
     </div>
 
     <ng-template #editMode>
-      Edit you information
+      Edit your information
     </ng-template>
 
   </mat-card-title>
@@ -28,11 +28,11 @@
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>
         </mat-error>
-        <rihal-countries [countryId]="selectedCountryId" ></rihal-countries>
+        <rihal-countries [country]="selectedCountry" ></rihal-countries>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>
         </mat-error>
-        <rihal-classes [classesId]="selectedClassesId"></rihal-classes>
+        <rihal-classes [class]="selectedClasses"></rihal-classes>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> classes rquired</span>
         </mat-error>

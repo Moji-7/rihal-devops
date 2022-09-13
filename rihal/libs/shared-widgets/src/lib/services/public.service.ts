@@ -32,7 +32,7 @@ export class PublicService {
   getall(entityName: string) {
     return this.http
       .get<any[]>(`${this.baseURL}/${entityName}`)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   find(entityName: string, id: number) {

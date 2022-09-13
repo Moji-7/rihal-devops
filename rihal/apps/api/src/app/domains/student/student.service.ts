@@ -15,18 +15,12 @@ export class StudentService {
   constructor(
     @InjectRepository(Student)
     private studentsRepository: Repository<Student>,
+    @InjectRepository(StudentClass)
+    private studentClassRepository: Repository<StudentClass>,
     @InjectDataSource() private readonly datasource: DataSource
   ) {
-    // const classes = new Classes();
-    // classes.class_name = 'science';
-    // let classesid=studentsRepository.save(classes);
-    // const country = new Countries();
-    // country.name = 'finland';
-    // let countryid= studentsRepository.save(country);
+
   }
-  /*  getData(): Message {
-    return { message: 'Welcome to api!' };
-  }*/
 
 
   async getFilteredStudent(
@@ -56,13 +50,9 @@ export class StudentService {
 
   }
 
-  findAll(): Promise<Student[]> {
-    return this.studentsRepository.find();
-  }
-
-  async findOne(id: number): Promise<Student> {
+  async findOne(id: number): Promise<StudentClass> {
     // return this.studentsRepository.findOneBy({ id: id });
-    const student = await this.studentsRepository.findOneBy({ id: id });
+    const student = await this.studentClassRepository.findOneBy({ id: id });
     // const categories = await student.classes
     return student;
   }
@@ -71,7 +61,6 @@ export class StudentService {
     return this.studentsRepository.save(Student);
     // return this.studentsRepository.find();
   }
-
   // async update(
   //   id: string,
   //   studentDto: StudentSearchDTO
@@ -80,7 +69,6 @@ export class StudentService {
   //   // const {name} = updated
   //   return updated;
   // }
-
   remove(id: string): Promise<DeleteResult> {
     return this.studentsRepository.delete(id);
   }

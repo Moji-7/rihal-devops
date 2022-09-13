@@ -14,7 +14,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Classes, Countries, studentClassesDto } from '@rihal/data-models';
+import { Classes, Countries } from '@rihal/data-models';
 import { first, Observable, of, Subscription } from 'rxjs';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,8 +47,8 @@ export class StudentRegisterComponent implements OnInit {
   isAddMode = false;
   loading = false;
   submitted = false;
-  selectedCountryId!: number;
-  selectedClassesId!: number;
+  selectedCountry!: string;
+  selectedClasses!: string;
   selectedBirthdate!: string;
 
   unamePattern = '^[a-z0-9_-]{8,15}$';
@@ -77,10 +77,10 @@ export class StudentRegisterComponent implements OnInit {
         .find(parseInt(this.studentId))
         .pipe(first())
         .subscribe((x) => {
-          //console.log(x);
+         // console.log(x);
           this.registerForm.patchValue(x);
-          this.selectedCountryId = x.countriesId;
-          this.selectedClassesId = x.classesId;
+          this.selectedCountry = x.countryName;
+          this.selectedClasses = x.classesName;
           //console.log(x.dateOfBirth);
           this.selectedBirthdate = x.dateOfBirth;
         });

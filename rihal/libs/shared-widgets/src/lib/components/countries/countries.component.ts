@@ -1,6 +1,12 @@
-import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewChecked,
+  OnDestroy,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -20,41 +26,49 @@ import { PublicService } from '../../services/public.service';
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss'],
 })
-export class CountriesComponent implements OnInit, AfterViewChecked ,OnDestroy{
-  countries$!: Observable<Countries[]>; // @Input()
+export class CountriesComponent implements OnInit, OnDestroy {
+  countries!: Countries[]; // @Input()
+  subscription!: Subscription;
   inputControl = new FormControl('');
-  @Input() countryId!: number;
+  @Input() country!: string;
   filteredOptions!: Observable<any[]>;
+  countryName = new FormControl('');
+  form = new FormGroup({
+    countryName: new FormControl('', Validators.required),
+  });
 
   constructor(private publicService: PublicService) {}
 
-
   ngOnInit() {
-    this.countries$ = this.publicService.getall('countries');
-    // this.countries$ = this.inputControl.valueChanges.pipe(
-    //   tap( res => {console.log("hiiiiii"+res)}),
-    //         startWith(' '), debounceTime(400),distinctUntilChanged(),
-    //   switchMap(value => this._filter(value || '')),
-    // );
-  }
-  ngAfterViewChecked(): void {
-    this.countries$.subscribe((x) => {
-      this.inputControl.setValue(
-        x.find((xx) => xx.id === this.countryId)?.name || null
-      );});
+    this.subscription = this.publicService.getall('countries').subscribe(
+      (response) => {
+        this.countries = response;
+      },
+      (err) => console.error(err),
+      () => {
+        this.countryName.setValue(this.country);
+      }
+    );
   }
 
   ngOnDestroy(): void {
-
+    this.subscription.unsubscribe();
   }
 
-  _filter(val: string): Observable<any[]> {
-    return this.countries$.pipe(
-      map((response) =>
-        response.filter((option) => {
-          return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0;
-        })
-      )
-    );
+  displayFn(_country: string) {
+    if (this.countries) {
+      const index = this.countries.findIndex((state) => state.name === _country);
+      return this.countries[index].name;
+    }
+    return '';
   }
+  // _filter(val: string): Observable<any[]> {
+  //   return this.countries$.pipe(
+  //     map((response) =>
+  //       response.filter((option) => {
+  //         return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0;
+  //       })
+  //     )
+  //   );
+  // }
 }

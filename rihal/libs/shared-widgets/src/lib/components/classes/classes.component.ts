@@ -1,7 +1,16 @@
-import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewChecked,
+  OnDestroy,
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Classes } from '@rihal/data-models';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -10,7 +19,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 import { PublicService } from '../../services/public.service';
 
 @Component({
@@ -18,20 +30,16 @@ import { PublicService } from '../../services/public.service';
   templateUrl: './classes.component.html',
   styleUrls: ['./classes.component.scss'],
 })
-export class ClassesComponent implements OnInit,AfterViewChecked,OnDestroy {
-  classes$!: Observable<Classes[]>; //@Input()
+export class ClassesComponent implements OnInit, OnDestroy {
+  classes!: Classes[]; //@Input()
   _classes!: Classes[]; //@Input()
-  className = new FormControl('');
-  @Input() classesId!: number;
+  subscription!: Subscription;
+  @Input() class!: string;
   filteredOptions!: Observable<any[]>;
-
-  ngOnInit() {
-    // const getClasses$: Observable<Classes[]> = of([
-    //   { id: 1, name: 'art of physics' },
-    //   { id: 2, name: 'programming fondumentals' },
-    // ]);
-    this.classes$ = this.publicService.getall('classes');
-  }
+  className = new FormControl('');
+  form = new FormGroup({
+    className: new FormControl('', Validators.required),
+  });
 
   constructor(private publicService: PublicService) {
     this.filteredOptions = this.className.valueChanges.pipe(
@@ -41,15 +49,22 @@ export class ClassesComponent implements OnInit,AfterViewChecked,OnDestroy {
       )
     );
   }
-  ngAfterViewChecked(): void {
-    this.classes$.subscribe((x) => {
-      this.className.setValue(
-        x.find((xx) => xx.id === this.classesId)?.name || null
-      );
-    })
-  }
-  ngOnDestroy(): void {
 
+  ngOnInit() {
+    console.log(this.class);
+    this.subscription = this.publicService.getall('classes').subscribe(
+      (response) => {
+        this.classes = response;
+      },
+      (err) => console.error(err),
+     () => {
+        this.className.setValue(this.class);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   private _filterSymbols(value: string): Classes[] {
@@ -68,5 +83,22 @@ export class ClassesComponent implements OnInit,AfterViewChecked,OnDestroy {
     let selectedSymbol = this._filterSymbols(event.option.value)[0]; // : this.symbols.slice()
     //broad cast i selected
     // this.sharedService.selectSymbol.next(selectedSymbol);
+  }
+  // displayFn(id:number) {
+  //   if (!id) return '';
+
+  //   let index = this.states.findIndex(state => state.id === id);
+  //   return this.states[index].name;
+  // }
+  // displayFn(_class: Classes) {
+  //   return _class.name;
+  // }
+
+  displayFn(_class: string) {
+    if (this.classes) {
+      const index = this.classes.findIndex((state) => state.name === _class);
+      return this.classes[index].name;
+    }
+    return '';
   }
 }

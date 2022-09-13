@@ -25,7 +25,7 @@ export class StudentHomeComponent implements OnInit, OnDestroy {
   dataCountries$!: Observable<Countries[]>
   dataClasses$!: Observable<Classes[]>
   ngOnInit(): void {
-    this.fetchCachedEntities();
+    //this.fetchCachedEntities();
   }
   private fetchCachedEntities() {
    this.cachedService.fetchCountries('countries');

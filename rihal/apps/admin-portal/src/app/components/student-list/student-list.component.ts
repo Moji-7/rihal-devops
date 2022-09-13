@@ -37,7 +37,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class StudentListComponent implements OnInit, AfterViewInit, OnDestroy {
   displyby!: string | null;
-  students!: studentClassesDto[];
+
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort) sort!: MatSort;
   term$ = new BehaviorSubject<string>('');
@@ -93,10 +93,7 @@ export class StudentListComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe((data) => {
-        this.students = data;
-        this.dataSource = new MatTableDataSource<studentClassesDto>(
-          this.students
-        );
+        this.dataSource = new MatTableDataSource<studentClassesDto>(data);
       });
   }
 
@@ -144,9 +141,6 @@ export class StudentListComponent implements OnInit, AfterViewInit, OnDestroy {
       // });
     }
   }
-  getCountry = (countryId: number) => {
-    return 'age';
-  };
   ageCalculetor = (birthdateString: string): number => {
     const birthdate = new Date(birthdateString);
     const timeDiff = Math.abs(Date.now() - birthdate.getTime());

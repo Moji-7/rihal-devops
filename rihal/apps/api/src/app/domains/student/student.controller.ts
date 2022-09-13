@@ -53,7 +53,7 @@ export class StudentController {
   }
 
   @Get('/:id')
-  async find(@Param('id') id: number): Promise<Student> {
+  async find(@Param('id') id: number): Promise<StudentClass> {
     const student = await this.studentService.findOne(id);
     if (!student) throw new NotFoundException('student does not exist!');
     return student;
