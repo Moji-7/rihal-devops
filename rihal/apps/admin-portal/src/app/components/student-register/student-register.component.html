@@ -24,21 +24,28 @@
         </mat-error>
       </mat-form-field>
       <!-- <input matInput placeholder="name" type="text" formControlName="dateOfBirth" /> -->
-        <rihal-datepicker [selectedVal]="selectedBirthdate"></rihal-datepicker>
+        <rihal-datepicker [dateOfBirth]="selectedBirthdate" [dateOfBirthForm]="dateOfBirthForm"></rihal-datepicker>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>
         </mat-error>
-        <rihal-countries [country]="selectedCountry" ></rihal-countries>
+        <rihal-countries [countryId]="selectedCountryId" [countryForm]="countryForm"></rihal-countries>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> country rquired</span>
         </mat-error>
-        <rihal-classes [class]="selectedClasses"></rihal-classes>
+        <rihal-classes [classesId]="selectedClassesId" [classesForm]="classesForm"></rihal-classes>
         <mat-error>
           <span *ngIf="registerForm.get('dateOfBirth')?.hasError('required') && registerForm.touched"> classes rquired</span>
         </mat-error>
 
     </form>
-    <button mat-raised-button (click)="onSubmit()">register</button>
+    <button mat-raised-button (click)="onSubmit()">{{buttonLabel}}</button>
+
+
+      <!-- <form [formGroup]="mainForm">
+        <input type="text" formControlName="name" placeholder="Name">
+
+      </form>
+      <pre>{{addressForm.value | json}}</pre> -->
   </mat-card-content>
 </mat-card>
 

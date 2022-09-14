@@ -44,6 +44,7 @@
     "faker": "^6.6.6",
     "mysql2": "^2.3.3",
     "ngrx-store-freeze": "^0.2.4",
+    "ngx-progressbar": "^9.0.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",

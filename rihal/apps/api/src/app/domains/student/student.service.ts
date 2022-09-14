@@ -61,14 +61,14 @@ export class StudentService {
     return this.studentsRepository.save(Student);
     // return this.studentsRepository.find();
   }
-  // async update(
-  //   id: string,
-  //   studentDto: StudentSearchDTO
-  // ): Promise<Partial<UpdateResult>> {
-  //   const updated = await this.studentsRepository.update(id, studentDto);
-  //   // const {name} = updated
-  //   return updated;
-  // }
+  async update(
+    id: string,
+    studentDto: Student
+  ): Promise<Partial<UpdateResult>> {
+    const updated = await this.studentsRepository.update(id, studentDto);
+    // const {name} = updated
+    return updated;
+  }
   remove(id: string): Promise<DeleteResult> {
     return this.studentsRepository.delete(id);
   }

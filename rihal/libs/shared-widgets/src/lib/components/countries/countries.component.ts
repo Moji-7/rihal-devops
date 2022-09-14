@@ -29,13 +29,9 @@ import { PublicService } from '../../services/public.service';
 export class CountriesComponent implements OnInit, OnDestroy {
   countries!: Countries[]; // @Input()
   subscription!: Subscription;
-  inputControl = new FormControl('');
-  @Input() country!: string;
+  @Input() countryId!: number;//use for edit form
+  @Input() countryForm!: FormGroup;//use for send form value to parent
   filteredOptions!: Observable<any[]>;
-  countryName = new FormControl('');
-  form = new FormGroup({
-    countryName: new FormControl('', Validators.required),
-  });
 
   constructor(private publicService: PublicService) {}
 
@@ -46,7 +42,8 @@ export class CountriesComponent implements OnInit, OnDestroy {
       },
       (err) => console.error(err),
       () => {
-        this.countryName.setValue(this.country);
+        //this.countryName.setValue(this.country);
+        this.countryForm.controls['countryName'].patchValue(this.countryId);
       }
     );
   }
@@ -55,9 +52,9 @@ export class CountriesComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  displayFn(_country: string) {
+  displayFn(_Id: number) {
     if (this.countries) {
-      const index = this.countries.findIndex((state) => state.name === _country);
+      const index = this.countries.findIndex((c) => c.id === _Id);
       return this.countries[index].name;
     }
     return '';

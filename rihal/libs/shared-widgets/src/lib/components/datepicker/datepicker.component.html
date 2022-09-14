@@ -1,13 +1,12 @@
 
 
 
-<form [formGroup]="form">
+<form [formGroup]="dateOfBirthForm">
 <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>Choose a date</mat-label>
   <input  matInput
   [matDatepicker]="dateOfBirth"
   formControlName="dateOfBirth" />
-
   <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
   <mat-datepicker-toggle matSuffix [for]="dateOfBirth">
     <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->

@@ -45,10 +45,11 @@ export class StudentRegisterComponent implements OnInit {
 
   studentId!: string;
   isAddMode = false;
+  buttonLabel="Register"
   loading = false;
   submitted = false;
-  selectedCountry!: string;
-  selectedClasses!: string;
+  selectedCountryId!: number;
+  selectedClassesId!: number;
   selectedBirthdate!: string;
 
   unamePattern = '^[a-z0-9_-]{8,15}$';
@@ -56,32 +57,47 @@ export class StudentRegisterComponent implements OnInit {
   mobnumPattern = '^((\\+91-?)|0)?[0-9]{10}$';
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
   isValidFormSubmitted = false;
+  //registerForm: FormGroup;
+  //formDetail: FormGroup;
+  classesForm = this.formBuilder.group({
+    className: new FormControl('', [Validators.required])
+  });
+  countryForm = this.formBuilder.group({
+    countryName: new FormControl('', [Validators.required])
+  });
+  dateOfBirthForm = this.formBuilder.group({
+    dateOfBirth: new FormControl('', [Validators.required])
+  });
   registerForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.pattern(this.unamePattern),
     ]),
-    dateOfBirth: new FormControl('', [Validators.required]),
-    className: new FormControl('', [Validators.required]),
-    countryName: new FormControl('', [Validators.required]),
+   // dateOfBirth: new FormControl('', [Validators.required]),
+   dateOfBirth: this.dateOfBirthForm,
+    //className: new FormControl('', [Validators.required]),
+    className: this.classesForm,
+    countryName: this.countryForm
   });
+
   // @Output() submitForm = new EventEmitter<Authenticate>();
 
   ngOnInit(): void {
+
     //for edit already registered student
     this.studentId = this.route.snapshot.params['studentId'];
     //console.log('>>>>>>>>>>>>>>>>>>' + this.studentId);
     this.isAddMode = !this.studentId;
     if (!this.isAddMode) {
+      this.buttonLabel="Update"
       this.crudservice
         .find(parseInt(this.studentId))
         .pipe(first())
         .subscribe((x) => {
-         // console.log(x);
-          this.registerForm.patchValue(x);
-          this.selectedCountry = x.countryName;
-          this.selectedClasses = x.classesName;
-          //console.log(x.dateOfBirth);
+          //this.registerForm.patchValue(x);
+          this.registerForm.controls['name'].patchValue(x.name);
+          this.selectedCountryId = x.countriesId;
+          this.selectedClassesId = x.classesId;
           this.selectedBirthdate = x.dateOfBirth;
         });
     }
@@ -120,10 +136,6 @@ export class StudentRegisterComponent implements OnInit {
     this.submitted = true;
     // reset alerts on submit
     this.alertService.clear();
-    // stop here if registerForm is invalid
-  //  if (this.registerForm.invalid) {
-   //   return;
-  //  }
     this.loading = true;
     if (this.isAddMode) {
       this.createUser();
@@ -142,7 +154,7 @@ export class StudentRegisterComponent implements OnInit {
             keepAfterRouteChange: true,
           });
           this.registerForm.reset();
-         // this.router.navigate(['../'], { relativeTo: this.route });
+          // this.router.navigate(['../'], { relativeTo: this.route });
         },
         error: (error) => {
           this.alertService.error(error);
@@ -153,14 +165,14 @@ export class StudentRegisterComponent implements OnInit {
 
   private updateUser() {
     this.crudservice
-      .updateStudentClass(this.studentId, this.registerForm.value)
+      .updateStudentClass(this.studentId, this.mapStudent())
       .pipe(first())
       .subscribe({
         next: () => {
           this.alertService.success('User updated', {
             keepAfterRouteChange: true,
           });
-          this.router.navigate(['../../'], { relativeTo: this.route });
+          this.router.navigate(['/student/classes'], { relativeTo: this.route });
         },
         error: (error) => {
           this.alertService.error(error);
@@ -169,14 +181,13 @@ export class StudentRegisterComponent implements OnInit {
       });
   }
   private mapStudent() {
-
     const student = {
       name: this.registerForm.value.name,
-      dateOfBirth:"2002-02-12", //this.registerForm.value.dateOfBirth,
-      classes: 2,
-      countries: 7,
+      dateOfBirth: this.registerForm.value.dateOfBirth?.dateOfBirth,
+      classes: this.registerForm.value.className?.className,
+      countries: this.registerForm.value.countryName?.countryName,
     };
-console.log(student)
+    console.log(student);
     return student;
     //  this.registerForm.get('name of you control').value
   }

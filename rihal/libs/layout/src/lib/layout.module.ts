@@ -10,10 +10,10 @@ import { SideNavComponent } from './containers/layout/side-nav/side-nav.componen
 import { AlertComponent } from './containers/layout/alert/alert.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './httperror.interceptor';
-
+import { NgProgressModule, } from 'ngx-progressbar';
 
 @NgModule({
-  imports: [ReactiveFormsModule, CommonModule, MaterialModule, RouterModule], // Added
+  imports: [ReactiveFormsModule, CommonModule, MaterialModule, RouterModule,NgProgressModule], // Added
   declarations: [
     LayoutComponent,
     TopNavComponent,
@@ -21,10 +21,9 @@ import { HttpErrorInterceptor } from './httperror.interceptor';
     AgePipe,
     AlertComponent,
   ],
-  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent],
+  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent,NgProgressModule],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-
-],
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+  ],
 })
 export class LayoutModule {}

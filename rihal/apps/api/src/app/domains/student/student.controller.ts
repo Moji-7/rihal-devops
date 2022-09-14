@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Query,
   UsePipes,
   ValidationPipe,
@@ -35,15 +36,14 @@ export class StudentController {
     @Query('order') order: string,
     @Query('page') page: number,
     @Query('query') query: string
-
   ): Promise<SearchStudentClassesDto> {
     // if (Object.keys(studentSearchDTO).length) {
     const filteredStudents = await this.studentService.getFilteredStudent(
       sort,
       order,
       page,
-      query,
-     // studentSearchDTO
+      query
+      // studentSearchDTO
     );
     return filteredStudents;
     // } else {
@@ -59,25 +59,29 @@ export class StudentController {
     return student;
   }
 
-  @Patch('/:id')
-  async update(
-    @Body() studentDto: StudentSearchDTO,
-    @Param('id') id: string
-  ): Promise<number> {
-    // const studentUpdated = await this.studentService.update(id, studentDto);
-    // if (studentUpdated.affected === 0)
-    //   throw new NotFoundException('student not found');
-    // const {name} = studentUpdated
-    return 204;
-  }
-
   @Post()
   create(@Body() student: Student) {
     return this.studentService.create(student);
+  }
+
+  @Put('/:id')
+  async update(
+    @Body() studentDto: Student,
+    @Param('id') id: string
+  ): Promise<number> {
+    const studentUpdated = await this.studentService.update(id, studentDto);
+    if (studentUpdated.affected === 0)
+      throw new NotFoundException('student not found');
+  //  const { name } = studentUpdated;
+    return 204;
   }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id) {
     this.studentService.remove(id);
   }
+}
+
+function put(arg0: string) {
+  throw new Error('Function not implemented.');
 }

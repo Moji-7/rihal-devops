@@ -2,6 +2,7 @@
 <h3>need filter</h3>
 <h1>Users</h1> -->
 
+
 <div class="mat-elevation-z8">
 
 <!-- <input matInput type="text" placeholder="Search for name" (input)="term$.next($any($event.target).value)">  -->
@@ -48,10 +49,10 @@
           mat-raised-button
           color="primary"
           class="push-right"
-          [routerLink]="['../register', element.id]" > Edit
+          [routerLink]="['../register', element.id]" >	<mat-icon>edit</mat-icon> Edit
         </button>
 
-    <button (click)="delete(element.id)"    mat-raised-button color="warn" class="push-right danger">Delete</button>
+    <button (click)="delete(element.id)"    mat-raised-button color="warn" class="push-right danger">	<mat-icon>delete_forever</mat-icon>Delete</button>
 
       </td>
     </ng-container>
