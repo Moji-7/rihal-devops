@@ -2,7 +2,8 @@
 
 
 <div class="layout-container">
-  <ng-progress id="myProgress"></ng-progress>
+  <mat-spinner [diameter]="50" *ngIf="spinnerService.visibility | async">
+  </mat-spinner>
 
   <mat-toolbar color="primary" class="fix-nav">
   <mat-icon class="mr-8"></mat-icon>

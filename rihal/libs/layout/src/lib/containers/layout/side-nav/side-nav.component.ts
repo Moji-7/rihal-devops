@@ -32,4 +32,11 @@ export class SideNavComponent {
     this.router.navigate([this.currentUrl + '/' + item.path, { by: item?.param }]);
 
   }
+  navigateHome(item:any){
+    localStorage.clear();
+    this.routes = [];
+    this.sharedService.sendDestUrlEvent('');
+    this.router.navigate(['']);
+
+  }
 }

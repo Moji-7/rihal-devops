@@ -1,4 +1,10 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,17 +12,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
 })
-export class DatepickerComponent implements AfterViewChecked{
-
-  @Input() dateOfBirth!: string| null;
-  @Input() dateOfBirthForm!: FormGroup;//use for send form value to parent
+export class DatepickerComponent implements AfterViewChecked, OnInit {
+  @Input() _dateOfBirth!: string | null; //for update form
+  @Input() dateOfBirthForm!: FormGroup; //use for send form value to parent
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
   ngAfterViewChecked(): void {
-    //this.form.patchValue({dateOfBirth:this.selectedVal});
-    this.dateOfBirthForm.controls['dateOfBirth'].patchValue(this.dateOfBirth);
+    //debugger;
+    this.dateOfBirthForm.controls['dateOfBirth'].patchValue(this._dateOfBirth);
     this.changeDetectorRef.detectChanges();
   }
 
-
+  ngOnInit() {}
 }

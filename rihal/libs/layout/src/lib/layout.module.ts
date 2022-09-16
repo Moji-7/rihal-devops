@@ -10,10 +10,9 @@ import { SideNavComponent } from './containers/layout/side-nav/side-nav.componen
 import { AlertComponent } from './containers/layout/alert/alert.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './httperror.interceptor';
-import { NgProgressModule, } from 'ngx-progressbar';
 
 @NgModule({
-  imports: [ReactiveFormsModule, CommonModule, MaterialModule, RouterModule,NgProgressModule], // Added
+  imports: [ReactiveFormsModule, CommonModule, MaterialModule, RouterModule], // Added
   declarations: [
     LayoutComponent,
     TopNavComponent,
@@ -21,7 +20,7 @@ import { NgProgressModule, } from 'ngx-progressbar';
     AgePipe,
     AlertComponent,
   ],
-  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent,NgProgressModule],
+  exports: [ReactiveFormsModule, LayoutComponent,AlertComponent,TopNavComponent,SideNavComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],

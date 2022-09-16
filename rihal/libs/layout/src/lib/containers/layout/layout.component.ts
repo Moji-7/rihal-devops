@@ -8,7 +8,8 @@ import { getUser } from '@rihal/auth';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { NgProgress, NgProgressComponent, NgProgressRef } from 'ngx-progressbar';
+import { SpinnerService } from './spinner.service';
+
 
 @Component({
   selector: 'app-layout',
@@ -26,13 +27,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   @HostBinding('class') className = '';
 
   toggleControl = new FormControl(false);
-  progressRef!: NgProgressRef;
+
 
   constructor(
     //media: MediaObserver,
     private store: Store<AuthState>,
     private overlay: OverlayContainer,
-    private progress: NgProgress
+    public spinnerService: SpinnerService,
   ) {
     // this.mediaWatcher = media.media$.subscribe((change: MediaChange) => {
     //   if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
@@ -64,20 +65,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.overlay.getContainerElement().classList.remove(darkClassName);
       }
     });
-    //for progress all http requests
-    this.progressRef = this.progress.ref('myProgress');
+
   }
-startLoading() {
-  this.progressRef.start();
-}
-
-completeLoading() {
-  this.progressRef.complete();
-}
-
-changeProgressColor() {
-  this.progressRef.setConfig({ color: 'green' });
-}
   ngAfterViewInit() {
    // this.progressBar.start();
   }

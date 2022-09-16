@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { studentClassesDto,SearchStudentClassesDto, StudentSearchDto, StudentSummeryInfo } from '@rihal/data-models';
+import { environment } from 'apps/admin-portal/src/environments/environment';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 
 @Injectable({
@@ -13,6 +14,7 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 })
 export class StudentService {
   private baseURL = `http://localhost:3333/api/student`;
+ // private baseURL =environment.apiUrl+"/api/student";// `http://localhost:3333/api/student`;
   studentClass: any;
   constructor(private http: HttpClient) {}
   //get all users  details

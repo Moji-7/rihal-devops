@@ -18,11 +18,11 @@ import { Classes, Countries } from '@rihal/data-models';
 import { first, Observable, of, Subscription } from 'rxjs';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { StudentService } from '../../services/student/student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from '@rihal/layout';
 import { CachedService } from '@rihal/shared-widgets';
-import { StudentHomeComponent } from '../../containers/student-home/student-home.component';
 
 //import { AlertComponent } from 'libs/layout/src/lib/containers/layout/alert/alert.component';
 
@@ -39,13 +39,14 @@ export class StudentRegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private _location: Location,
     // private userService: UserService,
     private alertService: AlertService
   ) {}
 
   studentId!: string;
   isAddMode = false;
-  buttonLabel="Register"
+  buttonLabel = 'Register';
   loading = false;
   submitted = false;
   selectedCountryId!: number;
@@ -60,36 +61,35 @@ export class StudentRegisterComponent implements OnInit {
   //registerForm: FormGroup;
   //formDetail: FormGroup;
   classesForm = this.formBuilder.group({
-    className: new FormControl('', [Validators.required])
+    className: new FormControl('', [Validators.required]),
   });
   countryForm = this.formBuilder.group({
-    countryName: new FormControl('', [Validators.required])
+    countryName: new FormControl('', [Validators.required]),
   });
   dateOfBirthForm = this.formBuilder.group({
-    dateOfBirth: new FormControl('', [Validators.required])
+    dateOfBirth: new FormControl('', [Validators.required]),
   });
   registerForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern(this.unamePattern),
+     // Validators.pattern(this.unamePattern),
     ]),
-   // dateOfBirth: new FormControl('', [Validators.required]),
-   dateOfBirth: this.dateOfBirthForm,
+    // dateOfBirth: new FormControl('', [Validators.required]),
+    dateOfBirth: this.dateOfBirthForm,
     //className: new FormControl('', [Validators.required]),
     className: this.classesForm,
-    countryName: this.countryForm
+    countryName: this.countryForm,
   });
 
   // @Output() submitForm = new EventEmitter<Authenticate>();
 
   ngOnInit(): void {
-
     //for edit already registered student
     this.studentId = this.route.snapshot.params['studentId'];
     //console.log('>>>>>>>>>>>>>>>>>>' + this.studentId);
     this.isAddMode = !this.studentId;
     if (!this.isAddMode) {
-      this.buttonLabel="Update"
+      this.buttonLabel = 'Update';
       this.crudservice
         .find(parseInt(this.studentId))
         .pipe(first())
@@ -133,15 +133,13 @@ export class StudentRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+   // debugger;
     this.submitted = true;
     // reset alerts on submit
     this.alertService.clear();
-    this.loading = true;
-    if (this.isAddMode) {
-      this.createUser();
-    } else {
-      this.updateUser();
-    }
+    if (this.registerForm.invalid) return;
+    if (this.isAddMode) this.createUser();
+    else this.updateUser();
   }
 
   private createUser() {
@@ -172,7 +170,9 @@ export class StudentRegisterComponent implements OnInit {
           this.alertService.success('User updated', {
             keepAfterRouteChange: true,
           });
-          this.router.navigate(['/student/classes'], { relativeTo: this.route });
+          this.router.navigate(['/student/classes'], {
+            relativeTo: this.route,
+          });
         },
         error: (error) => {
           this.alertService.error(error);
@@ -189,37 +189,9 @@ export class StudentRegisterComponent implements OnInit {
     };
     console.log(student);
     return student;
-    //  this.registerForm.get('name of you control').value
+  }
+
+  backClicked() {
+    this._location.back();
   }
 }
-
-// register() {
-//   this.isValidFormSubmitted = false;
-//   if (this.registerForm.invalid) {
-//     return;
-//   }
-//   console.log('User Name: ' + this.registerForm.value);
-//   // Initialize Params Object
-//   const myFormData = new FormData();
-//  // myFormData.append('name', this.registerForm.value.name?);
-//  // myFormData.append('dateOfBirth', this.registerForm.value.dateOfBirth);
-
-//   this.crudservice.addStudentClass(myFormData); //caaling add user service
-//   //show alert and redirect
-//   this._snackBar.openFromComponent(AlertComponent, {
-//     duration: 3* 1000,
-//   });
-//   this.router.navigate([`/student-home/classes`]); //after registerForm submit page will redirect to users page
-
-//   this.isValidFormSubmitted = true;
-//   //hello$ = this.http.get<Message>('/api/hello');
-//   // let user: User = this.userForm.value;
-//   // this.userService.createUser(user);
-//   this.registerForm.reset();
-//   // this.submitForm.emit({
-//   //   username: this.registerForm.value.username,
-//   //   password: this.registerForm.value.password
-//   // } as Authenticate);
-// }
-//}
-//https://blog.logrocket.com/how-build-ecommerce-app-nestjs/
