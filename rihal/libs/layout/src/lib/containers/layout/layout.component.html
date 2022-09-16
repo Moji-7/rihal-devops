@@ -1,6 +1,9 @@
 
-<div class="layout-container">
 
+
+<div class="layout-container">
+  <mat-spinner [diameter]="50" *ngIf="spinnerService.visibility | async">
+  </mat-spinner>
 
   <mat-toolbar color="primary" class="fix-nav">
   <mat-icon class="mr-8"></mat-icon>
@@ -28,6 +31,7 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <main class="main-container">
+        <rihal-alert></rihal-alert>
         <router-outlet></router-outlet>
       </main>
     </mat-sidenav-content>

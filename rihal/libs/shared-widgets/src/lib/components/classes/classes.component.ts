@@ -1,58 +1,76 @@
-import { Component, OnInit,Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewChecked,
+  OnDestroy,
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Classes } from '@rihal/data-models';
-import {FormControl} from '@angular/forms';
-import {Observable, of} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
+import { PublicService } from '../../services/public.service';
 
 @Component({
   selector: 'rihal-classes',
   templateUrl: './classes.component.html',
   styleUrls: ['./classes.component.scss'],
 })
-export class ClassesComponent implements OnInit {
-  classes$!:Observable<Classes[]>;//@Input()
-   _classes!:Classes[];//@Input()
-  inputControl = new FormControl('');
-  filteredOptions!: Observable<Classes[]>;
+export class ClassesComponent implements OnInit, OnDestroy {
+  classes!: Classes[]; //@Input()
+  _classes!: Classes[]; //@Input()
+  subscription!: Subscription;
+  @Input() classesId!: number;//use for edit form
+  @Input() classesForm!: FormGroup;//use for send form value to parent
 
-   ngOnInit() {
-    const getClasses$: Observable<Classes[]> = of([
-      { id: 1, name: 'art of physics' },
-      { id: 2, name: 'programming fondumentals' },
-    ]);
-    this.classes$ = getClasses$;
-  }
+  filteredOptions!: Observable<any[]>;
+  constructor(private publicService: PublicService) {}
 
-  constructor() {
-
-    this.filteredOptions = this.inputControl.valueChanges.pipe(
-      startWith(''),
-      map((symbol) =>
-        symbol ? this._filterSymbols(symbol) : this._classes.slice()
-      )
+  ngOnInit() {
+    //console.log(this.class);
+    this.subscription = this.publicService.getall('classes').subscribe(
+      (response) => {
+        this.classes = response;
+      },
+      (err) => console.error(err),
+     () => {
+       // this.className.patchValue(this.class);
+        this.classesForm.controls['className'].patchValue(this.classesId);
+      }
     );
   }
 
-
-
-
-   private _filterSymbols(value: string): Classes[] {
-    const filterValue = value.toLowerCase();
-
-    return this._classes.filter((symbol) =>
-      symbol.name.toLowerCase().includes(filterValue)
-    );
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  //select symbol on auto complete
-  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
-    //other subscriber componet will get value
-    // event.option.value as StockSymbol;
-    let selectedSymbol = this._filterSymbols(event.option.value)[0]; // : this.symbols.slice()
-    //broad cast i selected
-   // this.sharedService.selectSymbol.next(selectedSymbol);
+  // displayFn(id:number) {
+  //   if (!id) return '';
+  //   let index = this.states.findIndex(state => state.id === id);
+  //   return this.states[index].name;
+  // }
+  // displayFn(_class: Classes) {
+  //   return _class.name;
+  // }
+  displayFn(_Id: number) {
+    if (this.classes) {
+      const index = this.classes.findIndex((c) => c.id === _Id);
+      return this.classes[index].name;
+    }
+    return '';
   }
-
 }

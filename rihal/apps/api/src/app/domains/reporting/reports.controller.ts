@@ -28,13 +28,13 @@ export class ReportsController {
   @ApiResponse({ status: 200, description: '' })
   async averageStudentsAge(): Promise<StudentSummeryInfo[]> {
     const summeryInfoService = await this.reportsService.averageStudentsAge();
+    return summeryInfoService;
     // const average = summeryInfoService.reduce(function (avg, value, _, { length }) {
     //   return avg + value.year / length ;
     // return {title:avg + value.year / length , count:length};
     //  }, 0);
     //this.myLogger.customLog();this.myLogger.warn('About to return cats!');
     //throw new HttpException('This is not acceptable', HttpStatus.NOT_ACCEPTABLE);
-    return summeryInfoService;
   }
 
   @Get('/:relatedEntity')

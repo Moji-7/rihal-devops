@@ -1,80 +1,74 @@
 import { Injectable } from '@nestjs/common';
 //import { Message } from '@rihal/api-interfaces';
 import { Student } from './entities/student.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { studentClassesDto } from '@rihal/data-models';
-import { FilterStudentDTO } from 'libs/data-models/src/lib/filterStudent.dto';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, DeleteResult, ILike, Repository, UpdateResult } from 'typeorm';
+
+import { StudentSearchDTO } from '../../validations/StudentSearchDTO';
+import { Classes } from './entities/classes.entity';
+import { StudentClass } from './entities/studentClass.viewentity';
+import { SearchStudentClassesDto } from './entities/dto/searchStudentClasses';
+
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectRepository(Student)
-    private studentsRepository: Repository<Student>
+    private studentsRepository: Repository<Student>,
+    @InjectRepository(StudentClass)
+    private studentClassRepository: Repository<StudentClass>,
+    @InjectDataSource() private readonly datasource: DataSource
   ) {
-    // const classes = new Classes();
-    // classes.class_name = 'science';
-    // let classesid=studentsRepository.save(classes);
-    // const country = new Countries();
-    // country.name = 'finland';
-    // let countryid= studentsRepository.save(country);
+
   }
-  /*  getData(): Message {
-    return { message: 'Welcome to api!' };
-  }*/
-  getStudents(): Promise<Student[]> {
-    const student = new Student();
-    student.name = 'ali';
-    student.dateOfBirth = new Date(1995, 11, 17);
-    student.countries.id = 1;
-    // student.classes.id = classesid;
-    this.studentsRepository.save(student);
-    return this.studentsRepository.find();
-  }
+
 
   async getFilteredStudent(
-    filterStudentDTO: FilterStudentDTO
-  ): Promise<Student[]> {
-    const { name, className, country } = filterStudentDTO;
-    let students = await this.findAll();
-    if (name)
-      students = students.filter((student) => student.name.includes(name));
+    sort: string,
+    order: string,
+    page: number,
+    query: string
 
-    if (country)
-      students = students.filter(
-        (student) => student.countries.countryName === country
-      );
+  ): Promise<SearchStudentClassesDto> {
+    const take=10
 
-    if (className)
-      students = students.filter(
-        (student) => student.classes.className === className
-      );
-
-    return students;
+     const [data, total]= await (await this.datasource.manager.findAndCount(StudentClass,{
+      where: [{
+        name: ILike(`%${query}%`),
+        //email: ILike(`%${search}%`)
+    }],
+      order: {
+        [sort]: order
+    },
+    take,
+    skip: (page - 1) * take
+     }))
+     return {
+      studentClasses: data,
+      count: total
   }
 
-  findAll(): Promise<Student[]> {
-    return this.studentsRepository.find();
   }
 
-  findOne(id: number): Promise<Student> {
-    return this.studentsRepository.findOneBy({ id: id });
+  async findOne(id: number): Promise<StudentClass> {
+    // return this.studentsRepository.findOneBy({ id: id });
+    const student = await this.studentClassRepository.findOneBy({ id: id });
+    // const categories = await student.classes
+    return student;
   }
 
   create(Student: Student): Promise<Student> {
     return this.studentsRepository.save(Student);
+    // return this.studentsRepository.find();
   }
-
   async update(
     id: string,
-    studentDto: studentClassesDto
+    studentDto: Student
   ): Promise<Partial<UpdateResult>> {
     const updated = await this.studentsRepository.update(id, studentDto);
     // const {name} = updated
-
     return updated;
   }
-
   remove(id: string): Promise<DeleteResult> {
     return this.studentsRepository.delete(id);
   }

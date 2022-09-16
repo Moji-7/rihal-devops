@@ -1,16 +1,20 @@
-<form class="example-form">
+
+<form class="example-form" [formGroup]="classesForm">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>classes</mat-label>
     <input matInput appearance="fill"
            aria-label="State"
            [matAutocomplete]="auto"
-           [formControl]="inputControl">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
-      <mat-option *ngFor="let classes of classes$ | async" [value]="classes.name">
+           formControlName="className">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+      <mat-option *ngFor="let _classes of classes" [value]="_classes.id"  [id]="_classes.id.toString()"  >
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{classes.name}}</span> |
+        <span>{{_classes.name}}</span>
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  <!-- <form [formGroup]="addressForm">
+    <input type="text" formControlName="street" placeholder="Street">
+  </form> -->
 </form>

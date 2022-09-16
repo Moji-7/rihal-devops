@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,6 +20,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 @NgModule({
   imports: [
@@ -34,6 +37,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatFormFieldModule,
@@ -41,7 +45,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule
   ],
   exports: [
     FlexLayoutModule,
@@ -56,6 +61,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatFormFieldModule,
@@ -63,7 +69,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule {}

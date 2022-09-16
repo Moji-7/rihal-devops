@@ -12,16 +12,18 @@ export class Student{
   @Column({ type: 'date' ,name: "date_of_birth" })
   dateOfBirth: Date;
 
-  //@Column({ type: 'date' ,name: "date_of_birth" })
-  @ManyToOne(() => Classes, (classes) => classes.className,{ onDelete: 'CASCADE'})
-  classes: Classes
-  @JoinColumn({ name: "classesid" })
-  Classes: Classes;
 
+  @Column({ name: "classesId" })
+  @ManyToOne(() => Classes, (classes) => classes.students,{ onDelete: 'CASCADE'
+  //,eager:true
+  })
+  @JoinColumn({ name: "classesId", referencedColumnName: "id" })
+  classes: Classes;
+
+  @Column({ name: "countriesId" })
   @ManyToOne(() => Countries, (countries) => countries.students)
-  countries: Countries
-  @JoinColumn({ name: "countriesid" })
-  Countries: Countries;
+  @JoinColumn({ name: "countriesId", referencedColumnName: "id" })
+  countries: Countries;
 
 
   @CreateDateColumn({type: "timestamp"})

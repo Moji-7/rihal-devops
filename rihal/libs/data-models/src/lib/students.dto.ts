@@ -1,9 +1,16 @@
 export interface studentClassesDto {
-  // id: number;
+  id: number;
   name: string;
   dateOfBirth: string;
   age: number;
-  className: string;
+  countriesId: number
   countryName: string;
+  classesId: number
+  classesName: string;
+}
+
+export interface SearchStudentClassesDto {
+  studentClasses:studentClassesDto[],
+  count:number
 }
 

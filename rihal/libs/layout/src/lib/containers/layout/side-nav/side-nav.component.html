@@ -4,12 +4,14 @@
   <a
     *ngFor="let item of routes"
     mat-list-item
-
-
     (click)="navigate(item)">
     <mat-icon class="sidenav-icon">{{ item.data.icon }}</mat-icon>
     {{ item.data.text }}
   </a>
+  <a mat-list-item (click)="navigateHome('')" >
+    <mat-icon class="sidenav-icon">arrow_left</mat-icon>back
+
+ </a>
   <!--
      [routerLinkActive]="'active'"
      [routerLink]="[currentUrl + '/' + item.path, { by: item?.param }]"

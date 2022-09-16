@@ -7,8 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
-import { studentClassesDto, StudentSummeryInfo } from '@rihal/data-models';
-import { ViewTitle } from 'libs/data-models/src/lib/studentSummeryInfo';
+import {  StudentSummeryInfo, ViewTitle } from '@rihal/data-models';
 import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
 import { ReportService } from '../../services/student/report.service';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
@@ -34,38 +33,34 @@ export class ReportingSummeryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     private reportservice: ReportService
-  ) {
-    this.route.params.subscribe((params) => {
-      console.log(params['by']);
-      this.byCeriteria = params['by'];
-      this.reloadCurrentRoute( this.byCeriteria)
+  ) {}
 
+  fetchdata() {
+    const queryParams = this.route.snapshot.queryParams;
+    const routeParams = this.route.snapshot.params;
+    // this.route.queryParams.subscribe(queryParams => {
+    // });
+    this.route.params.subscribe((routeParams) => {
+     // this.router.navigate([this.router.url])
+      this.byCeriteria = routeParams['by'];
+      this.currentTitle = this.titles(this.byCeriteria);
+      //get result
+      if (this.byCeriteria === 'ageAverage')
+        this.studentSummeryInfos$ = this.reportservice.averageStudentsAge();
+      else
+        this.studentSummeryInfos$ = this.reportservice.fetchCountBy(
+          this.byCeriteria,
+          0
+        );
     });
   }
 
-  reloadCurrentRoute(byCeriteria: string) {
-   // const currentUrl = this.router.url;
-   // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate(['/summeryBy', { by: byCeriteria }]);
-       // console.log(currentUrl);
-           // this.ngOnInit();
-   // });
-  }
-
   ngOnInit(): void {
-    // this.route.params.subscribe((params) => {
-    this.currentTitle = this.titles(this.byCeriteria);
-    //get result
-    if (this.byCeriteria === 'ageAverage')
-      this.studentSummeryInfos$ = this.reportservice.averageStudentsAge();
-    else
-      this.studentSummeryInfos$ = this.reportservice.fetchCountBy(
-        this.byCeriteria,
-        0
-      );
-    //  });
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.fetchdata();
+
     //forkJoin
     // summeryInfoNeeded$ = of(['perCalss', 'perAge', 'perCountry']);
     // const carIds = ['perCalss', 'perAge', 'perCountry']; // unique ids
@@ -77,6 +72,7 @@ export class ReportingSummeryComponent implements OnInit {
     // );
     // carsList$.subscribe(console.log);
   }
+
   titles(byCeriteria: string): ViewTitle {
     const titles: ViewTitle[] = [
       { name: 'classes', icon: 'classes', text: 'students per classes' },

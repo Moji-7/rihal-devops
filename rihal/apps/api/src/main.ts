@@ -8,7 +8,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import {  NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import {  RihalLoggerService } from './app/logger';
 
 
@@ -39,6 +39,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3333;
   await app.listen(port);
+  app.useGlobalPipes(new ValidationPipe({whitelist: true}));
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );

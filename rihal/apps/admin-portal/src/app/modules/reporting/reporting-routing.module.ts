@@ -10,6 +10,7 @@ const routes: Routes = [
     component: ReportingHomeComponent,
     children: [
       { path: 'summeryBy', component: ReportingSummeryComponent },
+      { path: 'specificStudent', component: ReportingSummeryComponent },
     // { path: 'summery', component: ReportingSummeryComponent },
      // { path: 'summery', component: ReportingSummeryComponent },
     ],

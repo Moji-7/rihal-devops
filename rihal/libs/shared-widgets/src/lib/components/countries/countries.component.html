@@ -1,16 +1,17 @@
-<form class="example-form">
+
+<form class="example-form" [formGroup]="countryForm">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>country</mat-label>
     <input
       matInput
       aria-label="State"
       [matAutocomplete]="auto"
-      [formControl]="inputControl"
+      formControlName="countryName"
     />
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let state of countries$ | async" [value]="state.name">
+    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayFn.bind(this)">
+      <mat-option *ngFor="let _country of countries" [value]="_country.id"  [id]="_country.id.toString()" >
         <!-- <img class="example-option-img" aria-hidden [src]="state.flag" height="25"> -->
-        <span>{{ state.name }}</span> |
+        <span>{{ _country.name }}</span>
         <!-- <small>Population: {{state.population}}</small> -->
       </mat-option>
     </mat-autocomplete>

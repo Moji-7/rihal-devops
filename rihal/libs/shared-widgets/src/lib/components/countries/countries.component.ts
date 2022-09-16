@@ -1,6 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewChecked,
+  OnDestroy,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -10,6 +16,7 @@ import {
   tap,
 } from 'rxjs/operators';
 import { Countries } from '@rihal/data-models';
+import { PublicService } from '../../services/public.service';
 
 /**
  * @title Filter autocomplete
@@ -19,33 +26,46 @@ import { Countries } from '@rihal/data-models';
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss'],
 })
-export class CountriesComponent implements OnInit {
-  countries$!: Observable<Countries[]>; // @Input()
-  inputControl = new FormControl('');
-  filteredOptions!: Observable<Countries[]>;
+export class CountriesComponent implements OnInit, OnDestroy {
+  countries!: Countries[]; // @Input()
+  subscription!: Subscription;
+  @Input() countryId!: number;//use for edit form
+  @Input() countryForm!: FormGroup;//use for send form value to parent
+  filteredOptions!: Observable<any[]>;
 
-  constructor() {}
+  constructor(private publicService: PublicService) {}
 
   ngOnInit() {
-    const getCountries$: Observable<Countries[]> = of([
-      { id: 1, name: 'Count of students per class' },
-      { id: 2, name: 'Average age of students ' },
-    ]);
-    this.countries$ = getCountries$;
-    // this.countries$ = this.inputControl.valueChanges.pipe(
-    //   tap( res => {console.log("hiiiiii"+res)}),
-    //         startWith(' '), debounceTime(400),distinctUntilChanged(),
-    //   switchMap(value => this._filter(value || '')),
-    // );
-  }
-
-  _filter(val: string): Observable<any[]> {
-    return this.countries$.pipe(
-      map((response) =>
-        response.filter((option) => {
-          return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0;
-        })
-      )
+    this.subscription = this.publicService.getall('countries').subscribe(
+      (response) => {
+        this.countries = response;
+      },
+      (err) => console.error(err),
+      () => {
+        //this.countryName.setValue(this.country);
+        this.countryForm.controls['countryName'].patchValue(this.countryId);
+      }
     );
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  displayFn(_Id: number) {
+    if (this.countries) {
+      const index = this.countries.findIndex((c) => c.id === _Id);
+      return this.countries[index].name;
+    }
+    return '';
+  }
+  // _filter(val: string): Observable<any[]> {
+  //   return this.countries$.pipe(
+  //     map((response) =>
+  //       response.filter((option) => {
+  //         return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0;
+  //       })
+  //     )
+  //   );
+  // }
 }

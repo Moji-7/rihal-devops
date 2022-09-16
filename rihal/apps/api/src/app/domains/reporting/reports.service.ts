@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
-import { StudentAverageAge, StudentSummeryInfo } from '@rihal/data-models';
+import { StudentSummeryInfo } from '@rihal/data-models';
 import { Student } from '../student/entities/student.entity';
 
 

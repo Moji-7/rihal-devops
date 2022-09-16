@@ -3,6 +3,8 @@ import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { Student } from './entities/student.entity';
 import { Classes } from './entities/classes.entity';
 import { Countries } from './entities/countries.entity';
+import { StudentClass } from './entities/studentClass.viewentity';
+
 import { StudentController } from './student.controller';
 import { StudentService } from './student.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,8 +16,11 @@ import { ClassesService } from './classes.service';
 
 import { SeedingService } from '../../seeds/seeding.service';
 
+
+
+
 @Module({
-  imports: [TypeOrmModule.forFeature([Student, Classes, Countries])],
+  imports: [TypeOrmModule.forFeature([Student, Classes, Countries,StudentClass])],
   controllers: [
     StudentController,
     CountriesController,
@@ -31,7 +36,7 @@ import { SeedingService } from '../../seeds/seeding.service';
 export class StudentModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
   async onApplicationBootstrap(): Promise<void> {
-    await this.seedingDatabase();
+  //  await this.seedingDatabase();
   }
 
   private async seedingDatabase() {
