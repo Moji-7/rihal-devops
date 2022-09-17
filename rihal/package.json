@@ -2,16 +2,19 @@
   "name": "rihal",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
+     },
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start": "nx serve",
-    "build": "nx build",
+    "start": "node dist/apps/api/main",
     "test": "nx test",
     "serve:api": "ng serve api",
     "serve:web": "ng serve admin-portal",
     "serve:all": "concurrently  -p=\"{name}\" -n=\"Angular,NestJS\" -c=\"green,blue\" \"npm run serve:api\" \"npm run serve:web\"",
-    "server": "ts-node ./server/server.ts"
+    "server": "ts-node ./server/server.ts",
+    "start:debug": "nest start --debug 0.0.0.0:9229 --watch"
   },
   "private": true,
   "dependencies": {
