@@ -1,13 +1,56 @@
-version: '3.8'
+# version: '3.8'
+# services:
+#   learnify:
+#     image: learnify
+#     environment:
+#       - apiPath=http://api:3333
+#     ports:
+#       - '8080:3334'
+#   api:
+#     image: api
+#     ports:
+#       - '8081:3333'
+version: '3.7'
+
 services:
-  learnify:
-    image: learnify
-    environment:
-      - apiPath=http://api:3333
+  frontend:
+    container_name: test-frontend
+    hostname: test-frontend
+    image: test-frontend
+    build:
+      context: .
+      dockerfile: ./apps/admin-portal/Dockerfile.angular
+      target: builder
     ports:
-      - '8080:3334'
+      - 4200:4200
+    networks:
+      - test-network
+    depends_on:
+      - api
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npx nx serve --host 0.0.0.0 --poll 2000
   api:
-    image: api
+    container_name: test-api
+    hostname: test_api
+    image: test_api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile.api
+      target: builder
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
-      - '8081:3333'
-      
+      - 3333:3333
+      - 9229:9229
+    command: npm run start:api
+    env_file:
+      - .env
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

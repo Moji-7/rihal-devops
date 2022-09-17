@@ -8,6 +8,9 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "serve:api": "ng serve api",
+    "serve:web": "ng serve admin-portal",
+    "serve:all": "concurrently  -p=\"{name}\" -n=\"Angular,NestJS\" -c=\"green,blue\" \"npm run serve:api\" \"npm run serve:web\"",
     "server": "ts-node ./server/server.ts"
   },
   "private": true,

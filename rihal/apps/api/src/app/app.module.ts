@@ -44,7 +44,7 @@ import { join } from 'path';
       //3 local host
     }),
       ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'front'),
+      rootPath: join(__dirname, '..', 'admin-portal'),
     }),
   ],
   controllers: [],
