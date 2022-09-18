@@ -25,21 +25,20 @@ other domain concern about reporting (statistics)
   <li>application structure</li>
   <ul>
 <li>☁project consist of 2 apps</li>
-  <li>  
-FrontEnd app (admin-portal)
+  <li>🔵FrontEnd app (admin-portal)
     <ul>
       <li>Angular 13 + Matrial UI</li>
       <li>2 lazy loading Ng module (student, reporting)</li>
     </ul>
   </li>
-    <li> Backend app (api) </li>
+    <li>🔵Backend app (api) </li>
     <ul>
       <li>nestJs + typeOrm</li>
       <li>consist of 2 dedicated modules(crud service/reporting service)</li>
       <li>🔎[swagger documentation](https://neduk.herokuapp.com/api).</li>
     </ul>
-    <ul>
-        <li>  Heroku connectted to github for CI/CD</li>
+        <li>🔵Heroku connectted to github for CI/CD</li>
+      <ul>
       <li>each app has its own Dockerfile</li>
       <li>root docker-compose file to orchestarate all</li>
       <li>🔎[build version](https://neduk.herokuapp.com/) to auto deploy app. </li>
