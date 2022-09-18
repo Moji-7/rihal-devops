@@ -74,6 +74,18 @@ other domain concern about reporting (statistics)
 
 • ✅Host the app as a website and share link.
 
+<h1>Statistics to display on website</h1>
+
+• Count of students per class
+ 🔎[Visit](https://neduk.herokuapp.com/admin/summeryBy;by=classes)
+
+• Count of students per country
+ 🔎[Visit](https://neduk.herokuapp.com/admin/summeryBy;by=countries)
+
+• Average age of students
+ 🔎[Visit](https://neduk.herokuapp.com/admin/summeryBy;by=ageAverage)
+
+
 <h1>Next Steps</h1>
 <hr>
 
