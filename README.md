@@ -93,6 +93,7 @@ other domain concern about reporting (statistics)
   •register new student Class (with 🔸auto complete, 🔸validations)
   
   🔎[Visit](https://neduk.herokuapp.com/student/register;by=undefined)
+  
 
 
 
