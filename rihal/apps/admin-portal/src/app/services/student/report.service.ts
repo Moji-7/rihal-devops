@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StudentSummeryInfo } from '@rihal/data-models';
+import { environment } from 'apps/admin-portal/src/environments/environment';
 import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
-  private baseURL = `http://localhost:3333/api/reports`;
+  private baseURL =  environment.apiUrl+'reports';
 
   constructor(private http: HttpClient) {}
   handleError(error: HttpErrorResponse) {
