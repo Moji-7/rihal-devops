@@ -1,7 +1,7 @@
-# rihal-devops
+
 <h2>Hi Rihal</h2>
 <h4>
-this is my repo for the assessment
+this is my repo developed for the assessment (Full-Stack Web Developer Role) 
   </h4>
 <br>
 
@@ -55,21 +55,14 @@ other domain concern about reporting (statistics)
   <li></li>
 </ul>
 </ul>
-<h2>Bonus Requirements Done 100%</h2>
+<h2>Bonus Requirements Done 💎100%</h2>
 <hr>
-Bonus Requirements
 • ✅Use a 3rd party UI library
-
 • ✅Add dark/light mode toggle
-
 • ✅Use GitHub as a source control for the project
-
 • ✅Generate random seed data
-
 • ✅Add tests
-
 • ✅Automatically generate CreatedDate and ModifiedDate properties for all entities
-
 • ✅Host the app as a website and share link.
 
 <h1>Next Steps</h1>
