@@ -50,3 +50,4 @@ other domain concern about reporting (statistics)
 Visit [build version](https://neduk.herokuapp.com/api) to auto deploy app.
 <br>
 Visit [swagger documentation](https://neduk.herokuapp.com/api)  swagger documentation.
+
