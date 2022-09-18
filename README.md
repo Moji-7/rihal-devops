@@ -28,7 +28,11 @@ other domain concern about reporting (statistics)
   <li>🔵FrontEnd app (admin-portal)
     <ul>
       <li>Angular 13 + Matrial UI</li>
+      <li>create material ui core module as nx lib</li>
+      <li>create auth feature module as nx lib + NgRx store </li>
       <li>2 lazy loading Ng module (student, reporting)</li>
+      <li>global interceptor services for 1-error handeling 2-alert response 3- loadin spinner</li>
+       <br>
     </ul>
   </li>
     <li>🔵Backend app (api) </li>
@@ -36,6 +40,7 @@ other domain concern about reporting (statistics)
       <li>nestJs + typeOrm</li>
       <li>consist of 2 dedicated modules(crud service/reporting service)</li>
       <li>🔎[swagger documentation](https://neduk.herokuapp.com/api).</li>
+      <br>
     </ul>
         <li>🔵Heroku connectted to github for CI/CD</li>
       <ul>
@@ -50,6 +55,24 @@ other domain concern about reporting (statistics)
   <li></li>
 </ul>
 </ul>
+<h2>Bonus Requirements Done 100%</h2>
+<hr>
+Bonus Requirements
+• ✅Use a 3rd party UI library
+
+• ✅Add dark/light mode toggle
+
+• ✅Use GitHub as a source control for the project
+
+• ✅Generate random seed data
+
+• ✅Add tests
+
+• ✅Automatically generate CreatedDate and ModifiedDate properties for all entities
+
+• ✅Host the app as a website and share link.
+
 <h1>Next Steps</h1>
+<hr>
 
 
