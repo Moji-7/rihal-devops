@@ -55,14 +55,20 @@ other domain concern about reporting (statistics)
   <li></li>
 </ul>
 </ul>
-<h2>Bonus Requirements Done 💎100%</h2>
+<h2>Bonus Requirements 💎100% Done</h2>
 <hr>
 • ✅Use a 3rd party UI library
+
 • ✅Add dark/light mode toggle
+
 • ✅Use GitHub as a source control for the project
+
 • ✅Generate random seed data
+
 • ✅Add tests
+
 • ✅Automatically generate CreatedDate and ModifiedDate properties for all entities
+
 • ✅Host the app as a website and share link.
 
 <h1>Next Steps</h1>
