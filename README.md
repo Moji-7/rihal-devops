@@ -40,6 +40,9 @@ other domain concern about reporting (statistics)
       <li>nestJs + typeOrm</li>
       <li>consist of 2 dedicated modules(crud service/reporting service)</li>
       <li>🔎[swagger documentation](https://neduk.herokuapp.com/api).</li>
+      <li>repository: Postgres DB [PostgreSQL as a Service](http://www.elephantsql.com)</li>
+      <li>TypeOrm ; use features like relations, cascade,eager, viewEntity, transactionManager,..</li>
+      <li></li>
       <br>
     </ul>
         <li>🔵Heroku connectted to github for CI/CD</li>
