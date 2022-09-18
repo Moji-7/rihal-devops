@@ -39,7 +39,7 @@ other domain concern about reporting (statistics)
       <li>you can reach deployed app on 🔎[build version](https://neduk.herokuapp.com/api) to auto deploy app. </li>
       <li>snapshot of heroku dashboard (building last commits to main branch)
       <br>
-        <img src="https://github.com/mojtabaPourmirzaei/rihal-devops/blob/main/rihal/apps/admin-portal/src/assets/Herokudashboard.png" width="266">
+        <img src="https://github.com/mojtabaPourmirzaei/rihal-devops/blob/main/rihal/apps/admin-portal/src/assets/herokuDashboard.png" width="266">
       </li>
       </ul>
   <li></li>
