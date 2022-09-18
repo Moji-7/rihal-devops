@@ -8,10 +8,11 @@
     <mat-icon class="sidenav-icon">{{ item.data.icon }}</mat-icon>
     {{ item.data.text }}
   </a>
-  <a mat-list-item (click)="navigateHome('')" >
+  <a mat-list-item (click)="navigateHome('')" [hidden]="!isMainRoute">
     <mat-icon class="sidenav-icon">arrow_left</mat-icon>back
 
  </a>
+
   <!--
      [routerLinkActive]="'active'"
      [routerLink]="[currentUrl + '/' + item.path, { by: item?.param }]"

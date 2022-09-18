@@ -8,7 +8,7 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ReportService {
-  private baseURL =  environment.apiUrl+'reports';
+  private baseURL =  environment.apiUrl+'/reports';
 
   constructor(private http: HttpClient) {}
   handleError(error: HttpErrorResponse) {
