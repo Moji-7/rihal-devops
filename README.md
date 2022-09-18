@@ -1,6 +1,7 @@
 # rihal-devops
 <h2>Hi Rihal</h2>
 this is the repo i made for the assessment
+<br>
 
 This project was generated using [Nx](https://nx.dev).
 <b>graph of my monorepo libs + apps</b>
@@ -20,28 +21,26 @@ other domain concern about reporting (statistics)
   <li>application structure</li>
   <ul>
 <li>☁project consist of 2 apps</li>
-  <li> 
-    - ![#f03c15](https://via.placeholder.com/15/f03c15/f03c15.png) `#f03c15`
-    frontend admin-portal
+  <li>  
+FrontEnd app (admin-portal)
     <ul>
       <li>Angular 13 + Matrial UI</li>
       <li>2 lazy loading Ng module (student, reporting)</li>
     </ul>
   </li>
-  <li>backend api</li>
+    <li> Backend app (api) </li>
     <ul>
-  <li>nestJs + typeOrm</li>
-  <li>consist of 2 dedicated modules(crud service/reporting service)</li>
-      <li>[swagger documentation](https://neduk.herokuapp.com/api).</li>
+      <li>nestJs + typeOrm</li>
+      <li>consist of 2 dedicated modules(crud service/reporting service)</li>
+      <li>🔎[swagger documentation](https://neduk.herokuapp.com/api).</li>
     </ul>
-  <li>http://placehold.it/150/ffffff/ff0000?text=deployment</li>
     <ul>
-  <li>Heroku connectted to github for CI/CD</li>
+        <li>  Heroku connectted to github for CI/CD</li>
       <li>each app has its own Dockerfile</li>
       <li>root docker-compose file to orchestarate all</li>
-      <li>you can reach deployed app on 🔎[build version](https://neduk.herokuapp.com/api) to auto deploy app. </li>
+      <li>🔎[build version](https://neduk.herokuapp.com/) to auto deploy app. </li>
       <li>snapshot of heroku dashboard (building last commits to main branch)
-      <br>
+      <br> <br>
         <img src="https://github.com/mojtabaPourmirzaei/rihal-devops/blob/main/rihal/apps/admin-portal/src/assets/herokuDashboard.png" width="566">
       </li>
       </ul>
