@@ -18,7 +18,7 @@
     <div class="right-nav">
       <span *ngIf="user$ | async as user">
         <button mat-button>{{(user$ | async)?.username}}</button>
-        <button mat-button [routerLink]="['/products']" routerLinkActive="router-link-active">Products</button>
+        <button mat-button [routerLink]="['/students']" routerLinkActive="router-link-active">Products</button>
         <button mat-button>Logout</button>
       </span>
       <!-- <span *ngIf="!(user$ | async)">
