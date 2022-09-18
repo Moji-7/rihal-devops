@@ -25,7 +25,7 @@ other domain concern about reporting (statistics)
   <li>application structure</li>
   <ul>
 <li>☁project consist of 2 apps</li>
-  <li>🔵FrontEnd app (admin-portal)
+  <li>🔵<b>FrontEnd app (admin-portal)</b>
     <ul>
       <li>Angular 13 + Matrial UI</li>
       <li>create material ui core module as nx lib</li>
@@ -35,7 +35,7 @@ other domain concern about reporting (statistics)
        <br>
     </ul>
   </li>
-    <li>🔵Backend app (api) </li>
+    <li>🔵<b>Backend app (api)</b></li>
     <ul>
       <li>nestJs + typeOrm</li>
       <li>consist of 2 dedicated modules(crud service/reporting service)</li>
@@ -45,7 +45,7 @@ other domain concern about reporting (statistics)
       <li></li>
       <br>
     </ul>
-        <li>🔵Heroku connectted to github for CI/CD</li>
+        <li>🔵<b>Heroku connectted to github for CI/CD</b></li>
       <ul>
       <li>each app has its own Dockerfile</li>
       <li>root docker-compose file to orchestarate all</li>
