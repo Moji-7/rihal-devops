@@ -84,6 +84,14 @@ other domain concern about reporting (statistics)
 
 • Average age of students
  🔎[Visit](https://neduk.herokuapp.com/admin/summeryBy;by=ageAverage)
+ 
+ <hr>
+ • list of registered students (with 🔸search,🔸sorting,🔸pagination,🔸counts,🔹edit,🔹delete)
+ 🔎[Visit](https://neduk.herokuapp.com/student/classes)
+ 
+  •register new student Class (with 🔸auto complete, 🔸validations)
+ 🔎[Visit].(https://neduk.herokuapp.com/student/register;by=undefined)
+
 
 
 <h1>Next Steps</h1>
