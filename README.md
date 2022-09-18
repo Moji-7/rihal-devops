@@ -1,13 +1,17 @@
 # rihal-devops
 <h2>Hi Rihal</h2>
-this is the repo i made for the assessment
+<h4>
+this is my repo for the assessment
+  </h4>
 <br>
 
 This project was generated using [Nx](https://nx.dev).
-<b>graph of my monorepo libs + apps</b>
-<img src="https://github.com/mojtabaPourmirzaei/rihal-devops/blob/main/rihal/apps/admin-portal/src/assets/project-graph.png" width="366">
-<br>
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="110"></p>
+<br>
+<b>graph of my monorepo libs + apps</b>
+<img src="https://github.com/mojtabaPourmirzaei/rihal-devops/blob/main/rihal/apps/admin-portal/src/assets/project-graph.png" width="466">
+<br>
+
 
 🔎 my main artitecture approach is seprating each app to 2 dedicated domains
 <li>
