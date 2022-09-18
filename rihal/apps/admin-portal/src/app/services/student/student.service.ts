@@ -13,7 +13,7 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class StudentService {
-  private baseURL = `http://localhost:3333/api/student`;
+  private baseURL =  environment.apiUrl+'/student';
  // private baseURL =environment.apiUrl+"/api/student";// `http://localhost:3333/api/student`;
   studentClass: any;
   constructor(private http: HttpClient) {}

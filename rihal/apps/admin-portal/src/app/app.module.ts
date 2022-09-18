@@ -18,6 +18,7 @@ import { MaterialModule } from '@rihal/material';
 import { LayoutModule } from '@rihal/layout';
 import { SharedWidgetsModule } from '@rihal/shared-widgets';
 import { AuthGuard } from '@rihal/auth';
+import { APP_CONFIG } from '@rihal/app-config';
 
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentHomeComponent } from './containers/student-home/student-home.component';
@@ -88,8 +89,6 @@ const studentRoutes: Route[] = [
     // StoreModule.forRoot({}),
     StoreModule.forRoot(
       {},
-
-
       {
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {
@@ -103,7 +102,9 @@ const studentRoutes: Route[] = [
     StoreRouterConnectingModule.forRoot(),
   ],
 
-  providers: [],
+  providers: [
+    { provide: APP_CONFIG, useValue: environment}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
