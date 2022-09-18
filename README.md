@@ -104,4 +104,3 @@ other domain concern about reporting (statistics)
 • create dedicated application for report and using CQRS design patterm approach.
 
 
-
