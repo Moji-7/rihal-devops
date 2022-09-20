@@ -1,3 +1,12 @@
+
+export const baseRoutes = [
+  {
+    path: '',
+    data: { icon: '', text: 'click admin/student' },
+    // loadChildren: () =>
+    //   import('./stock-market/stock-market.module').then((m) => m.StockMarketModule),
+  },
+]
 export const studentRoutes = [
   {
     path: 'classes',
