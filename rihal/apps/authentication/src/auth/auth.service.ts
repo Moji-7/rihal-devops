@@ -38,12 +38,13 @@ export class AuthService {
 
   async login(user) {
     const payload = { user, sub: user.id};
-
+    Logger.log("payload is"+payload)
     return {
       userId: user.id,
       accessToken: this.jwtService.sign(payload)
     };
   }
+
 
   validateToken(jwt: string) {
     return this.jwtService.verify(jwt);

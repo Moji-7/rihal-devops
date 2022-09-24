@@ -7,9 +7,12 @@ import {
   NotFoundException,
   Param,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+
 import { StudentSummeryInfo } from '@rihal/data-models';
+import { AuthGuard } from '../../guards/AuthGuard';
 import { RihalLoggerService } from '../../logger/rihal-logger.service';
 
 import { ReportsService } from './reports.service';
@@ -23,6 +26,7 @@ export class ReportsController {
     this.myLogger.setContext('ReportsController');
   }
 
+  @UseGuards(AuthGuard)
   @Get('ageAverage')
   @ApiOperation({ summary: 'for get count of students per year of birth' })
   @ApiResponse({ status: 200, description: '' })

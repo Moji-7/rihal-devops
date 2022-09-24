@@ -18,7 +18,6 @@ export class AuthController {
   async loggedIn(data) {
     try {
       const res = this.authService.validateToken(data.jwt);
-
       return res;
     } catch(e) {
       Logger.log(e);

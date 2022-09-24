@@ -21,10 +21,10 @@ export class UserController {
     return 'Greetings authenticated user';
   }
 
+
   //@UseGuards(AuthGuard)
   @Post('create')
   async create(@Body() user:User){
     return this.userService.createUser(user);
   }
-
 }
