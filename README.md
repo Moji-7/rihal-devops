@@ -1,7 +1,7 @@
 
 <h2>Hi Rihal</h2>
 <h4>
-this is my repo developed for the assessment (Full-Stack Web Developer Role) 
+this is mono repo app developed with 2 micro services nest apps and 3 angular modules building with AWS  Serveless Application model (SAM)
   </h4>
 <br>
 
@@ -29,6 +29,8 @@ other domain concern about reporting (statistics)
     <ul>
       <li>Angular 13 + Matrial UI</li>
       <li>create material ui core module as nx lib</li>
+      <li>using jest for unit , integration tests</li>
+      <li> using cypress for e2e tests </li>
       <li>create auth feature module as nx lib + NgRx store </li>
       <li>2 lazy loading Ng module (student, reporting)</li>
       <li>global interceptor services for 1-error handeling 2-alert response 3- loadin spinner</li>
