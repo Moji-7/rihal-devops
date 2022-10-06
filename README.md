@@ -1,7 +1,9 @@
 
 <h2>Hi Rihal</h2>
 <h4>
-this is mono repo app developed with 2 micro services nest apps and 3 angular modules building with AWS  Serveless Application model (SAM)
+this is mono repo app developed with 2 micro services nest apps and 3 angular front end modules 
+  <br>
+  building with AWS Serveless Application model (SAM)
   </h4>
 <br>
 
