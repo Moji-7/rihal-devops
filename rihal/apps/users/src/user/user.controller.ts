@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { User } from './user.entity';
 import { AuthGuard } from '../guards/AuthGuard';
+import { IUserLikes } from './userLikes.interface';
 
 @Controller()
 export class UserController {
@@ -10,6 +11,7 @@ export class UserController {
     private readonly userService: UserService
   ) { }
 
+  // needed bu authentication appp micro service!
   @MessagePattern({ role: 'user', cmd: 'get' })
   getUser(data: any): Promise<User> {
     return this.userService.findOne(data.username);
@@ -17,8 +19,8 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Get('greet')
-  async greet(): Promise<string> {
-    return 'Greetings authenticated user';
+  async greet(): Promise<IUserLikes[]> {
+    return await this.userService.likes(1);
   }
 
 
@@ -26,5 +28,6 @@ export class UserController {
   @Post('create')
   async create(@Body() user:User){
     return this.userService.createUser(user);
+
   }
 }

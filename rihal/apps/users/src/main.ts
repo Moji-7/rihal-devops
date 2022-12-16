@@ -5,6 +5,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+ app.enableCors();
 
   app.connectMicroservice({
     transport: Transport.TCP,
@@ -13,9 +14,9 @@ async function bootstrap() {
       port: 4010
     }
   });
-
   await app.startAllMicroservices();
   await app.listen(3010);
+
   Logger.log('User microservice running');
 }
 bootstrap();

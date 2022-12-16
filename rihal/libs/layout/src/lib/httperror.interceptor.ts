@@ -22,6 +22,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    request = request.clone({
+      withCredentials: true,
+    });
     this.spinnerService.show();
     return next
       .handle(request)
@@ -31,6 +34,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.spinnerService.hide();
           }
         })
+        //TODO : by Yasin
+        //vvffffffffffffffffffff
       )
       .pipe(
         catchError((err) => {

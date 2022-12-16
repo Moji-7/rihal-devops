@@ -14,22 +14,22 @@ export class Student{
 
 
   @Column({ name: "classesId" })
-  @ManyToOne(() => Classes, (classes) => classes.students,{ onDelete: 'CASCADE'
+  @ManyToOne(() => Classes, (classes) => classes.id,{ //onDelete: 'CASCADE'
   //,eager:true
   })
   @JoinColumn({ name: "classesId", referencedColumnName: "id" })
   classes: Classes;
 
   @Column({ name: "countriesId" })
-  @ManyToOne(() => Countries, (countries) => countries.students)
+  @ManyToOne(() => Countries, (countries) => countries.id)
   @JoinColumn({ name: "countriesId", referencedColumnName: "id" })
   countries: Countries;
 
 
-  @CreateDateColumn({type: "timestamp"})
+  @CreateDateColumn()
   CreatedDate : Date;
 
-  @UpdateDateColumn({type: "timestamp"})
+  @UpdateDateColumn()
   ModifiedDate : Date;
 
 }

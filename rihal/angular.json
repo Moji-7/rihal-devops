@@ -7,10 +7,14 @@
     "api": "apps/api",
     "auth": "libs/auth",
     "authentication": "apps/authentication",
+    "backend-me": "apps/backend-me",
     "charts": "libs/charts",
     "data-models": "libs/data-models",
+    "frontend-me": "apps/frontend-me",
+    "frontend-me-e2e": "apps/frontend-me-e2e",
     "layout": "libs/layout",
     "material": "libs/material",
+    "scrap-digikala": "apps/scrap-digikala",
     "shared-widgets": "libs/shared-widgets",
     "users": "apps/users"
   }

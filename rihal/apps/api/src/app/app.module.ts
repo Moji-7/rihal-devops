@@ -9,41 +9,31 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
+import { Question } from '../question/question.entity';
+import { QuestionController } from '../question/question.controller';
+import { QuestionService } from '../question/Question.service';
+
+
 @Module({
   imports: [
-    StudentModule,
-    ReportingModule,
     RihalLoggerModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      //
-      // locally database
-      type: 'postgres',
-      host: 'localhost', //configService.get<string>('DATABASE_HOST'),
-      port: 5432, //parseInt(configService.get<string>('DATABASE_PORT')),
-      username: 'postgres', //configService.get<string>('DATABASE_USER'),
-      password: 'root', //configService.get<string>('DATABASE_PASS'),
-      database: 'rihaldb', //configService.get<string>('DATABASE_NAME'),
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true, // This for development
+      type: 'sqlite',
+      database: 'rihalDb.db',
+      //entities: [__dirname + "/../**/*.entity{.ts,.js}"],
+      // entities:[User,UserLikes],
+      entities: ['dist/**/*.entity{.ts,.js}',Question],
+     // synchronize: true, // This for development
       autoLoadEntities: true,
-
-      // //1 elephentSQL
-      // type: 'postgres',
-      // url: 'postgres://kfawlatn:dUMCryTxhvULGBSAYPA-3pazDHSbE30k@dumbo.db.elephantsql.com/kfawlatn',
-      // synchronize: true,
-      // // logging: true,
-      // autoLoadEntities: true,
-      // entities: ['dist/**/*.entity{.ts,.js}'],
-
-      // //2 heroku
-      // url: 'postgres://dyjinesbtbjwab:fad4f80e287db7a0781b527e964902970452bd4677ef33eaae64c773e67e2442@ec2-44-210-36-247.compute-1.amazonaws.com:5432/d2m7n1a4j8m4nn',
-      // ssl: {
-      //   rejectUnauthorized: false,
-      // },
-      // entities: ['dist/**/*.entity{.ts,.js}'],
-      //3 local host
+      //entities: ['dist/**/*.entity{.ts,.js}'],
+      // autoLoadEntities:true,
+  
     }),
+
+    TypeOrmModule.forFeature([Question]),
+   StudentModule,
+    ReportingModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'admin-portal'),
     }),
@@ -58,8 +48,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     //   },
     // ]),
   ],
-  controllers: [],
-  providers: [RihalLoggerService],
+  controllers: [QuestionController],
+  providers: [RihalLoggerService,QuestionService],
   // exports:[RihalLoggerModule]
 })
 export class AppModule {}

@@ -27,7 +27,7 @@ export class AuthEffects {
   navigateToProfile$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     map((action: authActions.LoginSuccess) => action.payload),
-    tap(() => this.router.navigate([`/students`]))
+    tap(() => this.router.navigate([`/admin`]))
   );
 
   constructor(

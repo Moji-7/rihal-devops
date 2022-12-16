@@ -9,14 +9,14 @@ export class Countries{
   name: string;
 
   @OneToMany(() => Student, (student) => student.countries)
-  @JoinColumn({ name: "studentid" })
+  // @JoinColumn({ name: "studentid" })
   students: Student[]
 
 
-  @CreateDateColumn({type: "timestamp"})
+  @CreateDateColumn()
   CreatedDate : Date;
 
-  @UpdateDateColumn({type: "timestamp"})
+  @UpdateDateColumn()
   ModifiedDate : Date;
 }
 

@@ -8,21 +8,20 @@ export class AuthGuard implements CanActivate {
     private readonly client: ClientProxy
   ) {}
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
-    Logger.log('Auth Guard');
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    Logger.log('Call Guard and it will ask from AUTH_CLIENT micro service');
     const req = context.switchToHttp().getRequest();
 
-    try{
-      const res = await this.client.send(
-        { role: 'auth', cmd: 'check' },
-        { jwt: req.headers['authorization']?.split(' ')[1]})
+    try {
+      const res = await this.client
+        .send(
+          { role: 'auth', cmd: 'check' },
+          { jwt: req.headers['authorization']?.split(' ')[1] }
+        )
         .pipe(timeout(5000))
         .toPromise();
-
-        return res;
-    } catch(err) {
+      return res;
+    } catch (err) {
       Logger.error(err);
       return false;
     }

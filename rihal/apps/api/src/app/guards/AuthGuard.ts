@@ -15,9 +15,10 @@ export class AuthGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
 
     try{
+     // Logger.log("in api backend we ask auth for this "+req.headers['authorization']?.split(' ')[1].slice(0, -1))
       const res = await this.client.send(
         { role: 'auth', cmd: 'check' },
-        { jwt: req.headers['authorization']?.split(' ')[1]})
+        { jwt: req.headers['authorization']?.split(' ')[1].replace(/"\s*$/, "")})
         .pipe(timeout(5000))
         .toPromise();
 

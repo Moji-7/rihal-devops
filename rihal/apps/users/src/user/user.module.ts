@@ -4,10 +4,11 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { UserLikes } from './userLikes.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User,UserLikes]),
     ClientsModule.register([{
       name: 'AUTH_CLIENT',
       transport: Transport.TCP,

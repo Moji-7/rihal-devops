@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BeforeInsert, Unique } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BeforeInsert, Unique, ManyToOne, JoinColumn } from 'typeorm';
 import { hash } from 'bcrypt';
 import { IsEmail, Min } from 'class-validator';
 import { UserInterface } from './user.interface';
+import { UserLikes } from './userLikes.entity';
 
 @Entity()
 @Unique(['username'])
@@ -31,4 +32,8 @@ export class User implements UserInterface {
   async hashPassword() {
     this.password = await hash(this.password, 10);
   }
+  // @Column({ name: "userlikesId" })
+  // @ManyToOne(() => UserLikes, (userlikes) => userlikes.userId)
+  // @JoinColumn({ name: "id", referencedColumnName: "userId" })
+  // userLikes: UserLikes;
 }

@@ -35,7 +35,7 @@ export class SeedingService {
   async seedBaseTables(): Promise<void> {
     await Promise.all([
       this.entityManager.save(Countries, InitialCountrySeed('countries')),
-      this.entityManager.save(Classes, InitialClassesSeed('classes')),
+     this.entityManager.save(Classes, InitialClassesSeed('classes')),
       //  this.entityManager.save(Student, InitialDatabaseSeed("student")),
     ]);
   }

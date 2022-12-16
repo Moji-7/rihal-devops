@@ -10,15 +10,21 @@ export const baseRoutes = [
 export const studentRoutes = [
   {
     path: 'classes',
-    data: { icon: 'classes', text: 'student list' },
+    data: { icon: 'classes', text: 'Student list' },
     // loadChildren: () =>
     //   import('./stock-market/stock-market.module').then((m) => m.StockMarketModule),
   },
   {
     path: 'register',
-    data: { icon: 'note_add', text: 'register for class' },
+    data: { icon: 'note_add', text: 'Register for class' },
     // loadChildren: () =>
     //   import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
+  {
+    path: 'question',
+    data: { icon: 'classes', text: 'Student ask Question' },
+    // loadChildren: () =>
+    //   import('./stock-market/stock-market.module').then((m) => m.StockMarketModule),
   },
 
 ];

@@ -1,0 +1,22 @@
+<p>register works!</p>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="legacy">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name"  placeholder="enter name" >
+    <mat-error *ngIf="myForm.name.errors?.['required']">
+      name is required
+    </mat-error>
+    <mat-error *ngIf="myForm.name.errors?.['minlength']">
+      Please enter more than 3 character
+    </mat-error>
+  </mat-form-field>
+
+  <label>family</label>
+  <input id="family" formControlName="family" />
+
+  <label>fullname</label>
+  <input id="fullName" formControlName="fullName" [disabled]="true" />
+  <button type="submit" [disabled]="!formGroup.valid">register</button>
+</form>
+<h3>{{ formValues }}</h3>

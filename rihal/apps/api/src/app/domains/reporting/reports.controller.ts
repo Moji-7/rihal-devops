@@ -41,12 +41,13 @@ export class ReportsController {
     //throw new HttpException('This is not acceptable', HttpStatus.NOT_ACCEPTABLE);
   }
 
-  @Get('/:relatedEntity')
   @ApiOperation({
     summary:
       'for get count of students per each input entity(classes,countries)',
   })
   @ApiResponse({ status: 200, description: '' })
+  @Get('/:relatedEntity')
+  @UseGuards(AuthGuard)
   async fetchCountBy(
     @Param('relatedEntity') relatedEntity: string,
     studentId: number

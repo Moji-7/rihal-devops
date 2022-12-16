@@ -1,0 +1,45 @@
+
+<div *ngIf="(title$ | async)?.name">
+  <h1>{{ (title$ | async)?.name }}</h1>
+</div>
+<ul *ngFor="let quote of quotes$ | async">
+  <li>{{ quote }}</li>
+  <button (click)="clicked(quote)">see all</button>
+</ul>
+
+
+<h1>router + gaurd</h1>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <!--this is a place for us to add side-nav code-->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+          <button mat-icon-button >
+            <!-- (click)="onToggleSidenav()" -->
+              <mat-icon>menu</mat-icon>
+          </button>
+      </div>
+      <div>
+          <a routerLink="/home">Owner-Account</a>
+      </div>
+      <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+          <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+              <li>
+                  <a routerLink="/register"> register</a>
+              </li>
+              <li>
+                  <a routerLink="/account"> Account</a>
+              </li>
+          </ul>
+      </div>
+    </mat-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

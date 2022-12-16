@@ -29,6 +29,7 @@ import { WelcomeComponent } from './containers/welcome/welcome.component';
 import { ChartsModule } from '@rihal/charts';
 import { StudentSummeryInfoComponent } from './components/student-summery-info/student-summery-info.component';
 import { StudentIndividualSummeryComponent } from './components/student-individual-summery/student-individual-summery.component';
+import { QuestionsComponent } from './questions/questions.component';
 //import { ReportingSummeryComponent } from './components/reporting-summery/reporting-summery.component';
 
 const studentRoutes: Route[] = [
@@ -39,8 +40,10 @@ const studentRoutes: Route[] = [
     children: [
       { path: 'classes', component: StudentListComponent },
       { path: 'register', component: StudentRegisterComponent },
-   //   { path: 'edit-student/:id', component: EditStudentComponent },
-   { path: 'register/:studentId', component: StudentRegisterComponent }
+      //   { path: 'edit-student/:id', component: EditStudentComponent },
+      { path: 'register/:studentId', component: StudentRegisterComponent },
+      { path: 'question', component: QuestionsComponent },
+      { path: 'question/:questionId', component: QuestionsComponent },
     ],
   },
   { path: 'auth', children: authRoutes },
@@ -55,6 +58,7 @@ const studentRoutes: Route[] = [
     StudentIntroComponent,
     WelcomeComponent,
     StudentIndividualSummeryComponent,
+    QuestionsComponent,
     //StudentSummeryInfoComponent,
     // ReportingHomeComponent,
     // ReportingSummeryComponent,
@@ -71,6 +75,7 @@ const studentRoutes: Route[] = [
       { path: 'student', children: studentRoutes },
       {
         path: 'admin',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('./modules/reporting/reporting.module').then(
             (m) => m.ReportingModule
@@ -102,9 +107,7 @@ const studentRoutes: Route[] = [
     StoreRouterConnectingModule.forRoot(),
   ],
 
-  providers: [
-    { provide: APP_CONFIG, useValue: environment}
-  ],
+  providers: [{ provide: APP_CONFIG, useValue: environment }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,12 +9,12 @@ export class Classes{
   @Column({ name: "class_name" ,length: 255})
   name: string;
 
-  @OneToMany(() => Student, (student) => student.classes,{cascade: true})
+  @OneToMany(() => Student, (student) => student.classes)
   students: Student[]
 
-  @CreateDateColumn({type: "timestamp"})
+  @CreateDateColumn()
   CreatedDate : Date;
 
-  @UpdateDateColumn({type: "timestamp"})
+  @UpdateDateColumn()
   ModifiedDate : Date;
 }

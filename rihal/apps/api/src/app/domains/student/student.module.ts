@@ -18,7 +18,6 @@ import { SeedingService } from '../../seeds/seeding.service';
 
 
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([Student, Classes, Countries,StudentClass])],
   controllers: [
@@ -36,14 +35,14 @@ import { SeedingService } from '../../seeds/seeding.service';
 export class StudentModule implements OnApplicationBootstrap {
   constructor(private readonly seedingService: SeedingService) {}
   async onApplicationBootstrap(): Promise<void> {
-  //  await this.seedingDatabase();
+  // await this.seedingDatabase();
   }
 
   private async seedingDatabase() {
-    await this.seedingService.dropTables();
+// await this.seedingService.dropTables();
     for (let i = 0; i < 10; i++) await this.seedingService.seedBaseTables();
     for (let i = 0; i < 110; i++) await this.seedingService.seedStudent();
     // now set randows classes & countries for student
-    await this.seedingService.seedStudentUpdate();
+   // await this.seedingService.seedStudentUpdate();
   }
 }

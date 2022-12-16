@@ -3,24 +3,22 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable ,of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-
+    const token = localStorage.getItem('Authorization');
+    console.log('sending authorization header token is :' + token);
     if (token) {
       const authReq = req.clone({
-        headers: req.headers.set('Authorization', token)
+        headers: req.headers.set('Authorization', token),
       });
       return next.handle(authReq);
     } else {

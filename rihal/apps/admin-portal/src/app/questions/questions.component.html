@@ -1,0 +1,33 @@
+<p>questions works!</p>
+
+<ul *ngFor="let question of questions$ | async">
+  <li>{{ question.title }}</li>
+  <li>{{ question.description }}</li>
+</ul>
+<h1>register new question</h1>
+<div>
+  <form [formGroup]="questionForm" (ngSubmit)="register()">
+    <mat-form-field>
+      <input matInput placeholder="title"
+       type="text" formControlName="title" />
+      <mat-error>
+        <span *ngIf="f.title.errors?.['requitred']">Required Field</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="description"
+        type="text"
+        formControlName="description"
+      />
+      <mat-error>
+        <span *ngIf="f.description.errors?.['required']">Required Field</span>
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button [disabled]="questionForm.invalid">
+      <mat-icon>send</mat-icon> register
+    </button>
+    <!-- best ways to become happy :) -->
+  </form>
+</div>

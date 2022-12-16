@@ -21,11 +21,12 @@ export class AuthService {
   login(authenticate: Authenticate): Observable<User> {
     return this.httpClient.post<User>(
 	//TODO: must read from env.
-      'http://localhost:3000/login',
+      'http://localhost:3000/auth',
       authenticate
     ).pipe(tap((user: User) => {
+        console.log("my accesstoken: "+JSON.stringify("Bearer "+user.accessToken))
         this.userSubject$.next(user);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('Authorization', JSON.stringify("Bearer "+user.accessToken));
     }));
   }
 ​

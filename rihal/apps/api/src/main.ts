@@ -13,8 +13,11 @@ import {  RihalLoggerService } from './app/logger';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true
+  const app = await NestFactory.create(AppModule)
+  app.enableCors({
+    allowedHeaders:['content-type','Authorization'],
+    origin:'http://localhost:4200',
+    credentials:true
   })
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
